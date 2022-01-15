@@ -69,7 +69,7 @@ public class DriveTrain extends SubsystemBase {
      *
      * @since 1.0.0
      */
-    private static void setupTalons() {
+    private void setupTalons() {
         rightMaster.setInverted(true);
         // Set the talons to follow each other
         rightFollower.follow(rightMaster);
@@ -99,7 +99,7 @@ public class DriveTrain extends SubsystemBase {
      *
      * @since 1.0.0
      */
-    public static void resetNavx() {
+    public void resetCalNavx() {
         // Reset the gyro
         navx.reset();
 
@@ -109,11 +109,20 @@ public class DriveTrain extends SubsystemBase {
     }
 
     /**
+     * Reset the NAVX
+     *
+     * @since 1.0.0
+     */
+    public void resetNavx() {
+        navx.reset();
+    }
+
+    /**
      * Resets the encoders
      *
      * @since 1.0.0
      */
-    public static void resetEncoders() {
+    public void resetEncoders() {
         leftMaster.setSelectedSensorPosition(0, 0, 0);
         rightMaster.setSelectedSensorPosition(0, 0, 0);
     }

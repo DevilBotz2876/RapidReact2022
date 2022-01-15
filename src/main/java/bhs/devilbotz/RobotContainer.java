@@ -12,9 +12,13 @@
 package bhs.devilbotz;
 
 import bhs.devilbotz.commands.DriveCommand;
+import bhs.devilbotz.commands.autonomous.routines.AutoTest;
 import bhs.devilbotz.subsystems.DriveTrain;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.Command;
 
 /**
  * The declaration class for the robot
@@ -33,6 +37,9 @@ public class RobotContainer {
     private final Joystick joy = new Joystick(Constants.JOYSTICK);
     private final Joystick joy_two = new Joystick(Constants.JOYSTICK_TWO);
 
+    // Autonomous chooser
+    private final SendableChooser<Command> autonomousChooser = new SendableChooser<>();
+
 
 
     /**
@@ -45,6 +52,7 @@ public class RobotContainer {
     public RobotContainer() {
         // Configure the button bindings
         configureButtonBindings();
+        configureShuffleboard();
     }
 
     /**
@@ -58,6 +66,12 @@ public class RobotContainer {
                 () -> -joy_two.getY()
         ));
     }
+
+    private void configureShuffleboard() {
+        AutoTest autoTest = new AutoTest(driveTrain);
+        autonomousChooser.addOption("Auto Test", autoTest);
+        SmartDashboard.putData("Auto Chooser", autonomousChooser);
+    }
     
     
     /**
@@ -66,11 +80,7 @@ public class RobotContainer {
      * @return the command to run in autonomous
      * @since 1.0.0
      */
-    /*
-    public Command getAutonomousCommand()
-    {
-        // An ExampleCommand will run in autonomous
-        return autoCommand;
+    public Command getAutonomousCommand() {
+        return autonomousChooser.getSelected();
     }
-     */
 }
