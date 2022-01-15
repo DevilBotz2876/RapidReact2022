@@ -1,16 +1,22 @@
-// Copyright (c) FIRST and other WPILib contributors.
-
-// Open Source Software; you can modify and/or share it under the terms of
-// the WPILib BSD license file in the root directory of this project.
+/*-------------------------------------------------------------------------------*/
+/* Copyright (c) 2021-2022 BHS Devilbotz. All Rights Reserved.                   */
+/* Open Source Software - may be modified, commercialized, distributed,          */
+/* sub-licensed and used for private use under the terms of the License.md       */
+/* file in the root of the source code tree.                                     */
+/*                                                                               */
+/* You MUST include the original copyright and license files in any and all      */
+/* revised/modified code. You may NOT remove this header under any circumstance  */
+/* unless explicitly noted                                                       */
+/*-------------------------------------------------------------------------------*/
 
 package bhs.devilbotz;
 
 /**
- * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
- * constants. This class should not be used for any other purpose. All constants should be declared
- * globally (i.e. public static). Do not put anything functional in this class.
+ * Stores numerical or boolean constants that will be used by the robot code.
+ * Nothing functional should be put in this class.
  *
- * <p>It is advised to statically import this class (or one of its inner classes) wherever the
- * constants are needed, to reduce verbosity.
+ * @author Devilbotz
+ * @version 1.0.0
+ * @since 1.0.0
  */
 public final class Constants {}
