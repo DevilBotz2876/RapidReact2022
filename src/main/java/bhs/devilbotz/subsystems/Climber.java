@@ -19,5 +19,19 @@ public class Climber extends SubsystemBase {
 
     public Climber() {
         climberMotor = new WPI_TalonSRX(5);
+        addChild("ClimberMotor",climberMotor);
+        climberMotor.setInverted(false);
+    }
+
+    @Override
+    public void periodic() {
+        // This method will be called once per scheduler run
+
+    }
+
+    @Override
+    public void simulationPeriodic() {
+        // This method will be called once per scheduler run when in simulation
+
     }
 }
