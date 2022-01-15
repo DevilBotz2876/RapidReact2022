@@ -34,7 +34,7 @@ public class DriveCommand extends CommandBase {
         double l = m_left.getAsDouble();
 
         // Forward Snapping
-        if ((Math.abs((l - r) / r) < 0.15 || Math.abs((r - l) / l) < 0.15) && ((l > 0.05 || l < -0.05) || (r > 0.05 || r < -0.05))) {
+        if ((Math.abs((l - r) / r) < 0.20 || Math.abs((r - l) / l) < 0.20) && ((l > 0.05 || l < -0.05) || (r > 0.05 || r < -0.05))) {
             double oldLeft = l;
             double oldRight = l;
 
@@ -44,7 +44,7 @@ public class DriveCommand extends CommandBase {
         }
 
         // (a*(x^3)+(b-a)*x)*1.1
-        double a = -0.20;
+        double a = -0.2;
         double b = 0.9;
 
         // Modified curve
