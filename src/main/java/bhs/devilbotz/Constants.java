@@ -19,4 +19,14 @@ package bhs.devilbotz;
  * @version 1.0.0
  * @since 1.0.0
  */
-public final class Constants {}
+public final class Constants {
+    // OI Devices
+    // Joystick
+    public static final int JOYSTICK = 0;
+    public static final int JOYSTICK_TWO = 1;
+
+    // Auto Constants
+    public static final class AutoConstants {
+        public static final double kWheelDiameterInches = 6;
+    }
+}

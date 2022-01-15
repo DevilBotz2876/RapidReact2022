@@ -11,6 +11,11 @@
 
 package bhs.devilbotz;
 
+import bhs.devilbotz.commands.DriveCommand;
+import bhs.devilbotz.subsystems.DriveTrain;
+import edu.wpi.first.wpilibj.GenericHID;
+import edu.wpi.first.wpilibj.Joystick;
+
 /**
  * The declaration class for the robot
  *
@@ -22,6 +27,12 @@ package bhs.devilbotz;
  */
 public class RobotContainer {
     // The robot's subsystems and commands are defined
+    private final DriveTrain driveTrain = new DriveTrain();
+
+    // Joysticks
+    private final Joystick joy = new Joystick(Constants.JOYSTICK);
+    private final Joystick joy_two = new Joystick(Constants.JOYSTICK_TWO);
+
 
 
     /**
@@ -42,7 +53,10 @@ public class RobotContainer {
      * @since 1.0.0
      */
     private void configureButtonBindings() {
-
+        driveTrain.setDefaultCommand(new DriveCommand(driveTrain,
+                () -> -joy.getY(),
+                () -> -joy_two.getY()
+        ));
     }
     
     
