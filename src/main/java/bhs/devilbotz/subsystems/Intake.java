@@ -14,24 +14,43 @@ package bhs.devilbotz.subsystems;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
+/**
+ * Intake subsystem
+ *
+ * @author Devilbotz
+ * @version 1.0.0
+ * @since 1.0.5
+ */
 public class Intake extends SubsystemBase {
     private final WPI_TalonSRX intakeMotor;
 
+    /**
+     * Constructor for Intake subsystem
+     */
     public Intake() {
         intakeMotor = new WPI_TalonSRX(6);
         addChild("IntakeMotor", intakeMotor);
         intakeMotor.setInverted(false);
     }
 
+    /**
+     * This method will be called once per scheduler run when
+     *
+     * @since 1.0.5
+     */
     @Override
     public void periodic() {
-        // This method will be called once per scheduler run
+
 
     }
 
+    /**
+     * This method will be called once per scheduler run when in simulation
+     *
+     * @since 1.0.5
+     */
     @Override
     public void simulationPeriodic() {
-        // This method will be called once per scheduler run when in simulation
 
     }
 
