@@ -15,6 +15,13 @@ import bhs.devilbotz.subsystems.DriveTrain;
 import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
+/**
+ * DriveDistance - Drives the robot for a certain distance
+ *
+ * @author Devilbotz
+ * @version 1.0.5
+ * @since 1.0.0
+ */
 public class DriveDistance extends CommandBase {
     private final DriveTrain drive;
     private final double distance;
@@ -22,11 +29,11 @@ public class DriveDistance extends CommandBase {
     private final SlewRateLimiter filter;
 
     /**
-     * Creates a new DriveDistance.
-     *
-     * @param inches The number of inches the robot will drive
-     * @param speed The speed at which the robot will drive
-     * @param drive The drive subsystem on which this command will run
+     * DriveDistance constructor
+     * @param drive {@link DriveTrain} subsystem
+     * @param inches distance to drive in inches
+     * @param speed speed to drive at
+     * @since 1.0.0
      */
     public DriveDistance(DriveTrain drive, double inches, double speed) {
         distance = inches;
