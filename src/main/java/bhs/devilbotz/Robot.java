@@ -19,33 +19,32 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
  * This is the main robot class.
  * It is automatically ran when the robot is started, and the correct methods are called.
  *
- * @author  Devilbotz
+ * @author Devilbotz
  * @version 1.0.0
- * @since   1.0.0
+ * @since 1.0.0
  */
 public class Robot extends TimedRobot {
     private Command autonomousCommand;
-    
+
     private RobotContainer robotContainer;
-    
-    
+
+
     /**
      * This method is run when the robot is first started up and is used for initialization
      *
      * @since 1.0.0
      */
     @Override
-    public void robotInit()
-    {
+    public void robotInit() {
         // Instantiate the RobotContainer.
         robotContainer = new RobotContainer();
     }
-    
-    
+
+
     /**
      * This method is called every robot packet, no matter the mode.
      * This is used for diagnostic purposes.
-     *
+     * <p>
      * This runs after the mode specific periodic methods, but before LiveWindow and
      * SmartDashboard integrated updating.
      *
@@ -56,15 +55,16 @@ public class Robot extends TimedRobot {
         // Runs the Scheduler.
         CommandScheduler.getInstance().run();
     }
-    
-    
+
+
     /**
      * This method is called once when the robot is disabled.
      *
      * @since 1.0.0
      */
     @Override
-    public void disabledInit() {}
+    public void disabledInit() {
+    }
 
     /**
      * This method is called periodically when the robot is disabled.
@@ -72,10 +72,13 @@ public class Robot extends TimedRobot {
      * @since 1.0.0
      */
     @Override
-    public void disabledPeriodic() {}
-    
-    
-    /** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. */
+    public void disabledPeriodic() {
+    }
+
+
+    /**
+     * This autonomous runs the autonomous command selected by your {@link RobotContainer} class.
+     */
 
     @Override
     public void autonomousInit() {
@@ -85,15 +88,16 @@ public class Robot extends TimedRobot {
             autonomousCommand.schedule();
         }
     }
-    
-    
+
+
     /**
      * This method is called periodically during autonomous.
      *
      * @since 1.0.0
      */
     @Override
-    public void autonomousPeriodic() {}
+    public void autonomousPeriodic() {
+    }
 
     /**
      * This method is called once when the robot is in teleoperated mode.
@@ -107,15 +111,16 @@ public class Robot extends TimedRobot {
             autonomousCommand.cancel();
         }
     }
-    
-    
+
+
     /**
      * This method is called periodically while the robot is in teleoperated mode.
      *
      * @since 1.0.0
      */
     @Override
-    public void teleopPeriodic() {}
+    public void teleopPeriodic() {
+    }
 
 
     /**
@@ -128,13 +133,14 @@ public class Robot extends TimedRobot {
         // Cancels all running commands at the start of test mode.
         CommandScheduler.getInstance().cancelAll();
     }
-    
-    
+
+
     /**
      * This method is called periodically during test mode.
      *
      * @since 1.0.0
      */
     @Override
-    public void testPeriodic() {}
+    public void testPeriodic() {
+    }
 }

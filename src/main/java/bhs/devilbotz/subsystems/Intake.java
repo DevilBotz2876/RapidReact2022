@@ -19,7 +19,7 @@ public class Intake extends SubsystemBase {
 
     public Intake() {
         intakeMotor = new WPI_TalonSRX(6);
-        addChild("IntakeMotor",intakeMotor);
+        addChild("IntakeMotor", intakeMotor);
         intakeMotor.setInverted(false);
     }
 

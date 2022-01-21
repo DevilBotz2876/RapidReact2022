@@ -11,7 +11,7 @@ public class ClimberIdle extends CommandBase {
         addRequirements(climber);
     }
 
-   
+
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {

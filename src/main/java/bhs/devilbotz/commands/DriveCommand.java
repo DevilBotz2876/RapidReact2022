@@ -17,21 +17,21 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import java.util.function.DoubleSupplier;
 
 public class DriveCommand extends CommandBase {
-    private final DriveTrain m_drive;
-    private final DoubleSupplier m_left;
-    private final DoubleSupplier m_right;
+    private final DriveTrain drive;
+    private final DoubleSupplier left;
+    private final DoubleSupplier right;
 
     public DriveCommand(DriveTrain drive, DoubleSupplier left, DoubleSupplier right) {
-        m_drive = drive;
-        m_left = left;
-        m_right = right;
-        addRequirements(m_drive);
+        this.drive = drive;
+        this.left = left;
+        this.right = right;
+        addRequirements(this.drive);
     }
 
     @Override
     public void execute() {
-        double r = m_right.getAsDouble();
-        double l = m_left.getAsDouble();
+        double r = right.getAsDouble();
+        double l = left.getAsDouble();
 
         // Forward Snapping
         if ((Math.abs((l - r) / r) < 0.20 || Math.abs((r - l) / l) < 0.20) && ((l > 0.05 || l < -0.05) || (r > 0.05 || r < -0.05))) {
@@ -51,7 +51,7 @@ public class DriveCommand extends CommandBase {
         r = (a * (r * r * r) + (b - a) * r) * 1.1;
         l = (a * (l * l * l) + (b - a) * l) * 1.1;
 
-        m_drive.tankDrive(l, r);
+        drive.tankDrive(l, r);
     }
 
     @Override

@@ -19,7 +19,7 @@ public class Shooter extends SubsystemBase {
 
     public Shooter() {
         shooterMotor = new WPI_TalonSRX(7);
-        addChild("ShooterMotor",shooterMotor);
+        addChild("ShooterMotor", shooterMotor);
         shooterMotor.setInverted(false);
     }
 

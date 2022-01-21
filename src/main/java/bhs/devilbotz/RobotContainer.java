@@ -14,7 +14,6 @@ package bhs.devilbotz;
 import bhs.devilbotz.commands.DriveCommand;
 import bhs.devilbotz.commands.autonomous.routines.AutoTest;
 import bhs.devilbotz.subsystems.DriveTrain;
-import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -22,7 +21,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 
 /**
  * The declaration class for the robot
- *
+ * <p>
  * The structure of the robot (including subsystems, commands, and button mappings) should be declared here.
  *
  * @author Devilbotz
@@ -41,10 +40,9 @@ public class RobotContainer {
     private final SendableChooser<Command> autonomousChooser = new SendableChooser<>();
 
 
-
     /**
      * The container for the robot
-     *
+     * <p>
      * Contains subsystems, OI devices, and commands
      *
      * @since 1.0.0
@@ -72,12 +70,13 @@ public class RobotContainer {
         autonomousChooser.addOption("Auto Test", autoTest);
         SmartDashboard.putData("Auto Chooser", autonomousChooser);
     }
-    
-    
+
+
     /**
      * Passes the autonomous command to the main {@link Robot} class.
      *
      * @return the command to run in autonomous
+     *
      * @since 1.0.0
      */
     public Command getAutonomousCommand() {

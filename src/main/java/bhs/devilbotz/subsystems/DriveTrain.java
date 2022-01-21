@@ -45,13 +45,11 @@ public class DriveTrain extends SubsystemBase {
 
     // Define PDP
     private static final PowerDistribution pdp = new PowerDistribution(0, ModuleType.kCTRE);
-
+    // Slew rate limiter
+    final SlewRateLimiter filterLeft = new SlewRateLimiter(4);
+    final SlewRateLimiter filterRight = new SlewRateLimiter(4);
     // Define differential drive
     private final DifferentialDrive differentialDrive = new DifferentialDrive(leftMaster, rightMaster);
-
-    // Slew rate limiter
-    SlewRateLimiter filterLeft = new SlewRateLimiter(4);
-    SlewRateLimiter filterRight = new SlewRateLimiter(4);
 
     /**
      * The constructor for the DriveTrain subsystem
@@ -62,6 +60,26 @@ public class DriveTrain extends SubsystemBase {
         setupTalons();
         resetNavx();
 
+    }
+
+    /**
+     * Gets the Power Distribution Panel
+     *
+     * @return The power distribution panel
+     *
+     * @since 1.0.0
+     */
+    public static PowerDistribution getPDP() {
+        return pdp;
+    }
+
+    /**
+     * Gets the NAVX
+     *
+     * @return The NAVX
+     */
+    public static AHRS getNavx() {
+        return navx;
     }
 
     /**
@@ -131,6 +149,7 @@ public class DriveTrain extends SubsystemBase {
      * Gets the left master talon
      *
      * @return The left master talon
+     *
      * @since 1.0.0
      */
     public WPI_TalonSRX getLeftMaster() {
@@ -141,29 +160,11 @@ public class DriveTrain extends SubsystemBase {
      * Gets the right master talon
      *
      * @return The right master talon
+     *
      * @since 1.0.0
      */
     public WPI_TalonSRX getRightMaster() {
         return rightMaster;
-    }
-
-    /**
-     * Gets the Power Distribution Panel
-     *
-     * @return The power distribution panel
-     * @since 1.0.0
-     */
-    public static PowerDistribution getPDP() {
-        return pdp;
-    }
-
-    /**
-     * Gets the NAVX
-     *
-     * @return The NAVX
-     */
-    public static AHRS getNavx() {
-        return navx;
     }
 
     /**
@@ -173,16 +174,16 @@ public class DriveTrain extends SubsystemBase {
      */
     public double getAverageEncoderDistance() {
         double leftDistance = leftMaster.getSelectedSensorPosition()
-                * (Constants.AutoConstants.kWheelDiameterInches * Math.PI / 4096);
+                * (Constants.AutoConstants.WHEEL_DIAMETER_INCHES * Math.PI / 4096);
         double rightDistance = rightMaster.getSelectedSensorPosition()
-                * (Constants.AutoConstants.kWheelDiameterInches * Math.PI / 4096);
+                * (Constants.AutoConstants.WHEEL_DIAMETER_INCHES * Math.PI / 4096);
         return ((Math.abs(leftDistance) + Math.abs(rightDistance)) / 2);
     }
 
     /**
      * Tank drive method
      *
-     * @param leftSpeed  The speed of the left side of the robot
+     * @param leftSpeed The speed of the left side of the robot
      * @param rightSpeed The speed of the right side of the robot
      */
     public void tankDrive(double leftSpeed, double rightSpeed) {
@@ -191,6 +192,7 @@ public class DriveTrain extends SubsystemBase {
 
     /**
      * Arcade drive method
+     *
      * @param speed The speed of the robot
      * @param rotation The rotation of the robot
      */
@@ -200,6 +202,7 @@ public class DriveTrain extends SubsystemBase {
 
     /**
      * Set the talons modes
+     *
      * @param mode The mode to set the talons to
      */
     public void setTalonMode(NeutralMode mode) {

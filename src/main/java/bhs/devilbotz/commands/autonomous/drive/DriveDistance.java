@@ -16,9 +16,9 @@ import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class DriveDistance extends CommandBase {
-    private final DriveTrain m_drive;
-    private final double m_distance;
-    private final double m_speed;
+    private final DriveTrain drive;
+    private final double distance;
+    private final double speed;
     private final SlewRateLimiter filter;
 
     /**
@@ -29,9 +29,9 @@ public class DriveDistance extends CommandBase {
      * @param drive The drive subsystem on which this command will run
      */
     public DriveDistance(DriveTrain drive, double inches, double speed) {
-        m_distance = inches;
-        m_speed = speed;
-        m_drive = drive;
+        distance = inches;
+        this.speed = speed;
+        this.drive = drive;
         addRequirements(drive);
 
         filter = new SlewRateLimiter(4);
@@ -42,7 +42,7 @@ public class DriveDistance extends CommandBase {
      */
     @Override
     public void initialize() {
-        m_drive.resetEncoders();
+        drive.resetEncoders();
     }
 
     /**
@@ -50,7 +50,7 @@ public class DriveDistance extends CommandBase {
      */
     @Override
     public void execute() {
-        m_drive.arcadeDrive(filter.calculate(m_speed), 0);
+        drive.arcadeDrive(filter.calculate(speed), 0);
     }
 
     /**
@@ -60,7 +60,7 @@ public class DriveDistance extends CommandBase {
      */
     @Override
     public void end(boolean interrupted) {
-        m_drive.arcadeDrive(0, 0);
+        drive.arcadeDrive(0, 0);
     }
 
     /**
@@ -70,6 +70,6 @@ public class DriveDistance extends CommandBase {
      */
     @Override
     public boolean isFinished() {
-        return m_drive.getAverageEncoderDistance() >= m_distance;
+        return drive.getAverageEncoderDistance() >= distance;
     }
 }
