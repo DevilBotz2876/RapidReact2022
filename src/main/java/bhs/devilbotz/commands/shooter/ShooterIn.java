@@ -1,6 +1,5 @@
 package bhs.devilbotz.commands.shooter;
 
-import bhs.devilbotz.subsystems.Intake;
 import bhs.devilbotz.subsystems.Shooter;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 

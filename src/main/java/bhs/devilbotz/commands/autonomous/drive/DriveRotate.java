@@ -11,18 +11,18 @@
 
 package bhs.devilbotz.commands.autonomous.drive;
 
-import edu.wpi.first.wpilibj2.command.CommandBase;
 import bhs.devilbotz.subsystems.DriveTrain;
+import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class DriveRotate extends CommandBase {
-    private final DriveTrain m_drive;
+    private final DriveTrain drive;
     private final double degrees, rotationSpeed;
     private double initialRotation;
 
     public DriveRotate(DriveTrain drive, double degrees, double rotationSpeed) {
         this.degrees = degrees;
         this.rotationSpeed = rotationSpeed;
-        m_drive = drive;
+        this.drive = drive;
         addRequirements(drive);
     }
 
@@ -31,8 +31,8 @@ public class DriveRotate extends CommandBase {
      */
     @Override
     public void initialize() {
-        m_drive.resetNavx();
-        initialRotation = m_drive.getAngle().getDegrees();
+        drive.resetNavx();
+        initialRotation = drive.getAngle().getDegrees();
     }
 
     /**
@@ -40,7 +40,7 @@ public class DriveRotate extends CommandBase {
      */
     @Override
     public void execute() {
-        m_drive.tankDrive(rotationSpeed, -rotationSpeed);
+        drive.tankDrive(rotationSpeed, -rotationSpeed);
     }
 
     /**
@@ -50,7 +50,7 @@ public class DriveRotate extends CommandBase {
      */
     @Override
     public void end(boolean interrupted) {
-        m_drive.tankDrive(0, 0);
+        drive.tankDrive(0, 0);
     }
 
     /**
@@ -61,9 +61,9 @@ public class DriveRotate extends CommandBase {
     @Override
     public boolean isFinished() {
         if (degrees < 0) {
-            return m_drive.getAngle().getDegrees() <= initialRotation + degrees;
+            return drive.getAngle().getDegrees() <= initialRotation + degrees;
         } else {
-            return m_drive.getAngle().getDegrees() >= initialRotation + degrees;
+            return drive.getAngle().getDegrees() >= initialRotation + degrees;
         }
     }
 }

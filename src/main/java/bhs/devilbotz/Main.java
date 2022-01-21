@@ -15,7 +15,7 @@ import edu.wpi.first.wpilibj.RobotBase;
 
 /**
  * The runner class for the robot.
- *
+ * <p>
  * Do NOT Modify this file
  *
  * @author Devilbotz
@@ -24,17 +24,18 @@ import edu.wpi.first.wpilibj.RobotBase;
  */
 
 public final class Main {
-    private Main() {}
+    private Main() {
+    }
 
-   /**
-    * The main method for the robot.
-    * This method will be called when the robot runs.
-    *
-    * @param args The command line arguments.
-    * @since 1.0.0
-    * */
-    public static void main(String... args)
-    {
+    /**
+     * The main method for the robot.
+     * This method will be called when the robot runs.
+     *
+     * @param args The command line arguments.
+     *
+     * @since 1.0.0
+     */
+    public static void main(String... args) {
         RobotBase.startRobot(Robot::new);
     }
 }

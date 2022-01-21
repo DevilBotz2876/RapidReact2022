@@ -19,7 +19,7 @@ public class Climber extends SubsystemBase {
 
     public Climber() {
         climberMotor = new WPI_TalonSRX(5);
-        addChild("ClimberMotor",climberMotor);
+        addChild("ClimberMotor", climberMotor);
         climberMotor.setInverted(false);
     }
 

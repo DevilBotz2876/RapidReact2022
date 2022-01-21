@@ -27,6 +27,6 @@ public final class Constants {
 
     // Auto Constants
     public static final class AutoConstants {
-        public static final double kWheelDiameterInches = 6;
+        public static final double WHEEL_DIAMETER_INCHES = 6;
     }
 }

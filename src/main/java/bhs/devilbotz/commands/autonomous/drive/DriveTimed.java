@@ -15,12 +15,12 @@ import bhs.devilbotz.subsystems.DriveTrain;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class DriveTimed extends CommandBase {
-    private final DriveTrain m_drive;
+    private final DriveTrain drive;
     private final double time, speed;
     private long startTime;
 
     public DriveTimed(DriveTrain drive, double time, double speed) {
-        m_drive = drive;
+        this.drive = drive;
         this.time = time;
         this.speed = speed;
         addRequirements(drive);
@@ -39,7 +39,7 @@ public class DriveTimed extends CommandBase {
      */
     @Override
     public void execute() {
-        m_drive.arcadeDrive(speed, 0);
+        drive.arcadeDrive(speed, 0);
     }
 
     /**
