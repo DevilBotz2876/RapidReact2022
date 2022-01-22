@@ -11,7 +11,6 @@
 
 package bhs.devilbotz.commands.autonomous.routines;
 
-import bhs.devilbotz.Robot;
 import bhs.devilbotz.commands.autonomous.drive.DriveRotate;
 import bhs.devilbotz.commands.autonomous.drive.DriveTimed;
 import bhs.devilbotz.subsystems.DriveTrain;
@@ -27,7 +26,9 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 public class AutoTest extends SequentialCommandGroup {
     /**
      * AutoTest constructor
+     *
      * @param drive {@link DriveTrain} subsystem
+     *
      * @since 1.0.0
      */
     public AutoTest(DriveTrain drive) {

@@ -46,8 +46,8 @@ public class DriveTrain extends SubsystemBase {
     // Define PDP
     private static final PowerDistribution pdp = new PowerDistribution(0, ModuleType.kCTRE);
     // Slew rate limiter
-    final SlewRateLimiter filterLeft = new SlewRateLimiter(4);
-    final SlewRateLimiter filterRight = new SlewRateLimiter(4);
+    final SlewRateLimiter filterLeft = new SlewRateLimiter(3.5);
+    final SlewRateLimiter filterRight = new SlewRateLimiter(3.5);
     // Define differential drive
     private final DifferentialDrive differentialDrive = new DifferentialDrive(leftMaster, rightMaster);
 

@@ -13,11 +13,18 @@ package bhs.devilbotz;
 
 import bhs.devilbotz.commands.DriveCommand;
 import bhs.devilbotz.commands.autonomous.routines.AutoTest;
+import bhs.devilbotz.commands.intake.IntakeIn;
+import bhs.devilbotz.commands.intake.IntakeStop;
+import bhs.devilbotz.commands.shooter.ShooterIn;
+import bhs.devilbotz.commands.shooter.ShooterStop;
 import bhs.devilbotz.subsystems.DriveTrain;
+import bhs.devilbotz.subsystems.Intake;
+import bhs.devilbotz.subsystems.Shooter;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 /**
  * The declaration class for the robot
@@ -38,6 +45,10 @@ public class RobotContainer {
 
     // Autonomous chooser
     private final SendableChooser<Command> autonomousChooser = new SendableChooser<>();
+
+    // Subsytems
+    // private final Intake intake = new Intake();
+    private final Shooter shooter = new Shooter();
 
 
     /**
@@ -63,6 +74,18 @@ public class RobotContainer {
                 () -> -joy.getY(),
                 () -> -joy_two.getY()
         ));
+/*
+        intake.setDefaultCommand(new IntakeStop(intake));
+
+        new JoystickButton(joy, 1)
+                .whileHeld(new IntakeIn(intake, this))
+                .whenReleased(new IntakeStop(intake));
+ */
+        shooter.setDefaultCommand(new ShooterStop(shooter));
+
+        new JoystickButton(joy_two, 1)
+                .whileHeld(new ShooterIn(shooter, this))
+                .whenReleased(new ShooterStop(shooter));
     }
 
     private void configureShuffleboard() {
@@ -81,5 +104,13 @@ public class RobotContainer {
      */
     public Command getAutonomousCommand() {
         return autonomousChooser.getSelected();
+    }
+
+    public Joystick getJoy() {
+        return joy;
+    }
+
+    public Joystick getJoy_two() {
+        return joy_two;
     }
 }

@@ -11,7 +11,9 @@
 
 package bhs.devilbotz.subsystems;
 
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import bhs.devilbotz.RobotContainer;
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 /**
@@ -22,14 +24,14 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
  * @since 1.0.5
  */
 public class Intake extends SubsystemBase {
-    private final WPI_TalonSRX intakeMotor;
+    private final CANSparkMax intakeMotor;
+    private boolean isOn = false;
 
     /**
      * Constructor for Intake subsystem
      */
     public Intake() {
-        intakeMotor = new WPI_TalonSRX(6);
-        addChild("IntakeMotor", intakeMotor);
+        intakeMotor = new CANSparkMax(5, CANSparkMaxLowLevel.MotorType.kBrushless);
         intakeMotor.setInverted(false);
     }
 
@@ -41,6 +43,7 @@ public class Intake extends SubsystemBase {
     @Override
     public void periodic() {
 
+        System.out.println("Intake: temp: " + intakeMotor.getMotorTemperature() + " Speed: " + intakeMotor.getEncoder().getVelocity());
 
     }
 
@@ -52,6 +55,25 @@ public class Intake extends SubsystemBase {
     @Override
     public void simulationPeriodic() {
 
+    }
+
+    public void intakeIn(double speed) {
+        intakeMotor.set(speed);
+        isOn = true;
+    }
+
+    public void intakeOut() {
+        intakeMotor.set(-0.5);
+        isOn = true;
+    }
+
+    public void stop() {
+        intakeMotor.set(0);
+        isOn = false;
+    }
+
+    public boolean isOn() {
+        return isOn;
     }
 
 }

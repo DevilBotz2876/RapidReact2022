@@ -13,6 +13,7 @@ package bhs.devilbotz.commands.autonomous.drive;
 
 import bhs.devilbotz.subsystems.DriveTrain;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+
 /**
  * DriveTimed - Drives the robot for a certain amount of time
  *
@@ -27,9 +28,11 @@ public class DriveTimed extends CommandBase {
 
     /**
      * DriveTimed constructor
+     *
      * @param drive {@link DriveTrain} subsystem
      * @param time time to drive
      * @param speed speed to drive at
+     *
      * @since 1.0.0
      */
     public DriveTimed(DriveTrain drive, double time, double speed) {
