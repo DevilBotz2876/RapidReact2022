@@ -31,6 +31,8 @@ import edu.wpi.first.wpilibj2.command.Command;
 public class RobotContainer {
     // The robot's subsystems and commands are defined
     private final DriveTrain driveTrain = new DriveTrain();
+    // TODO: Add more subsystems once they are physically attached to robot.  
+    // Careful not to add them here before they are ready else robot code may not run.
 
     // Joysticks
     private final Joystick joy = new Joystick(Constants.JOYSTICK);
