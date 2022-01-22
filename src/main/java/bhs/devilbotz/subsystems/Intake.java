@@ -43,7 +43,7 @@ public class Intake extends SubsystemBase {
     @Override
     public void periodic() {
 
-        System.out.println("Intake: temp: " + intakeMotor.getMotorTemperature() + " Speed: " + intakeMotor.getEncoder().getVelocity());
+        // System.out.println("Intake: temp: " + intakeMotor.getMotorTemperature() + " Speed: " + intakeMotor.getEncoder().getVelocity());
 
     }
 
@@ -62,8 +62,8 @@ public class Intake extends SubsystemBase {
         isOn = true;
     }
 
-    public void intakeOut() {
-        intakeMotor.set(-0.5);
+    public void intakeOut(double speed) {
+        intakeMotor.set(speed);
         isOn = true;
     }
 

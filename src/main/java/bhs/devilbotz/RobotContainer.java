@@ -20,6 +20,7 @@ import bhs.devilbotz.commands.shooter.ShooterStop;
 import bhs.devilbotz.subsystems.DriveTrain;
 import bhs.devilbotz.subsystems.Intake;
 import bhs.devilbotz.subsystems.Shooter;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -43,6 +44,9 @@ public class RobotContainer {
     private final Joystick joy = new Joystick(Constants.JOYSTICK);
     private final Joystick joy_two = new Joystick(Constants.JOYSTICK_TWO);
 
+    // Driver station
+    private final DriverStation.Alliance alliance = DriverStation.getAlliance();
+
     // Autonomous chooser
     private final SendableChooser<Command> autonomousChooser = new SendableChooser<>();
 
@@ -62,6 +66,7 @@ public class RobotContainer {
         // Configure the button bindings
         configureButtonBindings();
         configureShuffleboard();
+        printTeamData();
     }
 
     /**
@@ -92,6 +97,10 @@ public class RobotContainer {
         AutoTest autoTest = new AutoTest(driveTrain);
         autonomousChooser.addOption("Auto Test", autoTest);
         SmartDashboard.putData("Auto Chooser", autonomousChooser);
+    }
+
+    private void printTeamData() {
+        System.out.println("Alliance: " + alliance);
     }
 
 
