@@ -11,7 +11,6 @@
 
 package bhs.devilbotz.commands.intake;
 
-import bhs.devilbotz.subsystems.DriveTrain;
 import bhs.devilbotz.subsystems.Intake;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 

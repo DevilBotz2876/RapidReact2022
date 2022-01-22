@@ -9,31 +9,30 @@
 /* You may NOT remove this header under any circumstance unless explicitly noted */
 /*-------------------------------------------------------------------------------*/
 
-package bhs.devilbotz.commands.shooter;
+package bhs.devilbotz.commands.intake;
 
-import bhs.devilbotz.subsystems.DriveTrain;
-import bhs.devilbotz.subsystems.Shooter;
+import bhs.devilbotz.subsystems.Intake;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /**
- * ShooterStop command
- * Stops the shooter motors
+ * IntakeStop command
+ * Stops the intake motor
  *
  * @author  Devilbotz
  * @version 1.0.0
  * @since 1.0.5
  */
-public class ShooterStop extends CommandBase {
-    private final Shooter shooter;
+public class IntakeIdle extends CommandBase {
+    private final Intake intake;
 
     /**
-     * ShooterStop constructor
-     * @param shooter {@link Shooter} subsystem
+     * IntakeStop constructor
+     * @param intake {@link Intake} subsystem
      * @since 1.0.5
      */
-    public ShooterStop(Shooter shooter) {
-        this.shooter = shooter;
-        addRequirements(shooter);
+    public IntakeIdle(Intake intake) {
+        this.intake = intake;
+        addRequirements(intake);
     }
 
     /**
