@@ -11,27 +11,26 @@
 
 package bhs.devilbotz.commands.intake;
 
-import bhs.devilbotz.subsystems.DriveTrain;
 import bhs.devilbotz.subsystems.Intake;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /**
- * IntakeStop command
- * Stops the intake motor
+ * IntakeOut command
+ * Runs the intake motor
  *
  * @author  Devilbotz
  * @version 1.0.0
  * @since 1.0.5
  */
-public class IntakeStop extends CommandBase {
+public class IntakeOut extends CommandBase {
     private final Intake intake;
 
     /**
-     * IntakeStop constructor
+     * IntakeOut constructor
      * @param intake {@link Intake} subsystem
      * @since 1.0.5
      */
-    public IntakeStop(Intake intake) {
+    public IntakeOut(Intake intake) {
         this.intake = intake;
         addRequirements(intake);
     }

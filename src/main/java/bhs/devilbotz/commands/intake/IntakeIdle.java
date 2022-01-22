@@ -15,22 +15,22 @@ import bhs.devilbotz.subsystems.Intake;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /**
- * IntakeIn command
- * Runs the intake motor
+ * IntakeStop command
+ * Stops the intake motor
  *
  * @author  Devilbotz
  * @version 1.0.0
  * @since 1.0.5
  */
-public class IntakeIn extends CommandBase {
+public class IntakeIdle extends CommandBase {
     private final Intake intake;
 
     /**
-     * IntakeIn constructor
+     * IntakeStop constructor
      * @param intake {@link Intake} subsystem
      * @since 1.0.5
      */
-    public IntakeIn(Intake intake) {
+    public IntakeIdle(Intake intake) {
         this.intake = intake;
         addRequirements(intake);
     }
