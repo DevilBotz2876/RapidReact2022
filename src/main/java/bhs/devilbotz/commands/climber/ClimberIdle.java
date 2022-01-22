@@ -12,7 +12,6 @@
 package bhs.devilbotz.commands.climber;
 
 import bhs.devilbotz.subsystems.Climber;
-import bhs.devilbotz.subsystems.DriveTrain;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /**
