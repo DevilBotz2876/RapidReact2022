@@ -11,28 +11,29 @@
 
 package bhs.devilbotz.commands.shooter;
 
-import bhs.devilbotz.subsystems.DriveTrain;
 import bhs.devilbotz.subsystems.Shooter;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /**
- * ShooterStop command
- * Stops the shooter motors
+ * Shoot command
+ * Runs the shooter
  *
  * @author  Devilbotz
  * @version 1.0.0
  * @since 1.0.5
  */
-public class ShooterStop extends CommandBase {
+public class Shoot extends CommandBase {
     private final Shooter shooter;
+    private double m_speed;
 
     /**
-     * ShooterStop constructor
+     * Shoot constructor
      * @param shooter {@link Shooter} subsystem
      * @since 1.0.5
      */
-    public ShooterStop(Shooter shooter) {
+    public Shoot(Shooter shooter, double speed) {
         this.shooter = shooter;
+        this.m_speed = speed;
         addRequirements(shooter);
     }
 

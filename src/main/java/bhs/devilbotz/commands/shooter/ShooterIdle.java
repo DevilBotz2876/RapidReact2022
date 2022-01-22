@@ -11,27 +11,26 @@
 
 package bhs.devilbotz.commands.shooter;
 
-import bhs.devilbotz.subsystems.DriveTrain;
 import bhs.devilbotz.subsystems.Shooter;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /**
- * ShooterIn command
- * Runs the shooter
+ * ShooterIdle command
+ * Stops the shooter motors
  *
  * @author  Devilbotz
  * @version 1.0.0
  * @since 1.0.5
  */
-public class ShooterIn extends CommandBase {
+public class ShooterIdle extends CommandBase {
     private final Shooter shooter;
 
     /**
-     * ShooterIn constructor
+     * ShooterIdle constructor
      * @param shooter {@link Shooter} subsystem
      * @since 1.0.5
      */
-    public ShooterIn(Shooter shooter) {
+    public ShooterIdle(Shooter shooter) {
         this.shooter = shooter;
         addRequirements(shooter);
     }
