@@ -33,6 +33,8 @@ public class RobotContainer {
     // The robot's subsystems and commands are defined
     private final DriveTrain driveTrain = new DriveTrain();
 
+    // TODO: add climber, intake, shooter subsystems here when we actually build/attach them to robot
+
     // Joysticks
     private final Joystick joy = new Joystick(Constants.JOYSTICK);
     private final Joystick joy_two = new Joystick(Constants.JOYSTICK_TWO);
