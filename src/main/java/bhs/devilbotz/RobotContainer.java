@@ -18,6 +18,8 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import io.github.oblarg.oblog.Logger;
+import io.github.oblarg.oblog.annotations.Log;
 
 /**
  * The declaration class for the robot
@@ -41,6 +43,9 @@ public class RobotContainer {
     // Autonomous chooser
     private final SendableChooser<Command> autonomousChooser = new SendableChooser<>();
 
+    @Log
+    int robotContainerLogTest = 42;
+
 
     /**
      * The container for the robot
@@ -53,6 +58,10 @@ public class RobotContainer {
         // Configure the button bindings
         configureButtonBindings();
         configureShuffleboard();
+
+        // The first argument is the root container
+        // The second argument is whether logging and config should be given separate tabs
+        Logger.configureLoggingAndConfig(this, false);
     }
 
     /**
@@ -84,4 +93,6 @@ public class RobotContainer {
     public Command getAutonomousCommand() {
         return autonomousChooser.getSelected();
     }
+
+    
 }

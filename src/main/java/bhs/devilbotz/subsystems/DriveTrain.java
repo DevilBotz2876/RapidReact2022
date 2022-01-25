@@ -11,20 +11,25 @@
 
 package bhs.devilbotz.subsystems;
 
-import bhs.devilbotz.Constants;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.InvertType;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRXConfiguration;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.kauailabs.navx.frc.AHRS;
+
+import bhs.devilbotz.Constants;
 import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.PowerDistribution;
 import edu.wpi.first.wpilibj.PowerDistribution.ModuleType;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import io.github.oblarg.oblog.Loggable;
+import io.github.oblarg.oblog.annotations.Config;
+import io.github.oblarg.oblog.annotations.Log;
 
 /**
  * DriveTrain subsystem
@@ -33,7 +38,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
  * @version 1.0.0
  * @since 1.0.0
  */
-public class DriveTrain extends SubsystemBase {
+public class DriveTrain extends SubsystemBase implements Loggable{
     // Define talons
     private static final WPI_TalonSRX rightMaster = new WPI_TalonSRX(2);
     private static final WPI_TalonSRX leftMaster = new WPI_TalonSRX(4);
@@ -51,6 +56,11 @@ public class DriveTrain extends SubsystemBase {
     // Define differential drive
     private final DifferentialDrive differentialDrive = new DifferentialDrive(leftMaster, rightMaster);
 
+    @Log
+    int oblog_test = 0;
+    @Log
+    int exampleField;
+
     /**
      * The constructor for the DriveTrain subsystem
      *
@@ -59,9 +69,18 @@ public class DriveTrain extends SubsystemBase {
     public DriveTrain() {
         setupTalons();
         resetNavx();
-
+        SmartDashboard.putBoolean("dt_test", true);
     }
 
+    @Config
+    public void setExampleField(int value) {
+        exampleField = value;
+    }
+
+    @Log(name = "PDP Temp", tabName = "Debugger",   columnIndex = 8, rowIndex = 8)
+	public double getTemperature() {
+		return pdp.getTemperature();
+	}
     /**
      * Gets the Power Distribution Panel
      *
@@ -172,6 +191,7 @@ public class DriveTrain extends SubsystemBase {
      *
      * @return the linear distance traveled by the robot in inches
      */
+    @Log
     public double getAverageEncoderDistance() {
         double leftDistance = leftMaster.getSelectedSensorPosition()
                 * (Constants.AutoConstants.WHEEL_DIAMETER_INCHES * Math.PI / 4096);
@@ -220,6 +240,28 @@ public class DriveTrain extends SubsystemBase {
     public Rotation2d getAngle() {
         // Negative because WPILib Gyro is CW positive
         return Rotation2d.fromDegrees(-navx.getAngle());
+    }
+
+        /**
+     * This method will be called once per scheduler run when
+     *
+     * @since 1.0.5
+     */
+    @Override
+    public void periodic() {
+
+
+    }
+
+    /**
+     * This method will be called once per scheduler run when in simulation
+     *
+     * @since 1.0.5
+     */
+    @Override
+    public void simulationPeriodic() {
+        
+
     }
 
 }
