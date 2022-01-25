@@ -24,7 +24,10 @@ import edu.wpi.first.wpilibj.PowerDistribution;
 import edu.wpi.first.wpilibj.PowerDistribution.ModuleType;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import io.github.oblarg.oblog.annotations.Log;
 
 /**
  * DriveTrain subsystem
@@ -40,6 +43,9 @@ public class DriveTrain extends SubsystemBase {
     private static final WPI_TalonSRX rightFollower = new WPI_TalonSRX(1);
     private static final WPI_TalonSRX leftFollower = new WPI_TalonSRX(3);
 
+int test = 5;
+@Log
+boolean btest = false;
     // Define NAVX
     private static final AHRS navx = new AHRS(SPI.Port.kMXP);
 
@@ -59,6 +65,8 @@ public class DriveTrain extends SubsystemBase {
     public DriveTrain() {
         setupTalons();
         resetNavx();
+        SmartDashboard.putNumber("testvalue", test);
+        Shuffleboard.getTab("Diags");
 
     }
 
@@ -172,6 +180,7 @@ public class DriveTrain extends SubsystemBase {
      *
      * @return the linear distance traveled by the robot in inches
      */
+    @Log
     public double getAverageEncoderDistance() {
         double leftDistance = leftMaster.getSelectedSensorPosition()
                 * (Constants.AutoConstants.WHEEL_DIAMETER_INCHES * Math.PI / 4096);
