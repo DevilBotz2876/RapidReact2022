@@ -12,6 +12,8 @@
 package bhs.devilbotz.subsystems;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import edu.wpi.first.wpilibj.AnalogPotentiometer;
+import edu.wpi.first.wpilibj.Ultrasonic;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 /**
@@ -24,12 +26,15 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class Intake extends SubsystemBase {
     private final WPI_TalonSRX intakeMotor;
 
+
     /**
      * Constructor for Intake subsystem
      */
     public Intake() {
         intakeMotor = new WPI_TalonSRX(6);
+
         addChild("IntakeMotor", intakeMotor);
+
         intakeMotor.setInverted(false);
     }
 
@@ -40,8 +45,6 @@ public class Intake extends SubsystemBase {
      */
     @Override
     public void periodic() {
-
-
     }
 
     /**

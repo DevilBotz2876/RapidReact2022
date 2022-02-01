@@ -11,6 +11,8 @@
 
 package bhs.devilbotz;
 
+import bhs.devilbotz.subsystems.DriveTrain;
+import bhs.devilbotz.subsystems.Indexing;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
@@ -29,6 +31,9 @@ public class Robot extends TimedRobot {
 
     private RobotContainer robotContainer;
 
+    private DriveTrain driveTrain;
+
+    private Indexing indexing;
 
     /**
      * This method is run when the robot is first started up and is used for initialization
@@ -39,6 +44,8 @@ public class Robot extends TimedRobot {
     public void robotInit() {
         // Instantiate the RobotContainer.
         robotContainer = new RobotContainer();
+        indexing = robotContainer.getIndexing();
+        driveTrain = robotContainer.getDriveTrain();
         Logger.configureLoggingAndConfig(this, false);
     }
 
@@ -57,6 +64,13 @@ public class Robot extends TimedRobot {
         // Runs the Scheduler.
         CommandScheduler.getInstance().run();
         Logger.updateEntries();
+
+        if (indexing.getUltrasonic().getRangeInches() <= 5) {
+            driveTrain.arcadeDrive(0.6, 0);
+            System.out.println("RUNNING");
+        } else {
+            System.out.println(indexing.getUltrasonic().getRangeInches());
+        }
     }
 
 

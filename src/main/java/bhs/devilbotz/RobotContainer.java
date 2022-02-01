@@ -14,7 +14,9 @@ package bhs.devilbotz;
 import bhs.devilbotz.commands.DriveCommand;
 import bhs.devilbotz.commands.autonomous.routines.AutoTest;
 import bhs.devilbotz.subsystems.DriveTrain;
+import bhs.devilbotz.subsystems.Indexing;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -31,8 +33,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 public class RobotContainer {
     // The robot's subsystems and commands are defined
     private final DriveTrain driveTrain = new DriveTrain();
-    // TODO: Add more subsystems once they are physically attached to robot.  
-    // Careful not to add them here before they are ready else robot code may not run.
+    private final Indexing indexing = new Indexing();
 
     // Joysticks
     private final Joystick joy = new Joystick(Constants.JOYSTICK);
@@ -83,5 +84,13 @@ public class RobotContainer {
      */
     public Command getAutonomousCommand() {
         return autonomousChooser.getSelected();
+    }
+
+    public Indexing getIndexing() {
+        return indexing;
+    }
+
+    public DriveTrain getDriveTrain() {
+        return driveTrain;
     }
 }

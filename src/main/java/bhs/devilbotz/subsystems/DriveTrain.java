@@ -56,6 +56,7 @@ boolean btest = false;
     final SlewRateLimiter filterRight = new SlewRateLimiter(4);
     // Define differential drive
     private final DifferentialDrive differentialDrive = new DifferentialDrive(leftMaster, rightMaster);
+    private boolean putNumber;
 
     /**
      * The constructor for the DriveTrain subsystem
@@ -65,8 +66,9 @@ boolean btest = false;
     public DriveTrain() {
         setupTalons();
         resetNavx();
-        SmartDashboard.putNumber("testvalue", test);
+        putNumber = SmartDashboard.putNumber("testvalue", test);
         Shuffleboard.getTab("Diags");
+        Shuffleboard.getTab("Diags1");
 
     }
 
