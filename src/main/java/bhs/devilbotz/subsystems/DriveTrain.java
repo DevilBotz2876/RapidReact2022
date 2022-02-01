@@ -48,8 +48,7 @@ public class DriveTrain extends SubsystemBase implements Loggable{
     // Define NAVX
     private static final AHRS navx = new AHRS(SPI.Port.kMXP);
 
-    // Define PDP
-    private static final PowerDistribution pdp = new PowerDistribution(0, ModuleType.kCTRE);
+   
     // Slew rate limiter
     final SlewRateLimiter filterLeft = new SlewRateLimiter(4);
     final SlewRateLimiter filterRight = new SlewRateLimiter(4);
@@ -77,21 +76,8 @@ public class DriveTrain extends SubsystemBase implements Loggable{
         exampleField = value;
     }
 
-    @Log(name = "PDP Temp", tabName = "Debugger",   columnIndex = 8, rowIndex = 8)
-	public double getTemperature() {
-		return pdp.getTemperature();
-	}
-    /**
-     * Gets the Power Distribution Panel
-     *
-     * @return The power distribution panel
-     *
-     * @since 1.0.0
-     */
-    public static PowerDistribution getPDP() {
-        return pdp;
-    }
-
+  
+  
     /**
      * Gets the NAVX
      *
