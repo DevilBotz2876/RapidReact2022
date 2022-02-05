@@ -73,7 +73,7 @@ public class RobotContainer {
         driveTrain.setDefaultCommand(new DriveCommand(driveTrain,
                 () -> -joy.getY(),
                 () -> -joy_two.getY()
-        ));;
+        ));
     }
 
     private void configureShuffleboard() {
@@ -93,7 +93,7 @@ public class RobotContainer {
     public Command getAutonomousCommand() {
         return autonomousChooser.getSelected();
     }
-  
+
     public Joystick getJoy() {
         return joy;
     }
