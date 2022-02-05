@@ -48,7 +48,7 @@ public class Shoot extends CommandBase {
     @Override
     public void execute() {
         shooter.shooterOn(Math.abs(robotContainer.getJoyTwo().getZ()));
-        if(shooter.shootReady()) {
+        if (shooter.shootReady()) {
             System.out.println("SHOOT\nSHOOT\nSHOOT\nSHOOT\nSHOOT\nSHOOT");
         }
     }

@@ -13,6 +13,7 @@ package bhs.devilbotz.commands.autonomous.drive;
 
 import bhs.devilbotz.subsystems.DriveTrain;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+
 /**
  * DriveRotate - Rotates the robot for a certain amount of degrees
  *
@@ -27,9 +28,11 @@ public class DriveRotate extends CommandBase {
 
     /**
      * DriveRotate constructor
+     *
      * @param drive {@link DriveTrain} subsystem
      * @param degrees degrees to rotate
      * @param rotationSpeed speed to rotate at
+     *
      * @since 1.0.0
      */
     public DriveRotate(DriveTrain drive, double degrees, double rotationSpeed) {
