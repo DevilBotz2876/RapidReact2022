@@ -40,21 +40,25 @@ import io.github.oblarg.oblog.annotations.Log;
  */
 public class DriveTrain extends SubsystemBase implements Loggable{
     // Define talons
-    private static final WPI_TalonSRX rightMaster = new WPI_TalonSRX(2);
-    private static final WPI_TalonSRX leftMaster = new WPI_TalonSRX(4);
-    private static final WPI_TalonSRX rightFollower = new WPI_TalonSRX(1);
-    private static final WPI_TalonSRX leftFollower = new WPI_TalonSRX(3);
+    private static final WPI_TalonSRX leftMaster = new WPI_TalonSRX(1);
+    private static final WPI_TalonSRX rightMaster = new WPI_TalonSRX(4);
+    private static final WPI_TalonSRX leftFollower = new WPI_TalonSRX(2);
+    private static final WPI_TalonSRX rightFollower = new WPI_TalonSRX(3);
 
     // Define NAVX
     private static final AHRS navx = new AHRS(SPI.Port.kMXP);
 
-   
     // Slew rate limiter
     final SlewRateLimiter filterLeft = new SlewRateLimiter(4);
     final SlewRateLimiter filterRight = new SlewRateLimiter(4);
     // Define differential drive
     private final DifferentialDrive differentialDrive = new DifferentialDrive(leftMaster, rightMaster);
-   
+
+    /**
+     * The constructor for the DriveTrain subsystem
+     *
+     * @since 1.0.0
+     */
     public DriveTrain() {
         setupTalons();
         resetNavx();
@@ -78,6 +82,7 @@ public class DriveTrain extends SubsystemBase implements Loggable{
      */
     private void setupTalons() {
         rightMaster.setInverted(true);
+        leftMaster.setInverted(true);
         // Set the talons to follow each other
         rightFollower.follow(rightMaster);
         leftFollower.follow(leftMaster);

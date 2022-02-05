@@ -11,44 +11,53 @@
 
 package bhs.devilbotz.commands.shooter;
 
+import bhs.devilbotz.RobotContainer;
 import bhs.devilbotz.subsystems.Shooter;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /**
- * Shoot command
+ * ShooterIn command
  * Runs the shooter
  *
- * @author  Devilbotz
+ * @author Devilbotz
  * @version 1.0.0
  * @since 1.0.5
  */
 public class Shoot extends CommandBase {
     private final Shooter shooter;
-    private double m_speed;
+    private final RobotContainer robotContainer;
 
     /**
-     * Shoot constructor
+     * ShooterIn constructor
+     *
      * @param shooter {@link Shooter} subsystem
+     *
      * @since 1.0.5
      */
-    public Shoot(Shooter shooter, double speed) {
+    public Shoot(Shooter shooter, RobotContainer robotContainer) {
         this.shooter = shooter;
-        this.m_speed = speed;
+        this.robotContainer = robotContainer;
         addRequirements(shooter);
     }
 
     /**
      * Executed when the command is initially scheduled
+     *
      * @since 1.0.5
      */
     @Override
     public void execute() {
-
+        shooter.shooterOn(Math.abs(robotContainer.getJoyTwo().getZ()));
+        if(shooter.shootReady()) {
+            System.out.println("SHOOT\nSHOOT\nSHOOT\nSHOOT\nSHOOT\nSHOOT");
+        }
     }
 
     /**
      * Called once the command ends or is interrupted.
+     *
      * @param interrupted True if the command was interrupted, false otherwise.
+     *
      * @since 1.0.5
      */
     @Override
@@ -57,6 +66,7 @@ public class Shoot extends CommandBase {
 
     /**
      * Returns true when the command should end.
+     *
      * @return True if the command should end, false otherwise.
      */
     @Override
@@ -66,6 +76,7 @@ public class Shoot extends CommandBase {
 
     /**
      * If the command should run when the robot is disabled
+     *
      * @return True if the command should run when the robot is disabled, false otherwise.
      */
     @Override

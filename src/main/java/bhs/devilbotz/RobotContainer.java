@@ -13,15 +13,20 @@ package bhs.devilbotz;
 
 import bhs.devilbotz.commands.DriveCommand;
 import bhs.devilbotz.commands.autonomous.routines.AutoTest;
+import bhs.devilbotz.commands.shooter.Shoot;
+import bhs.devilbotz.commands.shooter.ShooterIdle;
 import bhs.devilbotz.subsystems.DriveTrain;
+
+import bhs.devilbotz.subsystems.Indexing;
+import bhs.devilbotz.subsystems.Shooter;
+import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import bhs.devilbotz.subsystems.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.PowerDistribution;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj2.command.Command;
 import io.github.oblarg.oblog.Logger;
 import io.github.oblarg.oblog.annotations.Log;
+
 
 /**
  * The declaration class for the robot
@@ -35,6 +40,7 @@ import io.github.oblarg.oblog.annotations.Log;
 public class RobotContainer {
     // The robot's subsystems and commands are defined
     private final DriveTrain driveTrain = new DriveTrain();
+
     private final PowerDistributionPanel pdp = new PowerDistributionPanel();
     // TODO: Add more subsystems once they are physically attached to robot.  
     // Careful not to add them here before they are ready else robot code may not run.
@@ -73,7 +79,7 @@ public class RobotContainer {
         driveTrain.setDefaultCommand(new DriveCommand(driveTrain,
                 () -> -joy.getY(),
                 () -> -joy_two.getY()
-        ));
+        ));;
     }
 
     private void configureShuffleboard() {
@@ -93,6 +99,16 @@ public class RobotContainer {
     public Command getAutonomousCommand() {
         return autonomousChooser.getSelected();
     }
+  
+    public Joystick getJoy() {
+        return joy;
+    }
 
-    
+    public Joystick getJoyTwo() {
+        return joy_two;
+    }
+
+    public DriveTrain getDriveTrain() {
+        return driveTrain;
+    }
 }
