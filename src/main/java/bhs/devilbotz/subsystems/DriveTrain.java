@@ -81,6 +81,13 @@ public class DriveTrain extends SubsystemBase implements Loggable{
      * @since 1.0.0
      */
     private void setupTalons() {
+        // Reset the talon settings
+        leftMaster.configFactoryDefault();
+        rightMaster.configFactoryDefault();
+        leftFollower.configFactoryDefault();
+        rightFollower.configFactoryDefault();
+
+        // Invert the motors
         rightMaster.setInverted(true);
         leftMaster.setInverted(true);
         // Set the talons to follow each other
