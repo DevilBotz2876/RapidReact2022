@@ -15,10 +15,10 @@ import bhs.devilbotz.subsystems.Shooter;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /**
- * ShooterIdle command
+ * ShooterStop command
  * Stops the shooter motors
  *
- * @author  Devilbotz
+ * @author Devilbotz
  * @version 1.0.0
  * @since 1.0.5
  */
@@ -26,8 +26,10 @@ public class ShooterIdle extends CommandBase {
     private final Shooter shooter;
 
     /**
-     * ShooterIdle constructor
+     * ShooterStop constructor
+     *
      * @param shooter {@link Shooter} subsystem
+     *
      * @since 1.0.5
      */
     public ShooterIdle(Shooter shooter) {
@@ -37,16 +39,20 @@ public class ShooterIdle extends CommandBase {
 
     /**
      * Executed when the command is initially scheduled
+     *
      * @since 1.0.5
      */
     @Override
     public void execute() {
+        shooter.stop();
 
     }
 
     /**
      * Called once the command ends or is interrupted.
+     *
      * @param interrupted True if the command was interrupted, false otherwise.
+     *
      * @since 1.0.5
      */
     @Override
@@ -55,6 +61,7 @@ public class ShooterIdle extends CommandBase {
 
     /**
      * Returns true when the command should end.
+     *
      * @return True if the command should end, false otherwise.
      */
     @Override
@@ -64,6 +71,7 @@ public class ShooterIdle extends CommandBase {
 
     /**
      * If the command should run when the robot is disabled
+     *
      * @return True if the command should run when the robot is disabled, false otherwise.
      */
     @Override

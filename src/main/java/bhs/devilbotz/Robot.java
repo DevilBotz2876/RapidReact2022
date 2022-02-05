@@ -44,7 +44,6 @@ public class Robot extends TimedRobot {
     public void robotInit() {
         // Instantiate the RobotContainer.
         robotContainer = new RobotContainer();
-        indexing = robotContainer.getIndexing();
         driveTrain = robotContainer.getDriveTrain();
         Logger.configureLoggingAndConfig(this, false);
     }
@@ -64,13 +63,6 @@ public class Robot extends TimedRobot {
         // Runs the Scheduler.
         CommandScheduler.getInstance().run();
         Logger.updateEntries();
-
-        if (indexing.getUltrasonic().getRangeInches() <= 5) {
-            driveTrain.arcadeDrive(0.6, 0);
-            System.out.println("RUNNING");
-        } else {
-            System.out.println(indexing.getUltrasonic().getRangeInches());
-        }
     }
 
 

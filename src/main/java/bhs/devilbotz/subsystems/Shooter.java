@@ -11,7 +11,8 @@
 
 package bhs.devilbotz.subsystems;
 
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import com.ctre.phoenix.music.Orchestra;
+import com.revrobotics.CANSparkMax;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 /**
@@ -22,15 +23,16 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
  * @since 1.0.5
  */
 public class Shooter extends SubsystemBase {
-    private final WPI_TalonSRX shooterMotor;
+    private final CANSparkMax shooterMotor;
 
     /**
      * Constructor for Shooter subsystem
      */
     public Shooter() {
-        shooterMotor = new WPI_TalonSRX(7);
-        addChild("ShooterMotor", shooterMotor);
+        shooterMotor = new CANSparkMax(5, CANSparkMax.MotorType.kBrushless);
         shooterMotor.setInverted(false);
+        shooterMotor.setClosedLoopRampRate(0);
+        shooterMotor.setOpenLoopRampRate(0);
     }
 
     /**
@@ -40,7 +42,7 @@ public class Shooter extends SubsystemBase {
      */
     @Override
     public void periodic() {
-
+        System.out.println("Shooter: temp: " + shooterMotor.getMotorTemperature() + " Speed: " + shooterMotor.getEncoder().getVelocity());
 
     }
 
@@ -52,6 +54,18 @@ public class Shooter extends SubsystemBase {
     @Override
     public void simulationPeriodic() {
 
+    }
+
+    public void shooterOn(double speed) {
+        shooterMotor.set(speed);
+    }
+
+    public void stop() {
+        shooterMotor.set(0);
+    }
+
+    public boolean shootReady() {
+        return shooterMotor.getEncoder().getVelocity() >= 2800;
     }
 
 }

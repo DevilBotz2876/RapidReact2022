@@ -24,8 +24,6 @@ import edu.wpi.first.wpilibj.PowerDistribution;
 import edu.wpi.first.wpilibj.PowerDistribution.ModuleType;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
-import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import io.github.oblarg.oblog.annotations.Log;
 
@@ -38,19 +36,17 @@ import io.github.oblarg.oblog.annotations.Log;
  */
 public class DriveTrain extends SubsystemBase {
     // Define talons
-    private static final WPI_TalonSRX rightMaster = new WPI_TalonSRX(2);
-    private static final WPI_TalonSRX leftMaster = new WPI_TalonSRX(4);
-    private static final WPI_TalonSRX rightFollower = new WPI_TalonSRX(1);
-    private static final WPI_TalonSRX leftFollower = new WPI_TalonSRX(3);
+    private static final WPI_TalonSRX leftMaster = new WPI_TalonSRX(1);
+    private static final WPI_TalonSRX rightMaster = new WPI_TalonSRX(4);
+    private static final WPI_TalonSRX leftFollower = new WPI_TalonSRX(2);
+    private static final WPI_TalonSRX rightFollower = new WPI_TalonSRX(3);
 
-int test = 5;
-@Log
-boolean btest = false;
     // Define NAVX
     private static final AHRS navx = new AHRS(SPI.Port.kMXP);
 
     // Define PDP
     private static final PowerDistribution pdp = new PowerDistribution(0, ModuleType.kCTRE);
+
     // Slew rate limiter
     final SlewRateLimiter filterLeft = new SlewRateLimiter(4);
     final SlewRateLimiter filterRight = new SlewRateLimiter(4);
@@ -66,9 +62,6 @@ boolean btest = false;
     public DriveTrain() {
         setupTalons();
         resetNavx();
-        putNumber = SmartDashboard.putNumber("testvalue", test);
-        Shuffleboard.getTab("Diags");
-        Shuffleboard.getTab("Diags1");
 
     }
 
@@ -99,6 +92,7 @@ boolean btest = false;
      */
     private void setupTalons() {
         rightMaster.setInverted(true);
+        leftMaster.setInverted(true);
         // Set the talons to follow each other
         rightFollower.follow(rightMaster);
         leftFollower.follow(leftMaster);
