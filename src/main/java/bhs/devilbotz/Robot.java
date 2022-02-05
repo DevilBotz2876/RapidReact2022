@@ -14,6 +14,7 @@ package bhs.devilbotz;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import io.github.oblarg.oblog.Logger;
 
 /**
  * This is the main robot class.
@@ -54,8 +55,8 @@ public class Robot extends TimedRobot {
     public void robotPeriodic() {
         // Runs the Scheduler.
         CommandScheduler.getInstance().run();
+        Logger.updateEntries();
     }
-
 
     /**
      * This method is called once when the robot is disabled.
