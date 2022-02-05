@@ -32,9 +32,16 @@ public class PowerDistributionPanel extends SubsystemBase implements Loggable{
 	}
   @Log(name = "PDP Voltage" , tabName = "PowerDistributionPanel", columnIndex = 1, rowIndex = 0, height = 1, width = 1)
   public double getVoltage(){
-    pdp.g
     return pdp.getVoltage();
     // return 1.0;
     // line above for test on shuffleboard
+  }
+  @Log(name= "PDP Current 1" , tabName = "PowerDistributionPanel", columnIndex = 2, rowIndex = 0, height = 1, width = 1)
+  public double getCurrentOne(){
+    return pdp.getCurrent(1);
+  }
+  @Log(name= "PDP Current 2" , tabName = "PowerDistributionPanel", columnIndex = 3, rowIndex = 0, height = 1, width = 1)
+  public double getCurrentTwo(){
+    return pdp.getCurrent(2);
   }
 }
