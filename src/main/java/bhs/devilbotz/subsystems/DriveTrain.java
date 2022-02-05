@@ -166,7 +166,6 @@ public class DriveTrain extends SubsystemBase implements Loggable{
      *
      * @return the linear distance traveled by the robot in inches
      */
-    @Log
     public double getAverageEncoderDistance() {
         double leftDistance = leftMaster.getSelectedSensorPosition()
                 * (Constants.AutoConstants.WHEEL_DIAMETER_INCHES * Math.PI / 4096);
