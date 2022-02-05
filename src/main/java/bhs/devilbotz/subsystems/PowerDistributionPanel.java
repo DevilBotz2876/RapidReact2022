@@ -44,4 +44,12 @@ public class PowerDistributionPanel extends SubsystemBase implements Loggable{
   public double getCurrentTwo(){
     return pdp.getCurrent(2);
   }
+  @Log(name= "PDP Current 3" , tabName = "PowerDistributionPanel", columnIndex = 4, rowIndex = 0, height = 1, width = 1)
+  public double getCurrentThree(){
+    return pdp.getCurrent(3);
+  }
+  @Log(name= "PDP Current 4" , tabName = "PowerDistributionPanel", columnIndex = 5, rowIndex = 0, height = 1, width = 1)
+  public double getCurrentFour(){
+    return pdp.getCurrent(4);
+  }
 }
