@@ -39,7 +39,6 @@ public class Robot extends TimedRobot {
     public void robotInit() {
         // Instantiate the RobotContainer.
         robotContainer = new RobotContainer();
-        //Logger.configureLoggingAndConfig(robotContainer, false);
     }
 
 

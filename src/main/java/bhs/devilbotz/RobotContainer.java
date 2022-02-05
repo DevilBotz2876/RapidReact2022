@@ -46,9 +46,6 @@ public class RobotContainer {
     // Autonomous chooser
     private final SendableChooser<Command> autonomousChooser = new SendableChooser<>();
 
-    @Log
-    int robotContainerLogTest = 42;
-
 
     /**
      * The container for the robot

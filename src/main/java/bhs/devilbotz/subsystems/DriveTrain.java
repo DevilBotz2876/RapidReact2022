@@ -54,31 +54,12 @@ public class DriveTrain extends SubsystemBase implements Loggable{
     final SlewRateLimiter filterRight = new SlewRateLimiter(4);
     // Define differential drive
     private final DifferentialDrive differentialDrive = new DifferentialDrive(leftMaster, rightMaster);
-    // TODO: Remove 
-    /*
-    @Log
-    int oblog_test = 0;
-    @Log
-    int exampleField;
-    */
-
-    /**
-     * The constructor for the DriveTrain subsystem
-     *
-     * @since 1.0.0
-     */
+   
     public DriveTrain() {
         setupTalons();
         resetNavx();
-        SmartDashboard.putBoolean("dt_test", true);
     }
-
-    /*
-    @Config
-    public void setExampleField(int value) {
-        exampleField = value;
-    }
-*/
+    
   
   
     /**
