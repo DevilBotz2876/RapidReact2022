@@ -14,7 +14,7 @@ public class PowerDistributionPanel extends SubsystemBase implements Loggable{
   PowerDistribution pdp = new PowerDistribution(0, ModuleType.kCTRE);
   /** Creates a new PowerDistributionPanel. */
   public PowerDistributionPanel() {
-
+    double voltage = pdp.getVoltage();
 
   }
 
@@ -26,6 +26,11 @@ public class PowerDistributionPanel extends SubsystemBase implements Loggable{
   @Log(name = "PDP Temp", tabName = "PowerDistributionPanel",   columnIndex = 0, rowIndex = 0, height = 1, width = 1)
 	public double getTemperature() {
 		// return pdp.getTemperature();
-        return 10.0;
+        return 1.0;
+        
 	}
+  @Log(name = "PDP Voltage" , tabName = "PowerDistributionPanel", columnIndex = 1, rowIndex = 0, height = 1, width = 1)
+  public double getVoltage(){
+    return 1.0;
+  }
 }
