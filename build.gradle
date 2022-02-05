@@ -5,9 +5,9 @@ plugins {
     id "java"
     id "edu.wpi.first.GradleRIO" version "2022.3.1"
 }
-repositories {
-maven { url 'https://jitpack.io'}
 
+repositories {
+  maven { url 'https://jitpack.io' }
 }
 
 def javaVersion = JavaVersion.VERSION_11
@@ -75,6 +75,8 @@ dependencies {
     nativeRelease wpi.java.deps.wpilibJniRelease(wpi.platforms.desktop)
     nativeRelease wpi.java.vendor.jniRelease(wpi.platforms.desktop)
     simulationRelease wpi.sim.enableRelease()
+
+    implementation "com.github.Oblarg:Oblog:4.0.9"
 
 
     implementation platform('org.junit:junit-bom:5.8.2')

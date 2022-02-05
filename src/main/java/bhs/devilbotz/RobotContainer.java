@@ -16,14 +16,17 @@ import bhs.devilbotz.commands.autonomous.routines.AutoTest;
 import bhs.devilbotz.commands.shooter.Shoot;
 import bhs.devilbotz.commands.shooter.ShooterIdle;
 import bhs.devilbotz.subsystems.DriveTrain;
+
 import bhs.devilbotz.subsystems.Indexing;
 import bhs.devilbotz.subsystems.Shooter;
-import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.PowerDistributionPanel;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import bhs.devilbotz.subsystems.PowerDistributionPanel;
+import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.PowerDistribution;
+import io.github.oblarg.oblog.Logger;
+import io.github.oblarg.oblog.annotations.Log;
+
 
 /**
  * The declaration class for the robot
@@ -37,6 +40,10 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 public class RobotContainer {
     // The robot's subsystems and commands are defined
     private final DriveTrain driveTrain = new DriveTrain();
+
+    private final PowerDistributionPanel pdp = new PowerDistributionPanel();
+    // TODO: Add more subsystems once they are physically attached to robot.  
+    // Careful not to add them here before they are ready else robot code may not run.
 
     // Joysticks
     private final Joystick joy = new Joystick(Constants.JOYSTICK);
@@ -57,6 +64,10 @@ public class RobotContainer {
         // Configure the button bindings
         configureButtonBindings();
         configureShuffleboard();
+
+        // The first argument is the root container
+        // The second argument is whether logging and config should be given separate tabs
+        Logger.configureLoggingAndConfig(this, false);
     }
 
     /**
@@ -88,7 +99,7 @@ public class RobotContainer {
     public Command getAutonomousCommand() {
         return autonomousChooser.getSelected();
     }
-
+  
     public Joystick getJoy() {
         return joy;
     }

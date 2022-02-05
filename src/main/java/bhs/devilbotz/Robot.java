@@ -65,7 +65,6 @@ public class Robot extends TimedRobot {
         Logger.updateEntries();
     }
 
-
     /**
      * This method is called once when the robot is disabled.
      *
