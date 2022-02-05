@@ -13,19 +13,13 @@ package bhs.devilbotz;
 
 import bhs.devilbotz.commands.DriveCommand;
 import bhs.devilbotz.commands.autonomous.routines.AutoTest;
-import bhs.devilbotz.commands.shooter.Shoot;
-import bhs.devilbotz.commands.shooter.ShooterIdle;
 import bhs.devilbotz.subsystems.DriveTrain;
-
-import bhs.devilbotz.subsystems.Indexing;
-import bhs.devilbotz.subsystems.Shooter;
-import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import bhs.devilbotz.subsystems.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.PowerDistribution;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.Command;
 import io.github.oblarg.oblog.Logger;
-import io.github.oblarg.oblog.annotations.Log;
 
 
 /**
