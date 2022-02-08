@@ -227,6 +227,10 @@ public class DriveTrain extends SubsystemBase implements Loggable {
 
 
     }
+    @Log
+    public double getleftVoltage(){ 
+        return leftMaster.getMotorOutputVoltage();
+    }
 
     /**
      * This method will be called once per scheduler run when in simulation
