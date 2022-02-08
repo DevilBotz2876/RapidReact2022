@@ -18,7 +18,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
  * IntakeOut command
  * Runs the intake motor
  *
- * @author  Devilbotz
+ * @author Devilbotz
  * @version 1.0.0
  * @since 1.0.5
  */
@@ -27,7 +27,9 @@ public class IntakeOut extends CommandBase {
 
     /**
      * IntakeOut constructor
+     *
      * @param intake {@link Intake} subsystem
+     *
      * @since 1.0.5
      */
     public IntakeOut(Intake intake) {
@@ -37,6 +39,7 @@ public class IntakeOut extends CommandBase {
 
     /**
      * Executed when the command is initially scheduled
+     *
      * @since 1.0.5
      */
     @Override
@@ -46,7 +49,9 @@ public class IntakeOut extends CommandBase {
 
     /**
      * Called once the command ends or is interrupted.
+     *
      * @param interrupted True if the command was interrupted, false otherwise.
+     *
      * @since 1.0.5
      */
     @Override
@@ -55,6 +60,7 @@ public class IntakeOut extends CommandBase {
 
     /**
      * Returns true when the command should end.
+     *
      * @return True if the command should end, false otherwise.
      */
     @Override
@@ -64,6 +70,7 @@ public class IntakeOut extends CommandBase {
 
     /**
      * If the command should run when the robot is disabled
+     *
      * @return True if the command should run when the robot is disabled, false otherwise.
      */
     @Override

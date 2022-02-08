@@ -30,9 +30,11 @@ public class DriveDistance extends CommandBase {
 
     /**
      * DriveDistance constructor
+     *
      * @param drive {@link DriveTrain} subsystem
      * @param inches distance to drive in inches
      * @param speed speed to drive at
+     *
      * @since 1.0.0
      */
     public DriveDistance(DriveTrain drive, double inches, double speed) {

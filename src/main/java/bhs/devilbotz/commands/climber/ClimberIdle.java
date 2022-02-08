@@ -18,7 +18,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
  * ClimberIdle command
  * Stops the climber motors
  *
- * @author  Devilbotz
+ * @author Devilbotz
  * @version 1.0.0
  * @since 1.0.5
  */
@@ -27,7 +27,9 @@ public class ClimberIdle extends CommandBase {
 
     /**
      * ClimberIdle constructor.
+     *
      * @param climber {@link Climber} subsystem
+     *
      * @since 1.0.5
      */
     public ClimberIdle(Climber climber) {
@@ -38,6 +40,7 @@ public class ClimberIdle extends CommandBase {
 
     /**
      * Executed when the command is initially scheduled
+     *
      * @since 1.0.5
      */
     @Override
@@ -47,6 +50,7 @@ public class ClimberIdle extends CommandBase {
 
     /**
      * Executed when the command is initially scheduled
+     *
      * @since 1.0.5
      */
     @Override
@@ -56,7 +60,9 @@ public class ClimberIdle extends CommandBase {
 
     /**
      * Called once the command ends or is interrupted.
+     *
      * @param interrupted True if the command was interrupted, false otherwise.
+     *
      * @since 1.0.5
      */
     @Override
@@ -65,6 +71,7 @@ public class ClimberIdle extends CommandBase {
 
     /**
      * Returns true when the command should end.
+     *
      * @return True if the command should end, false otherwise.
      */
     @Override
@@ -74,6 +81,7 @@ public class ClimberIdle extends CommandBase {
 
     /**
      * If the command should run when the robot is disabled
+     *
      * @return True if the command should run when the robot is disabled, false otherwise.
      */
     @Override
