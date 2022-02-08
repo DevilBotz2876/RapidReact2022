@@ -14,9 +14,11 @@ package bhs.devilbotz;
 import bhs.devilbotz.subsystems.DriveTrain;
 import bhs.devilbotz.subsystems.Indexing;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.util.WPILibVersion;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import io.github.oblarg.oblog.Logger;
+import io.github.oblarg.oblog.annotations.Log;
 
 /**
  * This is the main robot class.
@@ -35,6 +37,8 @@ public class Robot extends TimedRobot {
 
     private Indexing indexing;
 
+    @Log
+    String wpilibVersion = WPILibVersion.Version;
     /**
      * This method is run when the robot is first started up and is used for initialization
      *
@@ -46,7 +50,9 @@ public class Robot extends TimedRobot {
         robotContainer = new RobotContainer();
         driveTrain = robotContainer.getDriveTrain();
         Logger.configureLoggingAndConfig(this, false);
+        
     }
+    
 
 
     /**
