@@ -227,22 +227,23 @@ public class DriveTrain extends SubsystemBase implements Loggable {
 
 
     }
-    @Log
-    public double getleftVoltage(){ 
-        return leftMaster.getMotorOutputVoltage();
-    }
-    @Log
-    public double getrightVoltage(){ 
-        return rightMaster.getMotorOutputVoltage();
-    }
-    @Log
-    public double getleftVoltage1(){ 
-        return leftFollower.getMotorOutputVoltage();
-    }
-    @Log
-    public double getrightVoltage1(){ 
-        return rightFollower.getMotorOutputVoltage();
-    }
+    // TODO: Remove
+    // @Log
+    // public double getleftVoltage(){ 
+    //     return leftMaster.getMotorOutputVoltage();
+    // }
+    // @Log
+    // public double getrightVoltage(){ 
+    //     return rightMaster.getMotorOutputVoltage();
+    // }
+    // @Log
+    // public double getleftVoltage1(){ 
+    //     return leftFollower.getMotorOutputVoltage();
+    // }
+    // @Log
+    // public double getrightVoltage1(){ 
+    //     return rightFollower.getMotorOutputVoltage();
+    // }
 
     /**
      * This method will be called once per scheduler run when in simulation
