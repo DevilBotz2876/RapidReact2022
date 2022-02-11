@@ -227,19 +227,19 @@ public class DriveTrain extends SubsystemBase implements Loggable {
 
 
     }
-    // @Log
+    @Log
     public double getleftVoltage(){ 
         return leftMaster.getMotorOutputVoltage();
     }
-    // @Log
+    @Log
     public double getrightVoltage(){ 
         return rightMaster.getMotorOutputVoltage();
     }
-    // @Log
+    @Log
     public double getleftVoltage1(){ 
         return leftFollower.getMotorOutputVoltage();
     }
-    // @Log
+    @Log
     public double getrightVoltage1(){ 
         return rightFollower.getMotorOutputVoltage();
     }
