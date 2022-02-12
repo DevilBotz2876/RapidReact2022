@@ -33,7 +33,7 @@ import io.github.oblarg.oblog.annotations.Log;
  * @version 1.0.0
  * @since 1.0.0
  */
-public class DriveTrain extends SubsystemBase implements Loggable {
+public class DriveTrain extends SubsystemBase { //implements Loggable {
     // Define talons
     private static final WPI_TalonSRX leftMaster = new WPI_TalonSRX(1);
     private static final WPI_TalonSRX rightMaster = new WPI_TalonSRX(4);
