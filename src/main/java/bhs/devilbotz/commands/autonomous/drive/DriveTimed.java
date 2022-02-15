@@ -52,7 +52,7 @@ public class DriveTimed extends CommandBase {
      */
     @Override
     public void execute() {
-        drive.arcadeDrive(speed, 0);
+        drive.tankDrive(speed, speed);
     }
 
     /**

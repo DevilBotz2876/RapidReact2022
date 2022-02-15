@@ -46,6 +46,7 @@ public class Robot extends TimedRobot {
         robotContainer = new RobotContainer();
         driveTrain = robotContainer.getDriveTrain();
         Logger.configureLoggingAndConfig(this, false);
+
     }
 
 

@@ -11,25 +11,20 @@
 
 package bhs.devilbotz.subsystems;
 
+import bhs.devilbotz.Constants;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.InvertType;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRXConfiguration;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.kauailabs.navx.frc.AHRS;
-
-import bhs.devilbotz.Constants;
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.wpilibj.PowerDistribution;
-import edu.wpi.first.wpilibj.PowerDistribution.ModuleType;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import io.github.oblarg.oblog.Loggable;
-import io.github.oblarg.oblog.annotations.Config;
-import io.github.oblarg.oblog.annotations.Log;
 
 /**
  * DriveTrain subsystem
@@ -40,10 +35,10 @@ import io.github.oblarg.oblog.annotations.Log;
  */
 public class DriveTrain extends SubsystemBase implements Loggable{
     // Define talons
-    private static final WPI_TalonSRX leftMaster = new WPI_TalonSRX(1);
-    private static final WPI_TalonSRX rightMaster = new WPI_TalonSRX(4);
-    private static final WPI_TalonSRX leftFollower = new WPI_TalonSRX(2);
-    private static final WPI_TalonSRX rightFollower = new WPI_TalonSRX(3);
+    private static final WPI_TalonSRX leftMaster = new WPI_TalonSRX(4);
+    private static final WPI_TalonSRX rightMaster = new WPI_TalonSRX(1);
+    private static final WPI_TalonSRX leftFollower = new WPI_TalonSRX(3);
+    private static final WPI_TalonSRX rightFollower = new WPI_TalonSRX(2);
 
     // Define NAVX
     private static final AHRS navx = new AHRS(SPI.Port.kMXP);
@@ -51,6 +46,8 @@ public class DriveTrain extends SubsystemBase implements Loggable{
     // Slew rate limiter
     final SlewRateLimiter filterLeft = new SlewRateLimiter(4);
     final SlewRateLimiter filterRight = new SlewRateLimiter(4);
+
+
     // Define differential drive
     private final DifferentialDrive differentialDrive = new DifferentialDrive(leftMaster, rightMaster);
 
@@ -81,7 +78,7 @@ public class DriveTrain extends SubsystemBase implements Loggable{
      * @since 1.0.0
      */
     private void setupTalons() {
-        rightMaster.setInverted(true);
+        rightMaster.setInverted(false);
         leftMaster.setInverted(true);
         // Set the talons to follow each other
         rightFollower.follow(rightMaster);
@@ -174,6 +171,10 @@ public class DriveTrain extends SubsystemBase implements Loggable{
         return ((Math.abs(leftDistance) + Math.abs(rightDistance)) / 2);
     }
 
+
+    // The gain for a simple P loop
+    double kP = 0.1;
+
     /**
      * Tank drive method
      *
@@ -181,7 +182,12 @@ public class DriveTrain extends SubsystemBase implements Loggable{
      * @param rightSpeed The speed of the right side of the robot
      */
     public void tankDrive(double leftSpeed, double rightSpeed) {
-        differentialDrive.tankDrive(filterLeft.calculate(leftSpeed), filterRight.calculate(rightSpeed));
+        // Drives forward continuously at half speed, using the gyro to stabilize the heading
+        double error = navx.getRate();
+
+        // Drives forward continuously at half speed, using the gyro to stabilize the heading
+        differentialDrive.tankDrive(leftSpeed + kP * error, rightSpeed - kP * error);
+
     }
 
     /**
@@ -223,7 +229,6 @@ public class DriveTrain extends SubsystemBase implements Loggable{
      */
     @Override
     public void periodic() {
-
 
     }
 

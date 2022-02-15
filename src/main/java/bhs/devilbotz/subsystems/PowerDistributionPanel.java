@@ -14,7 +14,6 @@ public class PowerDistributionPanel extends SubsystemBase implements Loggable{
   PowerDistribution pdp = new PowerDistribution(0, ModuleType.kCTRE);
   /** Creates a new PowerDistributionPanel. */
   public PowerDistributionPanel() {
-    
 
   }
 
