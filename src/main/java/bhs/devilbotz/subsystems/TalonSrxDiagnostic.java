@@ -32,19 +32,19 @@ public class TalonSrxDiagnostic extends SubsystemBase implements Loggable {
     // This method will be called once per scheduler run
   }
 
-    @Log(name = "LeftMaster Voltage" , columnIndex = 0, rowIndex = 0, height = 1, width = 1)
+    @Log(name = "LMV" , columnIndex = 0, rowIndex = 0, height = 1, width = 1)
     public double getleftVoltage(){ 
         return leftMaster.getMotorOutputVoltage();
     }
-    @Log(name = "RightMaster Voltage" , tabName = "TalonSrxDiagnostic", columnIndex = 1, rowIndex = 0, height = 1, width = 1)
+    @Log(name = "RMV" , tabName = "TalonSrxDiagnostic", columnIndex = 1, rowIndex = 0, height = 1, width = 1)
     public double getrightVoltage(){ 
         return rightMaster.getMotorOutputVoltage();
     }
-    @Log(name = "LeftFollower Voltage" , tabName = "TalonSrxDiagnostic", columnIndex = 2, rowIndex = 0, height = 1, width = 1)
+    @Log(name = "LFV" , tabName = "TalonSrxDiagnostic", columnIndex = 2, rowIndex = 0, height = 1, width = 1)
     public double getleftVoltage1(){ 
         return leftFollower.getMotorOutputVoltage();
     }
-    @Log(name = "RightFollower Voltage" , tabName = "TalonSrxDiagnostic", columnIndex = 3, rowIndex = 0, height = 1, width = 1)
+    @Log(name = "RFV" , tabName = "TalonSrxDiagnostic", columnIndex = 3, rowIndex = 0, height = 1, width = 1)
     public double getrightVoltage1(){ 
         return rightFollower.getMotorOutputVoltage();
     }
