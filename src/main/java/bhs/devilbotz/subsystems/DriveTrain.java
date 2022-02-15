@@ -33,7 +33,7 @@ import io.github.oblarg.oblog.annotations.Log;
  * @version 1.0.0
  * @since 1.0.0
  */
-public class DriveTrain extends SubsystemBase { //implements Loggable {
+public class DriveTrain extends SubsystemBase implements Loggable {
     // Define talons
     private static final WPI_TalonSRX leftMaster = new WPI_TalonSRX(1);
     private static final WPI_TalonSRX rightMaster = new WPI_TalonSRX(4);
@@ -162,11 +162,16 @@ public class DriveTrain extends SubsystemBase { //implements Loggable {
         return rightMaster;
     }
 
+    public double test(){
+        return 12.90;
+    }
+
     /**
      * Calculates the distance traveled by the robot by reading encoder values
      *
      * @return the linear distance traveled by the robot in inches
      */
+
     public double getAverageEncoderDistance() {
         double leftDistance = leftMaster.getSelectedSensorPosition()
                 * (Constants.AutoConstants.WHEEL_DIAMETER_INCHES * Math.PI / 4096);

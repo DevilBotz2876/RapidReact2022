@@ -40,7 +40,7 @@ public class RobotContainer {
     // TODO: Add more subsystems once they are physically attached to robot.  
     // Careful not to add them here before they are ready else robot code may not run.
     
-    private final TalonSrxDiagnostic talonSrx = new TalonSrxDiagnostic();
+    private final TalonSrxDiagnostic talonSrx = new TalonSrxDiagnostic(driveTrain);
 
 
 
