@@ -33,12 +33,12 @@ import io.github.oblarg.oblog.annotations.Log;
  * @version 1.0.0
  * @since 1.0.0
  */
-public class DriveTrain extends SubsystemBase implements Loggable {
+    public class DriveTrain extends SubsystemBase  {
     // Define talons
-    private static final WPI_TalonSRX leftMaster = new WPI_TalonSRX(1);
-    private static final WPI_TalonSRX rightMaster = new WPI_TalonSRX(4);
-    private static final WPI_TalonSRX leftFollower = new WPI_TalonSRX(2);
-    private static final WPI_TalonSRX rightFollower = new WPI_TalonSRX(3);
+    private static final WPI_TalonSRX leftMaster = new WPI_TalonSRX(4);
+    private static final WPI_TalonSRX rightMaster = new WPI_TalonSRX(1);
+    private static final WPI_TalonSRX leftFollower = new WPI_TalonSRX(3);
+    private static final WPI_TalonSRX rightFollower = new WPI_TalonSRX(2);
 
     // Define NAVX
     private static final AHRS navx = new AHRS(SPI.Port.kMXP);
@@ -82,7 +82,7 @@ public class DriveTrain extends SubsystemBase implements Loggable {
         rightFollower.configFactoryDefault();
 
         // Invert the motors
-        rightMaster.setInverted(true);
+        rightMaster.setInverted(false);
         leftMaster.setInverted(true);
         // Set the talons to follow each other
         rightFollower.follow(rightMaster);
@@ -118,7 +118,6 @@ public class DriveTrain extends SubsystemBase implements Loggable {
 
         // Calibrate the gyro
         navx.calibrate();
-
     }
 
     /**
@@ -151,7 +150,7 @@ public class DriveTrain extends SubsystemBase implements Loggable {
         return leftMaster;
     }
 
-    /**
+        /**
      * Gets the right master talon
      *
      * @return The right master talon
@@ -160,6 +159,28 @@ public class DriveTrain extends SubsystemBase implements Loggable {
      */
     public WPI_TalonSRX getRightMaster() {
         return rightMaster;
+    }
+
+    /**
+     * Gets the left follower talon
+     *
+     * @return The leftFollower talon
+     *
+     * @since 1.0.0
+     */
+    public WPI_TalonSRX getLeftFollower() {
+        return leftFollower;
+    }
+
+    /**
+     * Gets the right Folllower talon
+     *
+     * @return The right Follower talon
+     *
+     * @since 1.0.0
+     */
+    public WPI_TalonSRX getRightFollower() {
+        return rightFollower;
     }
 
     /**
@@ -224,8 +245,6 @@ public class DriveTrain extends SubsystemBase implements Loggable {
      */
     @Override
     public void periodic() {
-
-
     }
 
     /**
@@ -235,8 +254,5 @@ public class DriveTrain extends SubsystemBase implements Loggable {
      */
     @Override
     public void simulationPeriodic() {
-
-
     }
-
 }

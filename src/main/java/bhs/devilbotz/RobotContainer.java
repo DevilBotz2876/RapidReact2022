@@ -15,6 +15,7 @@ import bhs.devilbotz.commands.DriveCommand;
 import bhs.devilbotz.commands.autonomous.routines.AutoTest;
 import bhs.devilbotz.subsystems.DriveTrain;
 import bhs.devilbotz.subsystems.PowerDistributionPanel;
+import bhs.devilbotz.subsystems.TalonSrxDiagnostic;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -38,6 +39,12 @@ public class RobotContainer {
     private final PowerDistributionPanel pdp = new PowerDistributionPanel();
     // TODO: Add more subsystems once they are physically attached to robot.  
     // Careful not to add them here before they are ready else robot code may not run.
+    
+    private final TalonSrxDiagnostic talonSrx = new TalonSrxDiagnostic(driveTrain);
+
+
+
+ 
 
     // Joysticks
     private final Joystick joy = new Joystick(Constants.JOYSTICK);
