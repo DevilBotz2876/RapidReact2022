@@ -17,17 +17,12 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRXConfiguration;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
-public class TalonSrxDiagnostic extends SubsystemBase implements Loggable {
-  /** Creates a new TalonSrxDiagnostic. */
-//   private static final WPI_TalonSRX leftMaster = new WPI_TalonSRX(1);
-//   private static final WPI_TalonSRX rightMaster = new WPI_TalonSRX(4);
-//   private static final WPI_TalonSRX leftFollower = new WPI_TalonSRX(2);
-//   private static final WPI_TalonSRX rightFollower = new WPI_TalonSRX(3);
-private DriveTrain driveTrain;
-
+  public class TalonSrxDiagnostic extends SubsystemBase implements Loggable {
+  /** Creates a new TalonSrxDiagnostic. */  
+  private DriveTrain driveTrain;
+  
   public TalonSrxDiagnostic(DriveTrain driveTrainObj) {
-      driveTrain =  driveTrainObj;
-    
+      driveTrain =  driveTrainObj;    
   }
 
   @Override
@@ -43,20 +38,12 @@ private DriveTrain driveTrain;
     public double getrightVoltage(){ 
         return driveTrain.getRightMaster().getMotorOutputVoltage();        
     }
-    // @Log(name = "LFV" , tabName = "TalonSrxDiagnostic", columnIndex = 2, rowIndex = 0, height = 1, width = 1)
-    // public double getleftVoltage1(){ 
-    //     return leftFollower.getMotorOutputVoltage();
-    // }
-    // @Log(name = "RFV" , tabName = "TalonSrxDiagnostic", columnIndex = 3, rowIndex = 0, height = 1, width = 1)
-    // public double getrightVoltage1(){ 
-    //     return rightFollower.getMotorOutputVoltage();
-    // }
-    // @Log(name = "LeftFollower Voltage" , tabName = "TalonSrxDiagnostic", columnIndex = 2, rowIndex = 0, height = 1, width = 1)
-    // public double getleftVoltage1(){ 
-    //     return leftFollower.getMotorOutputVoltage();
-    // }
-    // @Log(name = "RightFollower Voltage" , tabName = "TalonSrxDiagnostic", columnIndex = 3, rowIndex = 0, height = 1, width = 1)
-    // public double getrightVoltage1(){ 
-    //     return rightFollower.getMotorOutputVoltage();
-    // }
+    @Log(name = "LFV" , tabName = "TalonSrxDiagnostic", columnIndex = 2, rowIndex = 0, height = 1, width = 1)
+    public double getleftVoltage1(){ 
+        return driveTrain.getLeftFollower().getMotorOutputVoltage();
+    }
+    @Log(name = "RFV" , tabName = "TalonSrxDiagnostic", columnIndex = 3, rowIndex = 0, height = 1, width = 1)
+    public double getrightVoltage1(){ 
+        return driveTrain.getRightFollower().getMotorOutputVoltage();
+    }
 }
