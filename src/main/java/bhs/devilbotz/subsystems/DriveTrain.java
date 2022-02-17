@@ -61,7 +61,7 @@ import io.github.oblarg.oblog.annotations.Log;
 
 
     /**
-     * Gets the NAVXF
+     * Gets the NAVX
      *
      * @return The NAVX
      */
@@ -118,7 +118,6 @@ import io.github.oblarg.oblog.annotations.Log;
 
         // Calibrate the gyro
         navx.calibrate();
-
     }
 
     /**
@@ -150,7 +149,7 @@ import io.github.oblarg.oblog.annotations.Log;
     public WPI_TalonSRX getLeftMaster() {
         return leftMaster;
     }
-    
+
         /**
      * Gets the right master talon
      *
@@ -161,7 +160,8 @@ import io.github.oblarg.oblog.annotations.Log;
     public WPI_TalonSRX getRightMaster() {
         return rightMaster;
     }
-        /**
+
+    /**
      * Gets the left follower talon
      *
      * @return The leftFollower talon
@@ -170,7 +170,6 @@ import io.github.oblarg.oblog.annotations.Log;
      */
     public WPI_TalonSRX getLeftFollower() {
         return leftFollower;
-        
     }
 
     /**
@@ -184,16 +183,11 @@ import io.github.oblarg.oblog.annotations.Log;
         return rightFollower;
     }
 
-    public double test(){
-        return 12.90;
-    }
-
     /**
      * Calculates the distance traveled by the robot by reading encoder values
      *
      * @return the linear distance traveled by the robot in inches
      */
-
     public double getAverageEncoderDistance() {
         double leftDistance = leftMaster.getSelectedSensorPosition()
                 * (Constants.AutoConstants.WHEEL_DIAMETER_INCHES * Math.PI / 4096);
@@ -251,26 +245,7 @@ import io.github.oblarg.oblog.annotations.Log;
      */
     @Override
     public void periodic() {
-
-
     }
-    // TODO: Remove
-    // @Log
-    // public double getleftVoltage(){ 
-    //     return leftMaster.getMotorOutputVoltage();
-    // }
-    // @Log
-    // public double getrightVoltage(){ 
-    //     return rightMaster.getMotorOutputVoltage();
-    // }
-    // @Log
-    // public double getleftVoltage1(){ 
-    //     return leftFollower.getMotorOutputVoltage();
-    // }
-    // @Log
-    // public double getrightVoltage1(){ 
-    //     return rightFollower.getMotorOutputVoltage();
-    // }
 
     /**
      * This method will be called once per scheduler run when in simulation
@@ -279,8 +254,5 @@ import io.github.oblarg.oblog.annotations.Log;
      */
     @Override
     public void simulationPeriodic() {
-
-
     }
-
 }
