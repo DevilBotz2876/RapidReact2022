@@ -7,17 +7,8 @@ package bhs.devilbotz.subsystems;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import io.github.oblarg.oblog.Loggable;
 import io.github.oblarg.oblog.annotations.Log;
-import bhs.devilbotz.Constants;
 
-import java.time.temporal.TemporalUnit;
-
-import com.ctre.phoenix.motorcontrol.FeedbackDevice;
-import com.ctre.phoenix.motorcontrol.InvertType;
-import com.ctre.phoenix.motorcontrol.NeutralMode;
-import com.ctre.phoenix.motorcontrol.can.TalonSRXConfiguration;
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-
-  public class TalonSrxDiagnostic extends SubsystemBase implements Loggable {
+public class TalonSrxDiagnostic extends SubsystemBase implements Loggable {
   /** Creates a new TalonSrxDiagnostic. */  
   private DriveTrain driveTrain;
   
@@ -28,6 +19,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+
   }
 
     @Log(name = "LMV" , columnIndex = 0, rowIndex = 0, height = 1, width = 1)
@@ -54,5 +46,5 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
     public double getRightVelocity(){
         return driveTrain.getRightMaster().getSelectedSensorVelocity();
     }
-
+    
 }
