@@ -46,4 +46,13 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
     public double getrightVoltage1(){ 
         return driveTrain.getRightFollower().getMotorOutputVoltage();
     }
+    @Log(name = "LMS" , tabName = "Drive", columnIndex = 1, rowIndex = 0, height = 1, width = 1)
+    public double getLeftVelocity(){
+        return driveTrain.getLeftMaster().getSelectedSensorVelocity();
+    }
+    @Log(name = "RMS" , tabName = "Drive", columnIndex = 2, rowIndex = 0, height = 1, width = 1)
+    public double getRightVelocity(){
+        return driveTrain.getRightMaster().getSelectedSensorVelocity();
+    }
+
 }
