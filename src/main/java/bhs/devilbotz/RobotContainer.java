@@ -14,6 +14,7 @@ package bhs.devilbotz;
 import bhs.devilbotz.commands.DriveCommand;
 import bhs.devilbotz.commands.autonomous.routines.AutoTest;
 import bhs.devilbotz.subsystems.DriveTrain;
+import bhs.devilbotz.subsystems.Intake;
 import bhs.devilbotz.subsystems.PowerDistributionPanel;
 import bhs.devilbotz.subsystems.TalonSrxDiagnostic;
 import edu.wpi.first.wpilibj.Joystick;
@@ -41,6 +42,8 @@ public class RobotContainer {
     // Careful not to add them here before they are ready else robot code may not run.
     
     private final TalonSrxDiagnostic talonSrx = new TalonSrxDiagnostic(driveTrain);
+
+    private final Intake intake = new Intake();
 
 
 
