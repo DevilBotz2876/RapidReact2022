@@ -12,6 +12,7 @@
 package bhs.devilbotz.commands.intake;
 
 import bhs.devilbotz.subsystems.Intake;
+import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /**
@@ -24,6 +25,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
  */
 public class IntakeIdle extends CommandBase {
     private final Intake intake;
+    private final Servo intakeHolder;
 
     /**
      * IntakeStop constructor
@@ -32,6 +34,7 @@ public class IntakeIdle extends CommandBase {
      */
     public IntakeIdle(Intake intake) {
         this.intake = intake;
+        intakeHolder = new Servo(0);
         addRequirements(intake);
     }
 
@@ -41,7 +44,6 @@ public class IntakeIdle extends CommandBase {
      */
     @Override
     public void execute() {
-
     }
 
     /**

@@ -18,13 +18,11 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRXConfiguration;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.kauailabs.navx.frc.AHRS;
-import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import io.github.oblarg.oblog.Loggable;
 
 /**
  * DriveTrain subsystem
@@ -33,20 +31,15 @@ import io.github.oblarg.oblog.Loggable;
  * @version 1.0.0
  * @since 1.0.0
  */
-public class DriveTrain extends SubsystemBase implements Loggable{
+public class DriveTrain extends SubsystemBase {
     // Define talons
-    private static final WPI_TalonSRX leftMaster = new WPI_TalonSRX(4);
-    private static final WPI_TalonSRX rightMaster = new WPI_TalonSRX(1);
-    private static final WPI_TalonSRX leftFollower = new WPI_TalonSRX(3);
-    private static final WPI_TalonSRX rightFollower = new WPI_TalonSRX(2);
+    private static final WPI_TalonSRX leftMaster = new WPI_TalonSRX(1);
+    private static final WPI_TalonSRX rightMaster = new WPI_TalonSRX(3);
+    private static final WPI_TalonSRX leftFollower = new WPI_TalonSRX(2);
+    private static final WPI_TalonSRX rightFollower = new WPI_TalonSRX(4);
 
     // Define NAVX
     private static final AHRS navx = new AHRS(SPI.Port.kMXP);
-
-    // Slew rate limiter
-    final SlewRateLimiter filterLeft = new SlewRateLimiter(4);
-    final SlewRateLimiter filterRight = new SlewRateLimiter(4);
-
 
     // Define differential drive
     private final DifferentialDrive differentialDrive = new DifferentialDrive(leftMaster, rightMaster);
@@ -60,8 +53,7 @@ public class DriveTrain extends SubsystemBase implements Loggable{
         setupTalons();
         resetNavx();
     }
-    
-  
+
   
     /**
      * Gets the NAVX
@@ -78,8 +70,8 @@ public class DriveTrain extends SubsystemBase implements Loggable{
      * @since 1.0.0
      */
     private void setupTalons() {
-        rightMaster.setInverted(false);
-        leftMaster.setInverted(true);
+        rightMaster.setInverted(true);
+        leftMaster.setInverted(false);
         // Set the talons to follow each other
         rightFollower.follow(rightMaster);
         leftFollower.follow(leftMaster);
@@ -91,6 +83,10 @@ public class DriveTrain extends SubsystemBase implements Loggable{
         // Set the sensor phase of the master talons
         rightMaster.setSensorPhase(true);
         leftMaster.setSensorPhase(true);
+
+
+        leftMaster.configFactoryDefault();
+        rightMaster.configFactoryDefault();
 
         // Create a new instance o TalonSRXConfiguration
         TalonSRXConfiguration config = new TalonSRXConfiguration();
@@ -186,7 +182,7 @@ public class DriveTrain extends SubsystemBase implements Loggable{
         double error = navx.getRate();
 
         // Drives forward continuously at half speed, using the gyro to stabilize the heading
-        differentialDrive.tankDrive(leftSpeed + kP * error, rightSpeed - kP * error);
+        differentialDrive.tankDrive(leftSpeed, rightSpeed);
 
     }
 

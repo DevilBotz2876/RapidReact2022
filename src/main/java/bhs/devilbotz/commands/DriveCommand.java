@@ -51,7 +51,7 @@ public class DriveCommand extends CommandBase {
         r = (a * (r * r * r) + (b - a) * r) * 1.1;
         l = (a * (l * l * l) + (b - a) * l) * 1.1;
 
-        drive.tankDrive(l, r);
+        drive.tankDrive(r, l);
     }
 
     @Override

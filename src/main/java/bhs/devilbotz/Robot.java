@@ -13,6 +13,8 @@ package bhs.devilbotz;
 
 import bhs.devilbotz.subsystems.DriveTrain;
 import bhs.devilbotz.subsystems.Indexing;
+import bhs.devilbotz.subsystems.Intake;
+import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
@@ -33,7 +35,7 @@ public class Robot extends TimedRobot {
 
     private DriveTrain driveTrain;
 
-    private Indexing indexing;
+    private Intake intake;
 
     /**
      * This method is run when the robot is first started up and is used for initialization
@@ -45,6 +47,7 @@ public class Robot extends TimedRobot {
         // Instantiate the RobotContainer.
         robotContainer = new RobotContainer();
         driveTrain = robotContainer.getDriveTrain();
+        intake = robotContainer.getIntake();
         Logger.configureLoggingAndConfig(this, false);
 
     }
@@ -73,6 +76,7 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void disabledInit() {
+        robotContainer.getIntake().setIntakeHolder(1);
     }
 
     /**
@@ -107,7 +111,6 @@ public class Robot extends TimedRobot {
     @Override
     public void autonomousPeriodic() {
     }
-
     /**
      * This method is called once when the robot is in teleoperated mode.
      *
@@ -119,6 +122,8 @@ public class Robot extends TimedRobot {
         if (autonomousCommand != null) {
             autonomousCommand.cancel();
         }
+
+        robotContainer.getIntake().setIntakeHolder(0);
     }
 
 

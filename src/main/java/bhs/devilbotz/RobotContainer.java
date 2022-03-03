@@ -15,14 +15,10 @@ import bhs.devilbotz.commands.DriveCommand;
 import bhs.devilbotz.commands.autonomous.drive.driverassist.Approach;
 import bhs.devilbotz.commands.autonomous.routines.AutoTest;
 import bhs.devilbotz.commands.camera.CameraToggle;
-import bhs.devilbotz.subsystems.CameraSystem;
-import bhs.devilbotz.subsystems.DriveTrain;
-import bhs.devilbotz.subsystems.Indexing;
-import bhs.devilbotz.subsystems.PowerDistributionPanel;
+import bhs.devilbotz.subsystems.*;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import io.github.oblarg.oblog.Logger;
@@ -40,7 +36,7 @@ import io.github.oblarg.oblog.Logger;
 public class RobotContainer {
     // The robot's subsystems and commands are defined
     private final DriveTrain driveTrain = new DriveTrain();
-    private final Indexing indexing = new Indexing();
+    private final Intake intake = new Intake();
 
     // private final PowerDistributionPanel pdp = new PowerDistributionPanel();
     // TODO: Add more subsystems once they are physically attached to robot.  
@@ -123,7 +119,7 @@ public class RobotContainer {
         return driveTrain;
     }
 
-    public Indexing getIndexing() {
-        return indexing;
+    public Intake getIntake() {
+        return intake;
     }
 }
