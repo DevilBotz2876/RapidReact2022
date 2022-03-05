@@ -1,27 +1,27 @@
 package bhs.devilbotz.subsystems;
 
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
+import com.ctre.phoenix.motorcontrol.can.TalonSRXConfiguration;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.Ultrasonic;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-public class Indexing extends SubsystemBase {
-    // private final WPI_TalonSRX indexingMotor;
+public class Transfer extends SubsystemBase {
+    private final WPI_TalonSRX transferMotor;
 
-    public Indexing() {
-        // TODO: Connect Indexing Motor to TalonSRX
-        // indexingMotor = new WPI_TalonSRX(7);
+    public Transfer() {
+        transferMotor = new WPI_TalonSRX(6);
+
+        addChild("TransferMotor", transferMotor);
     }
 
-    public void indexIn(double speed) {
-        // indexingMotor.set(speed);
+    public void setTransfer(double speed) {
+        transferMotor.set(speed);
     }
 
-    public void indexOut(double speed) {
-        // indexingMotor.set(-speed);
-    }
-
-    public void indexIdle() {
-        // indexingMotor.set(0);
+    public void transferIdle() {
+        transferMotor.set(0);
+        transferMotor.stopMotor();
     }
 
     /**

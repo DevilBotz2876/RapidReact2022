@@ -29,10 +29,8 @@ public class Shooter extends SubsystemBase {
      * Constructor for Shooter subsystem
      */
     public Shooter() {
-        shooterMotor = new CANSparkMax(5, CANSparkMax.MotorType.kBrushless);
+        shooterMotor = new CANSparkMax(8, CANSparkMax.MotorType.kBrushless);
         shooterMotor.setInverted(false);
-        shooterMotor.setClosedLoopRampRate(0);
-        shooterMotor.setOpenLoopRampRate(0);
     }
 
     /**
@@ -42,7 +40,6 @@ public class Shooter extends SubsystemBase {
      */
     @Override
     public void periodic() {
-        System.out.println("Shooter: temp: " + shooterMotor.getMotorTemperature() + " Speed: " + shooterMotor.getEncoder().getVelocity());
 
     }
 
@@ -56,16 +53,13 @@ public class Shooter extends SubsystemBase {
 
     }
 
-    public void shooterOn(double speed) {
+    public void setShooter(double speed) {
         shooterMotor.set(speed);
     }
 
-    public void stop() {
+    public void shooterIdle() {
         shooterMotor.set(0);
-    }
-
-    public boolean shootReady() {
-        return shooterMotor.getEncoder().getVelocity() >= 2800;
+        shooterMotor.stopMotor();
     }
 
 }

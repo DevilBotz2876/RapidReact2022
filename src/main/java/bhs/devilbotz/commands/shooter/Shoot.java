@@ -25,7 +25,6 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
  */
 public class Shoot extends CommandBase {
     private final Shooter shooter;
-    private final RobotContainer robotContainer;
 
     /**
      * ShooterIn constructor
@@ -34,9 +33,8 @@ public class Shoot extends CommandBase {
      *
      * @since 1.0.5
      */
-    public Shoot(Shooter shooter, RobotContainer robotContainer) {
+    public Shoot(Shooter shooter) {
         this.shooter = shooter;
-        this.robotContainer = robotContainer;
         addRequirements(shooter);
     }
 
@@ -47,10 +45,7 @@ public class Shoot extends CommandBase {
      */
     @Override
     public void execute() {
-        shooter.shooterOn(Math.abs(robotContainer.getJoyTwo().getZ()));
-        if(shooter.shootReady()) {
-            System.out.println("SHOOT\nSHOOT\nSHOOT\nSHOOT\nSHOOT\nSHOOT");
-        }
+        shooter.setShooter(-1);
     }
 
     /**

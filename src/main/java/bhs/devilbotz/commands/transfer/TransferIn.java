@@ -9,39 +9,30 @@
 /* You may NOT remove this header under any circumstance unless explicitly noted */
 /*-------------------------------------------------------------------------------*/
 
-package bhs.devilbotz.commands.climber;
+package bhs.devilbotz.commands.transfer;
 
-import bhs.devilbotz.subsystems.Climber;
+import bhs.devilbotz.subsystems.Intake;
+import bhs.devilbotz.subsystems.Transfer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /**
- * RaiseHook command.
- * Raises the hook
+ * IntakeStop command
+ * Stops the intake motor
  *
  * @author  Devilbotz
  * @version 1.0.0
  * @since 1.0.5
  */
-public class RaiseHook extends CommandBase {
-    private final Climber climber;
+public class TransferIn extends CommandBase {
+    private final Transfer transfer;
 
     /**
-     * RaiseHook constructor.
-     * @param climber {@link Climber} subsystem
+     * IntakeStop constructor
      * @since 1.0.5
      */
-    public RaiseHook(Climber climber) {
-        this.climber = climber;
-        addRequirements(climber);
-    }
-
-    /**
-     * Executed when the command is initially scheduled
-     * @since 1.0.5
-     */
-    @Override
-    public void initialize() {
-
+    public TransferIn(Transfer transfer) {
+        this.transfer = transfer;
+        addRequirements(transfer);
     }
 
     /**
@@ -50,7 +41,7 @@ public class RaiseHook extends CommandBase {
      */
     @Override
     public void execute() {
-
+        transfer.setTransfer(1);
     }
 
     /**

@@ -15,6 +15,12 @@ import bhs.devilbotz.commands.DriveCommand;
 import bhs.devilbotz.commands.autonomous.drive.driverassist.Approach;
 import bhs.devilbotz.commands.autonomous.routines.AutoTest;
 import bhs.devilbotz.commands.camera.CameraToggle;
+import bhs.devilbotz.commands.intake.IntakeIdle;
+import bhs.devilbotz.commands.intake.IntakeIn;
+import bhs.devilbotz.commands.shooter.Shoot;
+import bhs.devilbotz.commands.shooter.ShooterIdle;
+import bhs.devilbotz.commands.transfer.TransferIdle;
+import bhs.devilbotz.commands.transfer.TransferIn;
 import bhs.devilbotz.subsystems.*;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
@@ -37,6 +43,8 @@ public class RobotContainer {
     // The robot's subsystems and commands are defined
     private final DriveTrain driveTrain = new DriveTrain();
     private final Intake intake = new Intake();
+    private final Transfer transfer = new Transfer();
+    private final Shooter shooter = new Shooter();
 
     // private final PowerDistributionPanel pdp = new PowerDistributionPanel();
     // TODO: Add more subsystems once they are physically attached to robot.  
@@ -86,6 +94,30 @@ public class RobotContainer {
 
         new JoystickButton(joy_two, Constants.CAMERA_BUTTON)
                 .whenPressed(new CameraToggle(cameraSystem));
+
+        intake.setDefaultCommand(new IntakeIdle(intake));
+
+        new JoystickButton(joy_two, 4)
+                .whenPressed(new IntakeIn(intake))
+                .whenReleased(new IntakeIdle(intake));
+
+        intake.setDefaultCommand(new IntakeIdle(intake));
+
+        new JoystickButton(joy_two, 4)
+                .whenPressed(new IntakeIn(intake))
+                .whenReleased(new IntakeIdle(intake));
+
+        transfer.setDefaultCommand(new TransferIdle(transfer));
+
+        new JoystickButton(joy_two, 5)
+                .whenPressed(new TransferIn(transfer))
+                .whenReleased(new TransferIdle(transfer));
+
+        shooter.setDefaultCommand(new ShooterIdle(shooter));
+
+        new JoystickButton(joy_two, 3)
+                .whenPressed(new Shoot(shooter))
+                .whenReleased(new ShooterIdle(shooter));
     }
 
     private void configureShuffleboard() {

@@ -44,6 +44,10 @@ public class DriveTrain extends SubsystemBase {
     // Define differential drive
     private final DifferentialDrive differentialDrive = new DifferentialDrive(leftMaster, rightMaster);
 
+    private final SlewRateLimiter leftSlew = new SlewRateLimiter(1.75);
+
+    private final SlewRateLimiter rightSlew = new SlewRateLimiter(1.75);
+
     /**
      * The constructor for the DriveTrain subsystem
      *
@@ -83,20 +87,6 @@ public class DriveTrain extends SubsystemBase {
         // Set the sensor phase of the master talons
         rightMaster.setSensorPhase(true);
         leftMaster.setSensorPhase(true);
-
-
-        leftMaster.configFactoryDefault();
-        rightMaster.configFactoryDefault();
-
-        // Create a new instance o TalonSRXConfiguration
-        TalonSRXConfiguration config = new TalonSRXConfiguration();
-
-        // Configure the config
-        config.primaryPID.selectedFeedbackSensor = FeedbackDevice.QuadEncoder;
-
-        // Apply the config to the talons
-        rightMaster.configAllSettings(config);
-        leftMaster.configAllSettings(config);
     }
 
     /**
@@ -182,7 +172,7 @@ public class DriveTrain extends SubsystemBase {
         double error = navx.getRate();
 
         // Drives forward continuously at half speed, using the gyro to stabilize the heading
-        differentialDrive.tankDrive(leftSpeed, rightSpeed);
+        differentialDrive.tankDrive(leftSlew.calculate(leftSpeed), rightSlew.calculate(rightSpeed));
 
     }
 

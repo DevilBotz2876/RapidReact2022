@@ -11,12 +11,13 @@
 
 package bhs.devilbotz.commands.shooter;
 
+import bhs.devilbotz.RobotContainer;
 import bhs.devilbotz.subsystems.Shooter;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /**
- * ShooterStop command
- * Stops the shooter motors
+ * ShooterIn command
+ * Runs the shooter
  *
  * @author Devilbotz
  * @version 1.0.0
@@ -26,7 +27,7 @@ public class ShooterIdle extends CommandBase {
     private final Shooter shooter;
 
     /**
-     * ShooterStop constructor
+     * ShooterIn constructor
      *
      * @param shooter {@link Shooter} subsystem
      *
@@ -44,8 +45,7 @@ public class ShooterIdle extends CommandBase {
      */
     @Override
     public void execute() {
-        shooter.stop();
-
+        shooter.shooterIdle();
     }
 
     /**

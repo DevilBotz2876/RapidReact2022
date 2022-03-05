@@ -41,6 +41,7 @@ public class IntakeOut extends CommandBase {
      */
     @Override
     public void execute() {
+        intake.setIntake(-0.65);
 
     }
 
