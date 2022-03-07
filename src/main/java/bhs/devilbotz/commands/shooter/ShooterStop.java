@@ -9,45 +9,49 @@
 /* You may NOT remove this header under any circumstance unless explicitly noted */
 /*-------------------------------------------------------------------------------*/
 
-package bhs.devilbotz.commands.intake;
+package bhs.devilbotz.commands.shooter;
 
-import bhs.devilbotz.subsystems.Intake;
-import edu.wpi.first.wpilibj.Servo;
+import bhs.devilbotz.subsystems.Shooter;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /**
- * IntakeStop command
- * Stops the intake motor
+ * ShooterIn command
+ * Runs the shooter
  *
- * @author  Devilbotz
+ * @author Devilbotz
  * @version 1.0.0
  * @since 1.0.5
  */
-public class IntakeIdle extends CommandBase {
-    private final Intake intake;
+public class ShooterStop extends CommandBase {
+    private final Shooter shooter;
 
     /**
-     * IntakeStop constructor
-     * @param intake {@link Intake} subsystem
+     * ShooterIn constructor
+     *
+     * @param shooter {@link Shooter} subsystem
+     *
      * @since 1.0.5
      */
-    public IntakeIdle(Intake intake) {
-        this.intake = intake;
-        addRequirements(intake);
+    public ShooterStop(Shooter shooter) {
+        this.shooter = shooter;
+        addRequirements(shooter);
     }
 
     /**
      * Executed when the command is initially scheduled
+     *
      * @since 1.0.5
      */
     @Override
     public void execute() {
-        intake.stopIntake();
+        shooter.stop();
     }
 
     /**
      * Called once the command ends or is interrupted.
+     *
      * @param interrupted True if the command was interrupted, false otherwise.
+     *
      * @since 1.0.5
      */
     @Override
@@ -56,6 +60,7 @@ public class IntakeIdle extends CommandBase {
 
     /**
      * Returns true when the command should end.
+     *
      * @return True if the command should end, false otherwise.
      */
     @Override
@@ -65,6 +70,7 @@ public class IntakeIdle extends CommandBase {
 
     /**
      * If the command should run when the robot is disabled
+     *
      * @return True if the command should run when the robot is disabled, false otherwise.
      */
     @Override

@@ -9,31 +9,32 @@
 /* You may NOT remove this header under any circumstance unless explicitly noted */
 /*-------------------------------------------------------------------------------*/
 
-package bhs.devilbotz.commands.transfer;
+package bhs.devilbotz.commands.intake;
 
 import bhs.devilbotz.subsystems.Intake;
-import bhs.devilbotz.subsystems.Transfer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /**
- * IntakeStop command
- * Stops the intake motor
+ * IntakeIn command
+ * Runs the intake motor
  *
- * @author  Devilbotz
+ * @author Devilbotz
  * @version 1.0.0
  * @since 1.0.5
  */
-public class TransferIdle extends CommandBase {
-    private final Transfer transfer;
+public class IntakeInToggle extends CommandBase {
+    private final Intake intake;
 
     /**
-     * IntakeStop constructor
+     * IntakeIn constructor
+     *
      * @param intake {@link Intake} subsystem
+     *
      * @since 1.0.5
      */
-    public TransferIdle(Transfer transfer) {
-        this.transfer = transfer;
-        addRequirements(transfer);
+    public IntakeInToggle(Intake intake) {
+        this.intake = intake;
+        addRequirements(intake);
     }
 
     /**
@@ -42,7 +43,11 @@ public class TransferIdle extends CommandBase {
      */
     @Override
     public void execute() {
-        transfer.transferIdle();
+        if (intake.isRunning()) {
+            intake.stop();
+        } else {
+            intake.set(intake.getIntakeSpeedWidget().getDouble(0.65));
+        }
     }
 
     /**

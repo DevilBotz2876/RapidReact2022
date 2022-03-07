@@ -11,7 +11,6 @@
 
 package bhs.devilbotz.commands.transfer;
 
-import bhs.devilbotz.subsystems.Intake;
 import bhs.devilbotz.subsystems.Transfer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
@@ -41,7 +40,7 @@ public class TransferOut extends CommandBase {
      */
     @Override
     public void execute() {
-        transfer.setTransfer(-1);
+        transfer.set(-1);
     }
 
     /**

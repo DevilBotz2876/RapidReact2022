@@ -2,18 +2,32 @@
   "NTProvider": {
     "types": {
       "/FMSInfo": "FMSInfo",
+      "/LiveWindow/CameraSystem": "Subsystem",
       "/LiveWindow/DriveTrain": "Subsystem",
+      "/LiveWindow/Intake": "Subsystem",
+      "/LiveWindow/Intake/IntakeMotor": "Motor Controller",
       "/LiveWindow/PowerDistributionPanel": "Subsystem",
+      "/LiveWindow/Shooter": "Subsystem",
+      "/LiveWindow/ShuffleboardManager": "Subsystem",
+      "/LiveWindow/Transfer": "Subsystem",
+      "/LiveWindow/Transfer/TransferMotor": "Motor Controller",
       "/LiveWindow/Ungrouped/DifferentialDrive[1]": "DifferentialDrive",
       "/LiveWindow/Ungrouped/Scheduler": "Scheduler",
       "/LiveWindow/Ungrouped/Talon SRX [1]": "Motor Controller",
       "/LiveWindow/Ungrouped/Talon SRX [2]": "Motor Controller",
       "/LiveWindow/Ungrouped/Talon SRX [3]": "Motor Controller",
+      "/LiveWindow/Ungrouped/Talon SRX [4]": "Motor Controller",
       "/LiveWindow/Ungrouped/navX-Sensor[4]": "Gyro",
+      "/Shuffleboard/Drive/Auto Chooser": "String Chooser",
       "/SmartDashboard/Auto Chooser": "String Chooser"
     }
   },
   "NetworkTables": {
+    "CameraPublisher": {
+      "USB Camera 0": {
+        "open": true
+      }
+    },
     "Shuffleboard": {
       "Debugger": {
         "open": true

@@ -12,15 +12,14 @@
 package bhs.devilbotz;
 
 import bhs.devilbotz.commands.DriveCommand;
-import bhs.devilbotz.commands.autonomous.drive.driverassist.Approach;
 import bhs.devilbotz.commands.autonomous.routines.AutoTest;
 import bhs.devilbotz.commands.camera.CameraToggle;
-import bhs.devilbotz.commands.intake.IntakeIdle;
-import bhs.devilbotz.commands.intake.IntakeIn;
-import bhs.devilbotz.commands.shooter.Shoot;
-import bhs.devilbotz.commands.shooter.ShooterIdle;
-import bhs.devilbotz.commands.transfer.TransferIdle;
-import bhs.devilbotz.commands.transfer.TransferIn;
+import bhs.devilbotz.commands.intake.IntakeInToggle;
+import bhs.devilbotz.commands.intake.IntakeStop;
+import bhs.devilbotz.commands.shooter.ShooterStop;
+import bhs.devilbotz.commands.shooter.ShooterToggle;
+import bhs.devilbotz.commands.transfer.TransferInToggle;
+import bhs.devilbotz.commands.transfer.TransferStop;
 import bhs.devilbotz.subsystems.*;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
@@ -31,8 +30,7 @@ import io.github.oblarg.oblog.Logger;
 
 
 /**
- * The declaration class for the robot
- * <p>
+ * The declaration class for the robot.
  * The structure of the robot (including subsystems, commands, and button mappings) should be declared here.
  *
  * @author Devilbotz
@@ -45,10 +43,6 @@ public class RobotContainer {
     private final Intake intake = new Intake();
     private final Transfer transfer = new Transfer();
     private final Shooter shooter = new Shooter();
-
-    // private final PowerDistributionPanel pdp = new PowerDistributionPanel();
-    // TODO: Add more subsystems once they are physically attached to robot.  
-    // Careful not to add them here before they are ready else robot code may not run.
 
     // Joysticks
     private final Joystick joy = new Joystick(Constants.JOYSTICK);
@@ -63,7 +57,6 @@ public class RobotContainer {
 
     /**
      * The container for the robot
-     * <p>
      * Contains subsystems, OI devices, and commands
      *
      * @since 1.0.0
@@ -87,37 +80,25 @@ public class RobotContainer {
         driveTrain.setDefaultCommand(new DriveCommand(driveTrain,
                 () -> -joy.getY(),
                 () -> -joy_two.getY()
-        ));;
-
-        new JoystickButton(joy_two, Constants.APPROACH_BUTTON)
-                .whenPressed(new Approach(driveTrain, this));
+        ));
 
         new JoystickButton(joy_two, Constants.CAMERA_BUTTON)
                 .whenPressed(new CameraToggle(cameraSystem));
 
-        intake.setDefaultCommand(new IntakeIdle(intake));
+        intake.setDefaultCommand(new IntakeStop(intake));
 
-        new JoystickButton(joy_two, 4)
-                .whenPressed(new IntakeIn(intake))
-                .whenReleased(new IntakeIdle(intake));
+        new JoystickButton(joy_two, Constants.INTAKE_BUTTON)
+                .whenPressed(new IntakeInToggle(intake));
 
-        intake.setDefaultCommand(new IntakeIdle(intake));
-
-        new JoystickButton(joy_two, 4)
-                .whenPressed(new IntakeIn(intake))
-                .whenReleased(new IntakeIdle(intake));
-
-        transfer.setDefaultCommand(new TransferIdle(transfer));
+        transfer.setDefaultCommand(new TransferStop(transfer));
 
         new JoystickButton(joy_two, 5)
-                .whenPressed(new TransferIn(transfer))
-                .whenReleased(new TransferIdle(transfer));
+                .whenPressed(new TransferInToggle(transfer));
 
-        shooter.setDefaultCommand(new ShooterIdle(shooter));
+        shooter.setDefaultCommand(new ShooterStop(shooter));
 
         new JoystickButton(joy_two, 3)
-                .whenPressed(new Shoot(shooter))
-                .whenReleased(new ShooterIdle(shooter));
+                .whenPressed(new ShooterToggle(shooter));
     }
 
     private void configureShuffleboard() {
@@ -132,7 +113,6 @@ public class RobotContainer {
      * Passes the autonomous command to the main {@link Robot} class.
      *
      * @return the command to run in autonomous
-     *
      * @since 1.0.0
      */
     public Command getAutonomousCommand() {

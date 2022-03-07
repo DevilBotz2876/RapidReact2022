@@ -11,13 +11,11 @@
 
 package bhs.devilbotz.subsystems;
 
-import com.ctre.phoenix.motorcontrol.FeedbackDevice;
-import com.ctre.phoenix.motorcontrol.can.TalonSRXConfiguration;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-import edu.wpi.first.wpilibj.AnalogPotentiometer;
-import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.Servo;
-import edu.wpi.first.wpilibj.Ultrasonic;
+import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 /**
@@ -28,7 +26,10 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
  * @since 1.0.5
  */
 public class Intake extends SubsystemBase {
+    ShuffleboardTab tab = Shuffleboard.getTab("LiveDebug");
+    private final NetworkTableEntry intakeSpeedWidget = tab.add("Intake Speed", 0.65).withWidget(BuiltInWidgets.kNumberSlider).withSize(2, 1).withPosition(0, 0).getEntry();
     private final WPI_TalonSRX intakeMotor;
+    private boolean intakeRunning = false;
 
 
     /**
@@ -59,13 +60,24 @@ public class Intake extends SubsystemBase {
 
     }
 
-    public void setIntake(double speed) {
+    public void set(double speed) {
+        intakeSpeedWidget.setDouble(speed);
         intakeMotor.set(speed);
+        intakeRunning = true;
     }
 
-    public void stopIntake() {
+    public void stop() {
         intakeMotor.set(0);
         intakeMotor.stopMotor();
+        intakeRunning = false;
+    }
+
+    public boolean isRunning() {
+        return intakeRunning;
+    }
+
+    public NetworkTableEntry getIntakeSpeedWidget() {
+        return intakeSpeedWidget;
     }
 
 }

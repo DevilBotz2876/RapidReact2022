@@ -11,8 +11,11 @@
 
 package bhs.devilbotz.subsystems;
 
-import com.ctre.phoenix.music.Orchestra;
 import com.revrobotics.CANSparkMax;
+import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 /**
@@ -24,13 +27,16 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
  */
 public class Shooter extends SubsystemBase {
     private final CANSparkMax shooterMotor;
+    ShuffleboardTab tab = Shuffleboard.getTab("LiveDebug");
+    private final NetworkTableEntry shooterSpeedWidget = tab.add("Shooter Speed", 1).withWidget(BuiltInWidgets.kNumberSlider).withSize(2, 1).withPosition(0, 1).getEntry();
+    private boolean shooterRunning = false;
 
     /**
      * Constructor for Shooter subsystem
      */
     public Shooter() {
         shooterMotor = new CANSparkMax(8, CANSparkMax.MotorType.kBrushless);
-        shooterMotor.setInverted(false);
+        shooterMotor.setInverted(true);
     }
 
     /**
@@ -53,13 +59,24 @@ public class Shooter extends SubsystemBase {
 
     }
 
-    public void setShooter(double speed) {
+    public void set(double speed) {
+        shooterSpeedWidget.setDouble(speed);
         shooterMotor.set(speed);
+        shooterRunning = true;
     }
 
-    public void shooterIdle() {
+    public void stop() {
         shooterMotor.set(0);
         shooterMotor.stopMotor();
+        shooterRunning = false;
+    }
+
+    public boolean isRunning() {
+        return shooterRunning;
+    }
+
+    public NetworkTableEntry getShooterSpeedWidget() {
+        return shooterSpeedWidget;
     }
 
 }

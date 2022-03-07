@@ -9,50 +9,44 @@
 /* You may NOT remove this header under any circumstance unless explicitly noted */
 /*-------------------------------------------------------------------------------*/
 
-package bhs.devilbotz.commands.shooter;
+package bhs.devilbotz.commands.transfer;
 
-import bhs.devilbotz.RobotContainer;
-import bhs.devilbotz.subsystems.Shooter;
+import bhs.devilbotz.subsystems.Transfer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /**
- * ShooterIn command
- * Runs the shooter
+ * IntakeStop command
+ * Stops the intake motor
  *
  * @author Devilbotz
  * @version 1.0.0
  * @since 1.0.5
  */
-public class Shoot extends CommandBase {
-    private final Shooter shooter;
+public class TransferStop extends CommandBase {
+    private final Transfer transfer;
 
     /**
-     * ShooterIn constructor
-     *
-     * @param shooter {@link Shooter} subsystem
+     * IntakeStop constructor
      *
      * @since 1.0.5
      */
-    public Shoot(Shooter shooter) {
-        this.shooter = shooter;
-        addRequirements(shooter);
+    public TransferStop(Transfer transfer) {
+        this.transfer = transfer;
+        addRequirements(transfer);
     }
 
     /**
      * Executed when the command is initially scheduled
-     *
      * @since 1.0.5
      */
     @Override
     public void execute() {
-        shooter.setShooter(-1);
+        transfer.stop();
     }
 
     /**
      * Called once the command ends or is interrupted.
-     *
      * @param interrupted True if the command was interrupted, false otherwise.
-     *
      * @since 1.0.5
      */
     @Override
@@ -61,7 +55,6 @@ public class Shoot extends CommandBase {
 
     /**
      * Returns true when the command should end.
-     *
      * @return True if the command should end, false otherwise.
      */
     @Override
@@ -71,7 +64,6 @@ public class Shoot extends CommandBase {
 
     /**
      * If the command should run when the robot is disabled
-     *
      * @return True if the command should run when the robot is disabled, false otherwise.
      */
     @Override

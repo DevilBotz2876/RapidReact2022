@@ -11,7 +11,6 @@
 
 package bhs.devilbotz.commands.shooter;
 
-import bhs.devilbotz.RobotContainer;
 import bhs.devilbotz.subsystems.Shooter;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
@@ -23,7 +22,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
  * @version 1.0.0
  * @since 1.0.5
  */
-public class ShooterIdle extends CommandBase {
+public class ShooterToggle extends CommandBase {
     private final Shooter shooter;
 
     /**
@@ -33,7 +32,7 @@ public class ShooterIdle extends CommandBase {
      *
      * @since 1.0.5
      */
-    public ShooterIdle(Shooter shooter) {
+    public ShooterToggle(Shooter shooter) {
         this.shooter = shooter;
         addRequirements(shooter);
     }
@@ -45,7 +44,11 @@ public class ShooterIdle extends CommandBase {
      */
     @Override
     public void execute() {
-        shooter.shooterIdle();
+        if (shooter.isRunning()) {
+            shooter.stop();
+        } else {
+            shooter.set(shooter.getShooterSpeedWidget().getDouble(1));
+        }
     }
 
     /**
