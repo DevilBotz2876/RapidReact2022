@@ -9,49 +9,56 @@
 /* You may NOT remove this header under any circumstance unless explicitly noted */
 /*-------------------------------------------------------------------------------*/
 
-package bhs.devilbotz.commands.shooter;
+package bhs.devilbotz.commands.intakeArm;
 
-import bhs.devilbotz.subsystems.Shooter;
+import bhs.devilbotz.subsystems.Intake;
+import bhs.devilbotz.subsystems.IntakeArm;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /**
- * ShooterIn command
- * Runs the shooter
+ * IntakeIn command
+ * Runs the intake motor
  *
  * @author Devilbotz
  * @version 1.0.0
  * @since 1.0.5
  */
-public class ShooterToggle extends CommandBase {
-    private final Shooter shooter;
+public class IntakeArmToggle extends CommandBase {
+    private final IntakeArm intakeArm;
 
     /**
-     * ShooterIn constructor
-     *
-     * @param shooter {@link Shooter} subsystem
+     * IntakeIn constructor
      *
      * @since 1.0.5
      */
-    public ShooterToggle(Shooter shooter) {
-        this.shooter = shooter;
-        addRequirements(shooter);
+    public IntakeArmToggle(IntakeArm intakeArm) {
+        this.intakeArm = intakeArm;
+        addRequirements(intakeArm);
+    }
+
+    @Override
+    public void initialize() {
+        System.out.println(intakeArm.isIntakeArmUp());
+
+        if (intakeArm.isIntakeArmUp()) {
+            intakeArm.setIntakeArmDown(intakeArm.getIntakeArmSpeedWidget().getDouble(0.45));
+        } else {
+            intakeArm.setIntakeArmUp(intakeArm.getIntakeArmSpeedWidget().getDouble(0.45));
+
+        }
     }
 
     /**
      * Executed when the command is initially scheduled
-     *
      * @since 1.0.5
      */
     @Override
     public void execute() {
-        shooter.set(shooter.getShooterSpeedWidget().getDouble(1));
     }
 
     /**
      * Called once the command ends or is interrupted.
-     *
      * @param interrupted True if the command was interrupted, false otherwise.
-     *
      * @since 1.0.5
      */
     @Override
@@ -60,17 +67,15 @@ public class ShooterToggle extends CommandBase {
 
     /**
      * Returns true when the command should end.
-     *
      * @return True if the command should end, false otherwise.
      */
     @Override
     public boolean isFinished() {
-        return false;
+        return true;
     }
 
     /**
      * If the command should run when the robot is disabled
-     *
      * @return True if the command should run when the robot is disabled, false otherwise.
      */
     @Override

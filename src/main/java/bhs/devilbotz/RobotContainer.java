@@ -16,6 +16,8 @@ import bhs.devilbotz.commands.autonomous.routines.AutoTest;
 import bhs.devilbotz.commands.camera.CameraToggle;
 import bhs.devilbotz.commands.intake.IntakeInToggle;
 import bhs.devilbotz.commands.intake.IntakeStop;
+import bhs.devilbotz.commands.intakeArm.IntakeArmStop;
+import bhs.devilbotz.commands.intakeArm.IntakeArmToggle;
 import bhs.devilbotz.commands.shooter.ShooterStop;
 import bhs.devilbotz.commands.shooter.ShooterToggle;
 import bhs.devilbotz.commands.transfer.TransferInToggle;
@@ -43,6 +45,7 @@ public class RobotContainer {
     private final Intake intake = new Intake();
     private final Transfer transfer = new Transfer();
     private final Shooter shooter = new Shooter();
+    private final IntakeArm intakeArm = new IntakeArm();
 
     // Joysticks
     private final Joystick joy = new Joystick(Constants.JOYSTICK);
@@ -88,17 +91,22 @@ public class RobotContainer {
         intake.setDefaultCommand(new IntakeStop(intake));
 
         new JoystickButton(joy_two, Constants.INTAKE_BUTTON)
-                .whenPressed(new IntakeInToggle(intake));
+                .toggleWhenPressed(new IntakeInToggle(intake));
 
         transfer.setDefaultCommand(new TransferStop(transfer));
 
         new JoystickButton(joy_two, 5)
-                .whenPressed(new TransferInToggle(transfer));
+                .toggleWhenPressed(new TransferInToggle(transfer));
 
         shooter.setDefaultCommand(new ShooterStop(shooter));
 
         new JoystickButton(joy_two, 3)
-                .whenPressed(new ShooterToggle(shooter));
+                .toggleWhenPressed(new ShooterToggle(shooter));
+
+        intakeArm.setDefaultCommand(new IntakeArmStop(intakeArm));
+
+        new JoystickButton(joy_two, 2)
+                .whenPressed(new IntakeArmToggle(intakeArm));
     }
 
     private void configureShuffleboard() {

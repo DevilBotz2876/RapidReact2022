@@ -43,11 +43,7 @@ public class IntakeInToggle extends CommandBase {
      */
     @Override
     public void execute() {
-        if (intake.isRunning()) {
-            intake.stop();
-        } else {
-            intake.set(intake.getIntakeSpeedWidget().getDouble(0.65));
-        }
+        intake.set(intake.getIntakeSpeedWidget().getDouble(0.65));
     }
 
     /**

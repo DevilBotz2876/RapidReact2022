@@ -13,10 +13,10 @@ package bhs.devilbotz.subsystems;
 
 import com.revrobotics.CANSparkMax;
 import edu.wpi.first.networktables.NetworkTableEntry;
-import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
-import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
-import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
+import edu.wpi.first.wpilibj.shuffleboard.*;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import io.github.oblarg.oblog.Loggable;
+import io.github.oblarg.oblog.annotations.Log;
 
 /**
  * Shooter subsystem
@@ -25,11 +25,10 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
  * @version 1.0.0
  * @since 1.0.5
  */
-public class Shooter extends SubsystemBase {
+public class Shooter extends SubsystemBase implements Loggable {
     private final CANSparkMax shooterMotor;
     ShuffleboardTab tab = Shuffleboard.getTab("LiveDebug");
-    private final NetworkTableEntry shooterSpeedWidget = tab.add("Shooter Speed", 1).withWidget(BuiltInWidgets.kNumberSlider).withSize(2, 1).withPosition(0, 1).getEntry();
-    private boolean shooterRunning = false;
+    private final NetworkTableEntry shooterSpeedWidget = tab.add("Set Shooter Speed", 1).withWidget(BuiltInWidgets.kNumberSlider).withSize(2, 1).withPosition(0, 1).getEntry();
 
     /**
      * Constructor for Shooter subsystem
@@ -62,21 +61,24 @@ public class Shooter extends SubsystemBase {
     public void set(double speed) {
         shooterSpeedWidget.setDouble(speed);
         shooterMotor.set(speed);
-        shooterRunning = true;
     }
 
     public void stop() {
         shooterMotor.set(0);
         shooterMotor.stopMotor();
-        shooterRunning = false;
-    }
-
-    public boolean isRunning() {
-        return shooterRunning;
     }
 
     public NetworkTableEntry getShooterSpeedWidget() {
         return shooterSpeedWidget;
     }
 
+    @Log(name = "Shooter Speed", tabName = "LiveDebug", columnIndex = 2, rowIndex = 1, height = 1, width = 1)
+    double speed() {
+        return shooterMotor.getEncoder().getVelocity();
+    }
+
+    @Log(name = "Shooter Temp", tabName = "LiveDebug", columnIndex = 3, rowIndex = 1, height = 1, width = 1)
+    double temp() {
+        return shooterMotor.getMotorTemperature();
+    }
 }

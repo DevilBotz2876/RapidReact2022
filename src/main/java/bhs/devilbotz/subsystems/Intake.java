@@ -17,6 +17,7 @@ import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import io.github.oblarg.oblog.annotations.Config;
 
 /**
  * Intake subsystem
@@ -27,9 +28,8 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
  */
 public class Intake extends SubsystemBase {
     ShuffleboardTab tab = Shuffleboard.getTab("LiveDebug");
-    private final NetworkTableEntry intakeSpeedWidget = tab.add("Intake Speed", 0.65).withWidget(BuiltInWidgets.kNumberSlider).withSize(2, 1).withPosition(0, 0).getEntry();
+    private final NetworkTableEntry intakeSpeedWidget = tab.add("Set Intake Speed", 0.65).withWidget(BuiltInWidgets.kNumberSlider).withSize(2, 1).withPosition(0, 0).getEntry();
     private final WPI_TalonSRX intakeMotor;
-    private boolean intakeRunning = false;
 
 
     /**
@@ -63,17 +63,11 @@ public class Intake extends SubsystemBase {
     public void set(double speed) {
         intakeSpeedWidget.setDouble(speed);
         intakeMotor.set(speed);
-        intakeRunning = true;
     }
 
     public void stop() {
         intakeMotor.set(0);
         intakeMotor.stopMotor();
-        intakeRunning = false;
-    }
-
-    public boolean isRunning() {
-        return intakeRunning;
     }
 
     public NetworkTableEntry getIntakeSpeedWidget() {

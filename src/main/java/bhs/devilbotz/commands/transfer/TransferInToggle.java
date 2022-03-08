@@ -41,11 +41,7 @@ public class TransferInToggle extends CommandBase {
      */
     @Override
     public void execute() {
-        if (transfer.isRunning()) {
-            transfer.stop();
-        } else {
-            transfer.set(transfer.getTransferSpeedWidget().getDouble(1));
-        }
+        transfer.set(transfer.getTransferSpeedWidget().getDouble(1));
     }
 
     /**
