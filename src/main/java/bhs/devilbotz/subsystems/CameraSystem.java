@@ -19,9 +19,9 @@ public class CameraSystem extends SubsystemBase {
     public CameraSystem() {
         try {
             transferCamera = CameraServer.startAutomaticCapture(0);
-            transferCamera.setBrightness(10);
+            transferCamera.setBrightness(12);
             driveCamera = CameraServer.startAutomaticCapture(1);
-            driveCamera.setBrightness(15);
+            driveCamera.setBrightness(20);
             final double ratio = transferCamera.getVideoMode().height / (double) transferCamera.getVideoMode().width;
             transferCamera.setVideoMode(VIDEO_MODE.pixelFormat, VIDEO_MODE.width, (int) (VIDEO_MODE.width * ratio), VIDEO_MODE.fps);
             transferCamera.setConnectionStrategy(VideoSource.ConnectionStrategy.kAutoManage);

@@ -34,7 +34,7 @@ public class DriveCommand extends CommandBase {
         double l = left.getAsDouble();
 
         // Forward Snapping
-        if ((Math.abs((l - r) / r) < 0.25 || Math.abs((r - l) / l) < 0.25) && ((l > 0.05 || l < -0.05) || (r > 0.05 || r < -0.05))) {
+        if ((Math.abs((l - r) / r) < 0.15 || Math.abs((r - l) / l) < 0.15) && ((l > 0.05 || l < -0.05) || (r > 0.05 || r < -0.05))) {
             double oldLeft = l;
             double oldRight = l;
 

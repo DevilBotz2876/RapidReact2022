@@ -18,6 +18,8 @@ public class IntakeArm extends SubsystemBase {
         intakeArmMotor = new WPI_TalonSRX(5);
 
         addChild("IntakeArmMotor", intakeArmMotor);
+
+        intakeArmMotor.setInverted(true);
     }
 
     public boolean isIntakeArmUp() {

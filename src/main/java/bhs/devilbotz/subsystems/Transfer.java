@@ -57,6 +57,11 @@ public class Transfer extends SubsystemBase {
         transferSpeedWidget.setDouble(speed);
     }
 
+    public void setOut(double speed) {
+        transferMotor.set(-speed);
+        transferSpeedWidget.setDouble(speed);
+    }
+
     public void stop() {
         transferMotor.set(0);
         transferMotor.stopMotor();

@@ -9,29 +9,34 @@
 /* You may NOT remove this header under any circumstance unless explicitly noted */
 /*-------------------------------------------------------------------------------*/
 
-package bhs.devilbotz.commands.transfer;
+package bhs.devilbotz.commands.intakeArm;
 
-import bhs.devilbotz.subsystems.Transfer;
+import bhs.devilbotz.subsystems.IntakeArm;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /**
- * IntakeStop command
- * Stops the intake motor
+ * IntakeIn command
+ * Runs the intake motor
  *
- * @author  Devilbotz
+ * @author Devilbotz
  * @version 1.0.0
  * @since 1.0.5
  */
-public class TransferOut extends CommandBase {
-    private final Transfer transfer;
+public class IntakeArmUp extends CommandBase {
+    private final IntakeArm intakeArm;
 
     /**
-     * IntakeStop constructor
+     * IntakeIn constructor
+     *
      * @since 1.0.5
      */
-    public TransferOut(Transfer transfer) {
-        this.transfer = transfer;
-        addRequirements(transfer);
+    public IntakeArmUp(IntakeArm intakeArm) {
+        this.intakeArm = intakeArm;
+        addRequirements(intakeArm);
+    }
+
+    @Override
+    public void initialize() {
     }
 
     /**
@@ -40,7 +45,7 @@ public class TransferOut extends CommandBase {
      */
     @Override
     public void execute() {
-        transfer.setOut(1);
+        intakeArm.setIntakeArmUp(intakeArm.getIntakeArmSpeedWidget().getDouble(0.45));
     }
 
     /**
@@ -58,7 +63,7 @@ public class TransferOut extends CommandBase {
      */
     @Override
     public boolean isFinished() {
-        return false;
+        return true;
     }
 
     /**

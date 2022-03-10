@@ -158,9 +158,6 @@ public class DriveTrain extends SubsystemBase {
     }
 
 
-    // The gain for a simple P loop
-    double kP = 0.05;
-
     /**
      * Tank drive method
      *
@@ -168,11 +165,7 @@ public class DriveTrain extends SubsystemBase {
      * @param rightSpeed The speed of the right side of the robot
      */
     public void tankDrive(double leftSpeed, double rightSpeed) {
-        double error = navx.getRate();
-        System.out.println(error);
-
         differentialDrive.tankDrive(leftSlew.calculate(leftSpeed), rightSlew.calculate(rightSpeed));
-
     }
 
     /**
