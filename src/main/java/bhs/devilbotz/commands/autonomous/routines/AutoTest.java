@@ -31,7 +31,7 @@ public class AutoTest extends SequentialCommandGroup {
      */
     public AutoTest(DriveTrain drive) {
         addCommands(
-                new DriveDistance(drive, 200, 0.75)
+                new DriveDistance(drive, -200, 0.75)
         );
     }
 }

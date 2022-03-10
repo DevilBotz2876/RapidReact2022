@@ -91,16 +91,16 @@ public class RobotContainer {
         intake.setDefaultCommand(new IntakeStop(intake));
 
         new JoystickButton(joy_two, Constants.INTAKE_BUTTON)
-                .toggleWhenPressed(new IntakeInToggle(intake));
+                .toggleWhenPressed(new IntakeInToggle(intake, transfer));
 
         transfer.setDefaultCommand(new TransferStop(transfer));
 
-        new JoystickButton(joy_two, 5)
+        new JoystickButton(joy_two, 3)
                 .toggleWhenPressed(new TransferInToggle(transfer));
 
         shooter.setDefaultCommand(new ShooterStop(shooter));
 
-        new JoystickButton(joy_two, 3)
+        new JoystickButton(joy_two, 5)
                 .toggleWhenPressed(new ShooterToggle(shooter));
 
         intakeArm.setDefaultCommand(new IntakeArmStop(intakeArm));

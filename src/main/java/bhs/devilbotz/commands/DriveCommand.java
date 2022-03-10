@@ -44,7 +44,7 @@ public class DriveCommand extends CommandBase {
         }
 
         // (a*(x^3)+(b-a)*x)*1.1
-        double a = -0.2;
+        double a = 0.2;
         double b = 0.9;
 
         // Modified curve

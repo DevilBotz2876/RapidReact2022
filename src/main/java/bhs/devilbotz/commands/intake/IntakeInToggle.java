@@ -12,6 +12,7 @@
 package bhs.devilbotz.commands.intake;
 
 import bhs.devilbotz.subsystems.Intake;
+import bhs.devilbotz.subsystems.Transfer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /**
@@ -24,6 +25,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
  */
 public class IntakeInToggle extends CommandBase {
     private final Intake intake;
+    private final Transfer transfer;
 
     /**
      * IntakeIn constructor
@@ -32,8 +34,9 @@ public class IntakeInToggle extends CommandBase {
      *
      * @since 1.0.5
      */
-    public IntakeInToggle(Intake intake) {
+    public IntakeInToggle(Intake intake, Transfer transfer) {
         this.intake = intake;
+        this.transfer = transfer;
         addRequirements(intake);
     }
 
@@ -43,6 +46,15 @@ public class IntakeInToggle extends CommandBase {
      */
     @Override
     public void execute() {
+        /*
+        System.out.println(transfer.getBallColor());
+        if (transfer.getBallColor() == Transfer.BallColor.BLUE) {
+            intake.set(-intake.getIntakeSpeedWidget().getDouble(0.65));
+        } else {
+            intake.set(intake.getIntakeSpeedWidget().getDouble(0.65));
+        }
+
+         */
         intake.set(intake.getIntakeSpeedWidget().getDouble(0.65));
     }
 

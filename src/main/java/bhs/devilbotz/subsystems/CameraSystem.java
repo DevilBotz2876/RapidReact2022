@@ -11,20 +11,22 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class CameraSystem extends SubsystemBase {
     private static final VideoMode VIDEO_MODE = new VideoMode(VideoMode.PixelFormat.kMJPEG, 360, 270, 20);
     private static final int COMPRESSION_LEVEL = 35;
-    private UsbCamera cameraOne = null;
-    private UsbCamera cameraTwo = null;
+    private UsbCamera transferCamera = null;
+    private UsbCamera driveCamera = null;
     private MjpegServer videoSink = null;
 
 
     public CameraSystem() {
         try {
-            cameraOne = CameraServer.startAutomaticCapture(0);
-            cameraTwo = CameraServer.startAutomaticCapture(1);
-            final double ratio = cameraOne.getVideoMode().height / (double) cameraOne.getVideoMode().width;
-            cameraOne.setVideoMode(VIDEO_MODE.pixelFormat, VIDEO_MODE.width, (int) (VIDEO_MODE.width * ratio), VIDEO_MODE.fps);
-            cameraOne.setConnectionStrategy(VideoSource.ConnectionStrategy.kAutoManage);
-            cameraTwo.setVideoMode(VIDEO_MODE.pixelFormat, VIDEO_MODE.width, (int) (VIDEO_MODE.width * ratio), VIDEO_MODE.fps);
-            cameraTwo.setConnectionStrategy(VideoSource.ConnectionStrategy.kAutoManage);
+            transferCamera = CameraServer.startAutomaticCapture(0);
+            transferCamera.setBrightness(10);
+            driveCamera = CameraServer.startAutomaticCapture(1);
+            driveCamera.setBrightness(15);
+            final double ratio = transferCamera.getVideoMode().height / (double) transferCamera.getVideoMode().width;
+            transferCamera.setVideoMode(VIDEO_MODE.pixelFormat, VIDEO_MODE.width, (int) (VIDEO_MODE.width * ratio), VIDEO_MODE.fps);
+            transferCamera.setConnectionStrategy(VideoSource.ConnectionStrategy.kAutoManage);
+            driveCamera.setVideoMode(VIDEO_MODE.pixelFormat, VIDEO_MODE.width, (int) (VIDEO_MODE.width * ratio), VIDEO_MODE.fps);
+            driveCamera.setConnectionStrategy(VideoSource.ConnectionStrategy.kAutoManage);
 
             videoSink = CameraServer.addSwitchedCamera("Toggle Camera");
 
@@ -34,7 +36,7 @@ public class CameraSystem extends SubsystemBase {
                 videoSink.setCompression(COMPRESSION_LEVEL);
                 videoSink.setDefaultCompression(COMPRESSION_LEVEL);
             }
-            videoSink.setSource(cameraTwo);
+            videoSink.setSource(driveCamera);
             Shuffleboard.getTab("Drive").add("Camera", source).withSize(4, 4).withPosition(2, 0);
         } catch (Exception e) {
             System.out.println("Camera not found");
@@ -42,11 +44,11 @@ public class CameraSystem extends SubsystemBase {
     }
 
     public void setCameraOne() {
-        videoSink.setSource(cameraOne);
+        videoSink.setSource(transferCamera);
     }
 
     public void setCameraTwo() {
-        videoSink.setSource(cameraTwo);
+        videoSink.setSource(driveCamera);
     }
 
     public int getCameraIndex() {
