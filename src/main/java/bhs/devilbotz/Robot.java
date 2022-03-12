@@ -31,10 +31,6 @@ public class Robot extends TimedRobot {
 
     private RobotContainer robotContainer;
 
-    private DriveTrain driveTrain;
-
-    private Intake intake;
-
     /**
      * This method is run when the robot is first started up and is used for initialization
      *
@@ -44,10 +40,7 @@ public class Robot extends TimedRobot {
     public void robotInit() {
         // Instantiate the RobotContainer.
         robotContainer = new RobotContainer();
-        driveTrain = robotContainer.getDriveTrain();
-        intake = robotContainer.getIntake();
         Logger.configureLoggingAndConfig(this, false);
-
     }
 
 

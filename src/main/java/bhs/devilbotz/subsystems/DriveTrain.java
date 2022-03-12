@@ -100,7 +100,6 @@ public class DriveTrain extends SubsystemBase {
 
         // Calibrate the gyro
         navx.calibrate();
-
     }
 
     /**
