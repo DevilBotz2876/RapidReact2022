@@ -34,4 +34,8 @@ public final class Constants {
     public static final class AutoConstants {
         public static final double WHEEL_DIAMETER_INCHES = 6;
     }
+
+    public static final class ShooterConstants {
+
+    }
 }

@@ -22,7 +22,7 @@ public class Approach extends CommandBase {
         this.robotContainer = robotContainer;
 
 
-        ultrasonic = new Ultrasonic(9, 8);
+        ultrasonic = new Ultrasonic(9, 10);
         ultrasonicTwo = new Ultrasonic(7, 6);
 
         ultrasonicThree = new AnalogPotentiometer(0);
