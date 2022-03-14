@@ -8,6 +8,7 @@ plugins {
 
 repositories {
   maven { url 'https://jitpack.io' }
+  maven { url 'https://nexus.otake.pw/repository/maven-public/' }
 }
 
 def javaVersion = JavaVersion.VERSION_11
@@ -76,15 +77,15 @@ dependencies {
     nativeRelease wpi.java.vendor.jniRelease(wpi.platforms.desktop)
     simulationRelease wpi.sim.enableRelease()
 
-    implementation "com.github.Oblarg:Oblog:4.0.9"
-
+    //implementation "com.github.Oblarg:Oblog:4.0.9"
+    implementation "com.github.Oblarg:Oblog:3.1.2" 
+    
+    implementation 'pw.otake.pseudoresonance:pixy2-java-api:1.4.1'
 
     implementation platform('org.junit:junit-bom:5.8.2')
     testImplementation "org.junit.jupiter:junit-jupiter-api"
     testImplementation "org.junit.jupiter:junit-jupiter-params"
     testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine"
-
-   implementation "com.github.Oblarg:Oblog:3.1.2"
 }
 
 // Simulation configuration (e.g. environment variables).

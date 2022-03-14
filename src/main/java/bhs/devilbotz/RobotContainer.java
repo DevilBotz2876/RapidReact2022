@@ -14,6 +14,7 @@ package bhs.devilbotz;
 import bhs.devilbotz.commands.DriveCommand;
 import bhs.devilbotz.commands.autonomous.routines.AutoTest;
 import bhs.devilbotz.subsystems.DriveTrain;
+import bhs.devilbotz.subsystems.PixyCamera;
 import bhs.devilbotz.subsystems.PowerDistributionPanel;
 import bhs.devilbotz.subsystems.TalonSrxDiagnostic;
 import edu.wpi.first.wpilibj.Joystick;
@@ -42,7 +43,7 @@ public class RobotContainer {
     
     private final TalonSrxDiagnostic talonSrx = new TalonSrxDiagnostic(driveTrain);
 
-
+    private final PixyCamera pixy = new PixyCamera();
 
  
 
