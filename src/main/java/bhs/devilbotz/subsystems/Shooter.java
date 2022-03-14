@@ -28,22 +28,24 @@ import io.github.oblarg.oblog.annotations.Log;
  * @version 1.0.0
  * @since 1.0.5
  */
-public class Shooter extends PIDSubsystem implements Loggable {
+public class Shooter extends SubsystemBase implements Loggable {
     private final CANSparkMax shooterMotor;
     ShuffleboardTab tab = Shuffleboard.getTab("LiveDebug");
     private final NetworkTableEntry shooterSpeedWidget = tab.add("Set Shooter Speed", 0.75).withWidget(BuiltInWidgets.kNumberSlider).withSize(2, 1).withPosition(0, 1).getEntry();
     private final SimpleMotorFeedforward shooterFeedForward = new SimpleMotorFeedforward(0.05, 12.0 / 5000);
+    PIDController pidController = new PIDController(1, 0, 0);
 
 
+    private final double setpoint = 3000;
     /**
      * Constructor for Shooter subsystem
      */
     public Shooter() {
-        super(new PIDController(1, 0, 0));
         shooterMotor = new CANSparkMax(8, CANSparkMax.MotorType.kBrushless);
         shooterMotor.setInverted(true);
 
-        setSetpoint(3000);
+        pidController.setTolerance(50);
+        pidController.reset();
     }
 
     /**
@@ -54,17 +56,6 @@ public class Shooter extends PIDSubsystem implements Loggable {
     @Override
     public void periodic() {
 
-    }
-
-    @Override
-    protected void useOutput(double output, double setpoint) {
-        System.out.println(output);
-        shooterMotor.setVoltage(output + shooterFeedForward.calculate(setpoint));
-    }
-
-    @Override
-    protected double getMeasurement() {
-        return shooterMotor.getEncoder().getVelocity();
     }
 
     /**
@@ -78,7 +69,8 @@ public class Shooter extends PIDSubsystem implements Loggable {
     }
 
     public void set(double speed) {
-        shooterSpeedWidget.setDouble(speed);
+        System.out.println((pidController.calculate(shooterMotor.getEncoder().getVelocity(), setpoint) + shooterFeedForward.calculate(setpoint)));
+        shooterMotor.setVoltage((pidController.calculate(shooterMotor.getEncoder().getVelocity(), setpoint)) + shooterFeedForward.calculate(setpoint));
     }
 
     public void stop() {

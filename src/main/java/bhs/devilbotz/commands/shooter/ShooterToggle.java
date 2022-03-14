@@ -44,7 +44,7 @@ public class ShooterToggle extends CommandBase {
      */
     @Override
     public void execute() {
-        shooter.enable();
+        shooter.set(3000);
     }
 
     /**
