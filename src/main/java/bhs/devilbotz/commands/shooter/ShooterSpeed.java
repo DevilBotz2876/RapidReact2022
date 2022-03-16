@@ -39,6 +39,7 @@ public class ShooterSpeed extends CommandBase {
         addRequirements(shooter);
     }
 
+
     /**
      * Executed when the command is initially scheduled
      *

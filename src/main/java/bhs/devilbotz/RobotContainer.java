@@ -27,12 +27,7 @@ import bhs.devilbotz.commands.shooter.ShooterVoltage;
 import bhs.devilbotz.commands.transfer.TransferIn;
 import bhs.devilbotz.commands.transfer.TransferOut;
 import bhs.devilbotz.commands.transfer.TransferStop;
-import bhs.devilbotz.subsystems.CameraSystem;
-import bhs.devilbotz.subsystems.DriveTrain;
-import bhs.devilbotz.subsystems.Intake;
-import bhs.devilbotz.subsystems.IntakeArm;
-import bhs.devilbotz.subsystems.Shooter;
-import bhs.devilbotz.subsystems.Transfer;
+import bhs.devilbotz.subsystems.*;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -55,7 +50,7 @@ public class RobotContainer {
     private final DriveTrain driveTrain = new DriveTrain();
     private final Intake intake = new Intake();
     private final Transfer transfer = new Transfer();
-    private final Shooter shooter = new Shooter();
+    private final Shooter shooter = new Shooter(4000);
     private final IntakeArm intakeArm = new IntakeArm();
 
     // Joysticks
@@ -64,6 +59,7 @@ public class RobotContainer {
 
     // Camera system
     private final CameraSystem cameraSystem = new CameraSystem();
+    private final PowerDistributionPanel powerDistributionPanel = new PowerDistributionPanel();
 
     // Autonomous chooser
     private final SendableChooser<Command> autonomousChooser = new SendableChooser<>();
@@ -120,27 +116,13 @@ public class RobotContainer {
                 .whileHeld(new TransferOut(transfer))
                         .whenReleased(new TransferStop(transfer));
 
-        // These buttons, 8-11 are setup for testing shooter.
-        // Feel free to comment out this code and/or reassign buttons
-        new JoystickButton(joy_two, 8)
-                .toggleWhenPressed(new ShooterStop(shooter));
-
-         new JoystickButton(joy_two, 9)
-                .toggleWhenPressed(new ShooterSpeed(shooter, 1));
-
-        new JoystickButton(joy_two, 10)
-                .toggleWhenPressed(new ShooterVoltage(shooter, 3));
-
-        new JoystickButton(joy_two, 11)
-                .toggleWhenPressed(new ShooterRPM(shooter, 1000));
-
         // this probably will not work well, it uses untested command group.
         // uses PID based shooter which is stil not working/tested.
         // new JoystickButton(joy_two, 5)
         //         .toggleWhenPressed(new ShootOneCargo(shooter, transfer, 3000));
 
         new JoystickButton(joy_two, 5)
-                .toggleWhenPressed(new ShooterSpeed(shooter, 3000));
+                .toggleWhenPressed(new ShooterRPM(shooter, 4000));
 
 
         new JoystickButton(joy_two, 6)

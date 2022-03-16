@@ -24,7 +24,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
  */
 public class ShooterRPM extends CommandBase {
     private final Shooter shooter;
-    private double rpm;
+    private final double rpm;
 
     /**
      * ShooterIn constructor
@@ -41,8 +41,8 @@ public class ShooterRPM extends CommandBase {
 
     @Override
     public void initialize() {
-        shooter.setSetpoint(rpm);
-        shooter.pidEnable();
+        shooter.setSetpoints(rpm);
+        shooter.enable();
     }
 
 
@@ -73,7 +73,7 @@ public class ShooterRPM extends CommandBase {
      */
     @Override
     public boolean isFinished() {
-        return shooter.readyToShoot();
+        return shooter.atSetpoint();
     }
 
     /**

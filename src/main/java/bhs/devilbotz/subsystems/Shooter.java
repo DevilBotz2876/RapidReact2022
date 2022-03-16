@@ -12,11 +12,13 @@
 package bhs.devilbotz.subsystems;
 
 import com.revrobotics.CANSparkMax;
-
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
-import edu.wpi.first.math.controller.SimpleMotorFeedforward;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
+import edu.wpi.first.wpilibj2.command.PIDSubsystem;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 /**
@@ -26,27 +28,22 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
  * @version 1.0.0
  * @since 1.0.5
  */
-public class Shooter extends SubsystemBase {//implements Loggable {
+public class Shooter extends PIDSubsystem {
     private final CANSparkMax shooterMotor;
-    //ShuffleboardTab tab = Shuffleboard.getTab("LiveDebug");
-    //private final NetworkTableEntry shooterSpeedWidget = tab.add("Set Shooter Speed", 0.75).withWidget(BuiltInWidgets.kNumberSlider).withSize(2, 1).withPosition(0, 1).getEntry();
-    // private final SimpleMotorFeedforward shooterFeedForward = new SimpleMotorFeedforward(0.05, 12.0 / 5000);
-
-    // TODO: need to tune P. Maybe run sysid? 
-    // Can also just tune by trial/error using smartdash outputs to see if shooter reaches setpoint
-    private PIDController shooterPID = new PIDController(1, 0, 0);
-    private boolean pidEnabled = false;
+    double setpoint = 0;
+    // Values gotten from Shooter SysID
 
     /**
      * Constructor for Shooter subsystem
      */
-    public Shooter() {
+    public Shooter(double setpoint) {
+        super(new PIDController(0.15187, 0, 0));
         shooterMotor = new CANSparkMax(8, CANSparkMax.MotorType.kBrushless);
-        
-        // TODO: Why are we setting inverted here?
-        shooterMotor.setInverted(true);
 
-        addChild("shootershooterPID", shooterPID);
+        this.setpoint = setpoint;
+        shooterMotor.setInverted(false);
+
+        getController().setTolerance(10);
     }
 
     /**
@@ -56,20 +53,7 @@ public class Shooter extends SubsystemBase {//implements Loggable {
      */
     @Override
     public void periodic() {
-        SmartDashboard.putNumber("Sh_Get", shooterMotor.get());
-        SmartDashboard.putNumber("Sh_AppOut", shooterMotor.getAppliedOutput());
-        SmartDashboard.putNumber("Sh_BusVolt", shooterMotor.getBusVoltage());
-        SmartDashboard.putNumber("Sh_Enc_V", shooterMotor.getEncoder().getVelocity());
-        SmartDashboard.putNumber("Sh_Enc_V_CF", shooterMotor.getEncoder().getVelocityConversionFactor());
-
-        SmartDashboard.putData("Sh_PID", shooterPID);
-        SmartDashboard.putNumber("Sh_PID_V_Err", shooterPID.getVelocityError());
-        SmartDashboard.putNumber("Sh_PID_Setpoint", shooterPID.getSetpoint());
-        SmartDashboard.putNumber("Sh_PID_Calc", shooterPID.calculate(shooterMotor.getEncoder().getVelocity()));
-        SmartDashboard.putBoolean("Sh_PID_At", shooterPID.atSetpoint());
-        SmartDashboard.putBoolean("Sh_PID_Enabled", pidEnabled);
-
-        updatePIDOutput();
+        System.out.println(shooterMotor.getEncoder().getVelocity());
     }
 
     /**
@@ -84,58 +68,37 @@ public class Shooter extends SubsystemBase {//implements Loggable {
 
     // -12 to 12 volts
     public void setVoltage(double volts) {
-        pidDisable();
         shooterMotor.setVoltage(volts);
     }
 
     // -1 to 1 speed
     public void setSpeed(double speed) {
-        pidDisable();
         shooterMotor.set(speed);
     }
 
-    // only tested rpm in one direction at max speed/voltage, got about 5200 measured.  Should test in other direction too.
-    public void setSetpoint(double rpm) {
-        // TODO:
-        // - check rpm input is not out of range.
-        // - check sign of rpm, don't want to spin shooter in wrong direction
-        
-        shooterPID.reset();
-        shooterPID.setSetpoint(rpm);        
+    @Override
+    protected void useOutput(double output, double setpoint) {
+        System.out.println("output: " + output);
+        shooterMotor.set(output);
     }
 
-    public void pidEnable() {
-        pidEnabled = true;
+    @Override
+    protected double getMeasurement() {
+        return shooterMotor.getEncoder().getVelocity();
     }
 
-    public void pidDisable() {
-        pidEnabled = false;
-    }
-
-    public void updatePIDOutput() {
-        
-        // Something not quite right still.. without negating output shooter oscillates.  Adding negative made it stop 
-        // oscillating.  But shooter did not reach setpoint. Not sure if this will actually spin shooter in correct direction.
-        // Related to figure out why setInverted is called in constructor. 
-        // Was just trying to get PID to reach setpoint, ignore direction.
-        // Ran out of time before could get this fully working.
-
-        if (!pidEnabled) {
-            return;
-        }
-        double output = MathUtil.clamp(shooterPID.calculate(shooterMotor.getEncoder().getVelocity()), -0.5, 0.5);
-        SmartDashboard.putNumber("Sh_output", -output);
-        shooterMotor.set(-output);
-    }
-
-    public boolean readyToShoot() {
-        return shooterPID.atSetpoint();
+    public boolean atSetpoint() {
+        return m_controller.atSetpoint();
     }
 
     public void stop() {
         shooterMotor.set(0);
         shooterMotor.stopMotor();
-        shooterPID.setSetpoint(0);
+        setSetpoint(0);
+    }
+
+    public void setSetpoints(double setpoint) {
+        setSetpoint(setpoint);
     }
 
 }
