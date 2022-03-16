@@ -120,6 +120,8 @@ public class RobotContainer {
                 .whileHeld(new TransferOut(transfer))
                         .whenReleased(new TransferStop(transfer));
 
+        // These buttons, 8-11 are setup for testing shooter.
+        // Feel free to comment out this code and/or reassign buttons
         new JoystickButton(joy_two, 8)
                 .toggleWhenPressed(new ShooterStop(shooter));
 
@@ -132,8 +134,14 @@ public class RobotContainer {
         new JoystickButton(joy_two, 11)
                 .toggleWhenPressed(new ShooterRPM(shooter, 1000));
 
+        // this probably will not work well, it uses untested command group.
+        // uses PID based shooter which is stil not working/tested.
+        // new JoystickButton(joy_two, 5)
+        //         .toggleWhenPressed(new ShootOneCargo(shooter, transfer, 3000));
+
         new JoystickButton(joy_two, 5)
-                .toggleWhenPressed(new ShootOneCargo(shooter, transfer, 3000));
+                .toggleWhenPressed(new ShooterSpeed(shooter, 3000));
+
 
         new JoystickButton(joy_two, 6)
                 .whileHeld(new IntakeArmUp(intakeArm));
