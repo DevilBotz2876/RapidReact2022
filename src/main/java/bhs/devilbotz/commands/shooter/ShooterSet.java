@@ -9,58 +9,67 @@
 /* You may NOT remove this header under any circumstance unless explicitly noted */
 /*-------------------------------------------------------------------------------*/
 
-package bhs.devilbotz.commands.transfer;
+package bhs.devilbotz.commands.shooter;
 
-import bhs.devilbotz.subsystems.Transfer;
+import bhs.devilbotz.subsystems.Shooter;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /**
- * IntakeStop command
- * Stops the intake motor
+ * ShooterIn command
+ * Runs the shooter
  *
  * @author Devilbotz
  * @version 1.0.0
  * @since 1.0.5
  */
-public class TransferStop extends CommandBase {
-    private final Transfer transfer;
+public class ShooterSet extends CommandBase {
+    private final Shooter shooter;
+    private double rpm;
 
     /**
-     * IntakeStop constructor
+     * ShooterIn constructor
+     *
+     * @param shooter {@link Shooter} subsystem
      *
      * @since 1.0.5
      */
-    public TransferStop(Transfer transfer) {
-        this.transfer = transfer;
-        addRequirements(transfer);
-        
+    public ShooterSet(Shooter shooter, double rpm) {
+        this.shooter = shooter;
+        this.rpm = rpm;
+        addRequirements(shooter);
     }
 
     @Override
     public void initialize() {
-        transfer.stop();
+        shooter.setSetpoint(rpm);
     }
+
 
     /**
      * Executed when the command is initially scheduled
+     *
      * @since 1.0.5
      */
     @Override
     public void execute() {
-        //transfer.stop();
+        shooter.updatePIDOutput();
     }
 
     /**
      * Called once the command ends or is interrupted.
+     *
      * @param interrupted True if the command was interrupted, false otherwise.
+     *
      * @since 1.0.5
      */
     @Override
     public void end(boolean interrupted) {
+        shooter.stop();    
     }
 
     /**
      * Returns true when the command should end.
+     *
      * @return True if the command should end, false otherwise.
      */
     @Override
@@ -70,6 +79,7 @@ public class TransferStop extends CommandBase {
 
     /**
      * If the command should run when the robot is disabled
+     *
      * @return True if the command should run when the robot is disabled, false otherwise.
      */
     @Override
