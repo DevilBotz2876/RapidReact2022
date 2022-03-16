@@ -24,6 +24,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
  */
 public class ShooterVoltage extends CommandBase {
     private final Shooter shooter;
+    private double voltage;
 
     /**
      * ShooterIn constructor
@@ -32,8 +33,9 @@ public class ShooterVoltage extends CommandBase {
      *
      * @since 1.0.5
      */
-    public ShooterVoltage(Shooter shooter) {
+    public ShooterVoltage(Shooter shooter, double voltage) {
         this.shooter = shooter;
+        this.voltage = voltage;
         addRequirements(shooter);
     }
 
@@ -44,7 +46,7 @@ public class ShooterVoltage extends CommandBase {
      */
     @Override
     public void execute() {
-        shooter.setVoltage(3);
+        shooter.setVoltage(voltage);
     }
 
     /**

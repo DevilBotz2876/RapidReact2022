@@ -35,6 +35,7 @@ public class Shooter extends SubsystemBase {//implements Loggable {
     // TODO: need to tune P. Maybe run sysid? 
     // Can also just tune by trial/error using smartdash outputs to see if shooter reaches setpoint
     private PIDController shooterPID = new PIDController(1, 0, 0);
+    private boolean pidEnabled = false;
 
     /**
      * Constructor for Shooter subsystem
@@ -66,6 +67,9 @@ public class Shooter extends SubsystemBase {//implements Loggable {
         SmartDashboard.putNumber("Sh_PID_Setpoint", shooterPID.getSetpoint());
         SmartDashboard.putNumber("Sh_PID_Calc", shooterPID.calculate(shooterMotor.getEncoder().getVelocity()));
         SmartDashboard.putBoolean("Sh_PID_At", shooterPID.atSetpoint());
+        SmartDashboard.putBoolean("Sh_PID_Enabled", pidEnabled);
+
+        updatePIDOutput();
     }
 
     /**
@@ -80,11 +84,13 @@ public class Shooter extends SubsystemBase {//implements Loggable {
 
     // -12 to 12 volts
     public void setVoltage(double volts) {
+        pidDisable();
         shooterMotor.setVoltage(volts);
     }
 
     // -1 to 1 speed
     public void setSpeed(double speed) {
+        pidDisable();
         shooterMotor.set(speed);
     }
 
@@ -98,6 +104,14 @@ public class Shooter extends SubsystemBase {//implements Loggable {
         shooterPID.setSetpoint(rpm);        
     }
 
+    public void pidEnable() {
+        pidEnabled = true;
+    }
+
+    public void pidDisable() {
+        pidEnabled = false;
+    }
+
     public void updatePIDOutput() {
         
         // Something not quite right still.. without negating output shooter oscillates.  Adding negative made it stop 
@@ -106,6 +120,9 @@ public class Shooter extends SubsystemBase {//implements Loggable {
         // Was just trying to get PID to reach setpoint, ignore direction.
         // Ran out of time before could get this fully working.
 
+        if (!pidEnabled) {
+            return;
+        }
         double output = MathUtil.clamp(shooterPID.calculate(shooterMotor.getEncoder().getVelocity()), -0.5, 0.5);
         SmartDashboard.putNumber("Sh_output", -output);
         shooterMotor.set(-output);
@@ -115,28 +132,10 @@ public class Shooter extends SubsystemBase {//implements Loggable {
         return shooterPID.atSetpoint();
     }
 
-    public void set(double speed) {
-        //System.out.println((shooterPID.calculate(shooterMotor.getEncoder().getVelocity(), setpoint) + shooterFeedForward.calculate(setpoint)));
-        //shooterMotor.setVoltage((shooterPID.calculate(shooterMotor.getEncoder().getVelocity(), setpoint)) + shooterFeedForward.calculate(setpoint));
-    }
-
     public void stop() {
         shooterMotor.set(0);
         shooterMotor.stopMotor();
         shooterPID.setSetpoint(0);
     }
 
-    // public NetworkTableEntry getShooterSpeedWidget() {
-    //     return shooterSpeedWidget;
-    // }
-
-    // @Log(name = "Shooter Speed", tabName = "LiveDebug", columnIndex = 2, rowIndex = 1, height = 1, width = 1)
-    // double speed() {
-    //     return shooterMotor.getEncoder().getVelocity();
-    // }
-
-    // @Log(name = "Shooter Temp", tabName = "LiveDebug", columnIndex = 3, rowIndex = 1, height = 1, width = 1)
-    // double temp() {
-    //     return shooterMotor.getMotorTemperature();
-    // }
 }

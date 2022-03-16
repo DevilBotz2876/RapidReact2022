@@ -9,49 +9,44 @@
 /* You may NOT remove this header under any circumstance unless explicitly noted */
 /*-------------------------------------------------------------------------------*/
 
-package bhs.devilbotz.commands.shooter;
+package bhs.devilbotz.commands.transfer;
 
-import bhs.devilbotz.subsystems.Shooter;
+import bhs.devilbotz.subsystems.Transfer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /**
- * ShooterIn command
- * Runs the shooter
+ * IntakeStop command
+ * Stops the intake motor
  *
  * @author Devilbotz
  * @version 1.0.0
  * @since 1.0.5
  */
-public class ShooterToggle extends CommandBase {
-    private final Shooter shooter;
+public class TransferIn extends CommandBase {
+    private final Transfer transfer;
 
     /**
-     * ShooterIn constructor
-     *
-     * @param shooter {@link Shooter} subsystem
+     * IntakeStop constructor
      *
      * @since 1.0.5
      */
-    public ShooterToggle(Shooter shooter) {
-        this.shooter = shooter;
-        addRequirements(shooter);
+    public TransferIn(Transfer transfer) {
+        this.transfer = transfer;
+        addRequirements(transfer);
     }
 
     /**
      * Executed when the command is initially scheduled
-     *
      * @since 1.0.5
      */
     @Override
     public void execute() {
-        shooter.set(3000);
+        transfer.set(transfer.getTransferSpeedWidget().getDouble(1));
     }
 
     /**
      * Called once the command ends or is interrupted.
-     *
      * @param interrupted True if the command was interrupted, false otherwise.
-     *
      * @since 1.0.5
      */
     @Override
@@ -60,7 +55,6 @@ public class ShooterToggle extends CommandBase {
 
     /**
      * Returns true when the command should end.
-     *
      * @return True if the command should end, false otherwise.
      */
     @Override
@@ -70,7 +64,6 @@ public class ShooterToggle extends CommandBase {
 
     /**
      * If the command should run when the robot is disabled
-     *
      * @return True if the command should run when the robot is disabled, false otherwise.
      */
     @Override

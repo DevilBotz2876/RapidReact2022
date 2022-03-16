@@ -34,7 +34,7 @@ public class IntakeArm extends SubsystemBase {
 
     public void setIntakeArmDown(double speed) {
         intakeArmMotor.set(-speed);
-        intakeArmSpeedWidget.setDouble(speed);
+        intakeArmSpeedWidget.setDouble(-speed);
         intakeArmUp = false;
     }
 
@@ -44,8 +44,9 @@ public class IntakeArm extends SubsystemBase {
     }
 
     public void stop() {
-        intakeArmMotor.set(0);
-        intakeArmMotor.stopMotor();
+        set(0);
+        // intakeArmMotor.set(0);
+        // intakeArmMotor.stopMotor();
     }
 
     /**

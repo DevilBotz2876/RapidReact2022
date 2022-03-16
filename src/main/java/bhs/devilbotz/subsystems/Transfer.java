@@ -59,12 +59,13 @@ public class Transfer extends SubsystemBase {
 
     public void setOut(double speed) {
         transferMotor.set(-speed);
-        transferSpeedWidget.setDouble(speed);
+        transferSpeedWidget.setDouble(-speed);
     }
 
     public void stop() {
-        transferMotor.set(0);
-        transferMotor.stopMotor();
+        set(0);
+        //transferMotor.set(0);
+        //transferMotor.stopMotor();
     }
 
     /**

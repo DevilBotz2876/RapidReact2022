@@ -22,9 +22,9 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
  * @version 1.0.0
  * @since 1.0.5
  */
-public class ShooterSet extends CommandBase {
+public class ShooterSpeed extends CommandBase {
     private final Shooter shooter;
-    private double rpm;
+    private double speed;
 
     /**
      * ShooterIn constructor
@@ -33,17 +33,11 @@ public class ShooterSet extends CommandBase {
      *
      * @since 1.0.5
      */
-    public ShooterSet(Shooter shooter, double rpm) {
+    public ShooterSpeed(Shooter shooter, double speed) {
         this.shooter = shooter;
-        this.rpm = rpm;
+        this.speed = speed;
         addRequirements(shooter);
     }
-
-    @Override
-    public void initialize() {
-        shooter.setSetpoint(rpm);
-    }
-
 
     /**
      * Executed when the command is initially scheduled
@@ -52,7 +46,7 @@ public class ShooterSet extends CommandBase {
      */
     @Override
     public void execute() {
-        shooter.updatePIDOutput();
+        shooter.setSpeed(speed);
     }
 
     /**
@@ -64,7 +58,7 @@ public class ShooterSet extends CommandBase {
      */
     @Override
     public void end(boolean interrupted) {
-        shooter.stop();    
+        shooter.stop();
     }
 
     /**
