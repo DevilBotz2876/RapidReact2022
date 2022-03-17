@@ -12,14 +12,16 @@
 package bhs.devilbotz;
 
 import bhs.devilbotz.commands.DriveCommand;
-import bhs.devilbotz.commands.autonomous.routines.AutoTest;
+import bhs.devilbotz.commands.autonomous.routines.BackwardsAuto;
 import bhs.devilbotz.commands.camera.CameraToggle;
 import bhs.devilbotz.commands.intake.IntakeInToggle;
 import bhs.devilbotz.commands.intake.IntakeStop;
 import bhs.devilbotz.commands.intakeArm.IntakeArmDown;
 import bhs.devilbotz.commands.intakeArm.IntakeArmStop;
 import bhs.devilbotz.commands.intakeArm.IntakeArmUp;
-import bhs.devilbotz.commands.shooter.*;
+import bhs.devilbotz.commands.shooter.ShooterForward;
+import bhs.devilbotz.commands.shooter.ShooterReverse;
+import bhs.devilbotz.commands.shooter.ShooterStop;
 import bhs.devilbotz.commands.transfer.TransferIn;
 import bhs.devilbotz.commands.transfer.TransferOut;
 import bhs.devilbotz.commands.transfer.TransferStop;
@@ -132,8 +134,8 @@ public class RobotContainer {
     }
 
     private void configureShuffleboard() {
-        AutoTest autoTest = new AutoTest(driveTrain);
-        autonomousChooser.addOption("Auto Test", autoTest);
+        BackwardsAuto backwardsAuto = new BackwardsAuto(driveTrain);
+        autonomousChooser.addOption("Backwards Auto", backwardsAuto);
 
         Shuffleboard.getTab("Drive").add("Auto Chooser", autonomousChooser).withSize(2, 1).withPosition(0, 0);
     }

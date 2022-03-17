@@ -23,15 +23,15 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
  * @version 1.0.5
  * @since 1.0.5
  */
-public class AutoTest extends SequentialCommandGroup {
+public class BackwardsAuto extends SequentialCommandGroup {
     /**
      * AutoTest constructor
      * @param drive {@link DriveTrain} subsystem
      * @since 1.0.0
      */
-    public AutoTest(DriveTrain drive) {
+    public BackwardsAuto(DriveTrain drive) {
         addCommands(
-                new DriveDistance(drive, -200, 0.75)
+                new DriveTimed(drive, 1, -0.75)
         );
     }
 }

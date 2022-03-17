@@ -38,7 +38,7 @@ public class Shooter extends SubsystemBase {
      */
     public Shooter() {
         shooterMotor = new CANSparkMax(8, CANSparkMax.MotorType.kBrushless);
-        shooterMotor.setInverted(false);
+        shooterMotor.setInverted(true);
     }
 
     /**

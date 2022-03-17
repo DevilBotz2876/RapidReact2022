@@ -62,6 +62,7 @@ public class DriveTimed extends CommandBase {
      */
     @Override
     public void end(boolean interrupted) {
+        drive.tankDrive(0, 0);
     }
 
     /**
