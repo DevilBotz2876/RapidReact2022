@@ -22,7 +22,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
  * @version 1.0.0
  * @since 1.0.5
  */
-public class ShooterRPM extends CommandBase {
+public class ShooterRPMManual extends CommandBase {
     private final Shooter shooter;
     private final double rpm;
 
@@ -33,7 +33,7 @@ public class ShooterRPM extends CommandBase {
      *
      * @since 1.0.5
      */
-    public ShooterRPM(Shooter shooter, double rpm) {
+    public ShooterRPMManual(Shooter shooter, double rpm) {
         this.shooter = shooter;
         this.rpm = rpm;
         addRequirements(shooter);
@@ -74,7 +74,7 @@ public class ShooterRPM extends CommandBase {
      */
     @Override
     public boolean isFinished() {
-        return shooter.atSetpoint();
+        return false;
     }
 
     /**

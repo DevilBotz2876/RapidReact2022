@@ -20,10 +20,7 @@ import bhs.devilbotz.commands.intake.IntakeStop;
 import bhs.devilbotz.commands.intakeArm.IntakeArmDown;
 import bhs.devilbotz.commands.intakeArm.IntakeArmStop;
 import bhs.devilbotz.commands.intakeArm.IntakeArmUp;
-import bhs.devilbotz.commands.shooter.ShooterRPM;
-import bhs.devilbotz.commands.shooter.ShooterSpeed;
-import bhs.devilbotz.commands.shooter.ShooterStop;
-import bhs.devilbotz.commands.shooter.ShooterVoltage;
+import bhs.devilbotz.commands.shooter.*;
 import bhs.devilbotz.commands.transfer.TransferIn;
 import bhs.devilbotz.commands.transfer.TransferOut;
 import bhs.devilbotz.commands.transfer.TransferStop;
@@ -122,7 +119,7 @@ public class RobotContainer {
         //         .toggleWhenPressed(new ShootOneCargo(shooter, transfer, 3000));
 
         new JoystickButton(joy_two, 5)
-                .toggleWhenPressed(new ShooterRPM(shooter, 4000));
+                .toggleWhenPressed(new ShooterRPMManual(shooter, 4000));
 
 
         new JoystickButton(joy_two, 6)

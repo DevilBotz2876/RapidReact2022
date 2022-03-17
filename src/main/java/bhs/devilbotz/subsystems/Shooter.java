@@ -12,14 +12,8 @@
 package bhs.devilbotz.subsystems;
 
 import com.revrobotics.CANSparkMax;
-import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
-import edu.wpi.first.networktables.NetworkTableEntry;
-import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
-import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
-import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj2.command.PIDSubsystem;
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 /**
  * Shooter subsystem
@@ -30,8 +24,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
  */
 public class Shooter extends PIDSubsystem {
     private final CANSparkMax shooterMotor;
-    double setpoint = 0;
-    // Values gotten from Shooter SysID
+    double setpoint;
 
     /**
      * Constructor for Shooter subsystem
@@ -43,7 +36,6 @@ public class Shooter extends PIDSubsystem {
         this.setpoint = setpoint;
         shooterMotor.setInverted(false);
 
-        getController().setTolerance(10);
     }
 
     /**
@@ -53,7 +45,9 @@ public class Shooter extends PIDSubsystem {
      */
     @Override
     public void periodic() {
-        System.out.println(shooterMotor.getEncoder().getVelocity());
+        if (isEnabled()) {
+            shooterMotor.set(m_controller.calculate(getMeasurement(), setpoint));
+        }
     }
 
     /**
@@ -79,7 +73,7 @@ public class Shooter extends PIDSubsystem {
     @Override
     protected void useOutput(double output, double setpoint) {
         System.out.println("output: " + output);
-        shooterMotor.set(output);
+
     }
 
     @Override
@@ -94,7 +88,6 @@ public class Shooter extends PIDSubsystem {
     public void stop() {
         shooterMotor.set(0);
         shooterMotor.stopMotor();
-        setSetpoint(0);
     }
 
     public void setSetpoints(double setpoint) {
