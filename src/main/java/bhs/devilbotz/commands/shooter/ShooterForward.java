@@ -22,9 +22,9 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
  * @version 1.0.0
  * @since 1.0.5
  */
-public class ShooterRPMManual extends CommandBase {
+public class ShooterForward extends CommandBase {
     private final Shooter shooter;
-    private final double rpm;
+    private final double speed;
 
     /**
      * ShooterIn constructor
@@ -33,18 +33,11 @@ public class ShooterRPMManual extends CommandBase {
      *
      * @since 1.0.5
      */
-    public ShooterRPMManual(Shooter shooter, double rpm) {
+    public ShooterForward(Shooter shooter, double speed) {
         this.shooter = shooter;
-        this.rpm = rpm;
+        this.speed = speed;
         addRequirements(shooter);
     }
-
-    @Override
-    public void initialize() {
-        shooter.setSetpoints(rpm);
-        shooter.enable();
-    }
-
 
     /**
      * Executed when the command is initially scheduled
@@ -53,7 +46,7 @@ public class ShooterRPMManual extends CommandBase {
      */
     @Override
     public void execute() {
-        shooter.enable();
+        shooter.set(shooter.getShooterSpeedWidget().getDouble(0.75));
     }
 
     /**

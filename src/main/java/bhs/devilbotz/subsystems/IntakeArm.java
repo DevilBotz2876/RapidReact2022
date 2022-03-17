@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class IntakeArm extends SubsystemBase {
     private final WPI_TalonSRX intakeArmMotor;
     ShuffleboardTab tab = Shuffleboard.getTab("LiveDebug");
-    private final NetworkTableEntry intakeArmSpeedWidget = tab.add("Set Intake Arm Speed", 0.45).withWidget(BuiltInWidgets.kNumberSlider).withSize(2, 1).withPosition(0, 3).getEntry();
+    private final NetworkTableEntry intakeArmSpeedWidget = tab.addPersistent("Set Intake Arm Speed", 0.45).withWidget(BuiltInWidgets.kNumberSlider).withSize(2, 1).withPosition(0, 3).getEntry();
     private boolean intakeArmUp = true;
 
 

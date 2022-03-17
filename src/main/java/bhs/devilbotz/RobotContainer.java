@@ -12,7 +12,6 @@
 package bhs.devilbotz;
 
 import bhs.devilbotz.commands.DriveCommand;
-import bhs.devilbotz.commands.ShootOneCargo;
 import bhs.devilbotz.commands.autonomous.routines.AutoTest;
 import bhs.devilbotz.commands.camera.CameraToggle;
 import bhs.devilbotz.commands.intake.IntakeInToggle;
@@ -47,7 +46,7 @@ public class RobotContainer {
     private final DriveTrain driveTrain = new DriveTrain();
     private final Intake intake = new Intake();
     private final Transfer transfer = new Transfer();
-    private final Shooter shooter = new Shooter(4000);
+    private final Shooter shooter = new Shooter();
     private final IntakeArm intakeArm = new IntakeArm();
 
     // Joysticks
@@ -107,11 +106,12 @@ public class RobotContainer {
                 .toggleWhenPressed(new IntakeInToggle(intake, transfer));
 
         new JoystickButton(joy_two, 3)
-                .toggleWhenPressed(new TransferIn(transfer));
+                .whileHeld(new TransferIn(transfer))
+                .whenReleased(new TransferStop(transfer));
 
         new JoystickButton(joy, 3)
                 .whileHeld(new TransferOut(transfer))
-                        .whenReleased(new TransferStop(transfer));
+                .whenReleased(new TransferStop(transfer));
 
         // this probably will not work well, it uses untested command group.
         // uses PID based shooter which is stil not working/tested.
@@ -119,8 +119,10 @@ public class RobotContainer {
         //         .toggleWhenPressed(new ShootOneCargo(shooter, transfer, 3000));
 
         new JoystickButton(joy_two, 5)
-                .toggleWhenPressed(new ShooterRPMManual(shooter, 4000));
+                .toggleWhenPressed(new ShooterForward(shooter, 4000));
 
+        new JoystickButton(joy, 5)
+                .whileHeld(new ShooterReverse(shooter, 4000));
 
         new JoystickButton(joy_two, 6)
                 .whileHeld(new IntakeArmUp(intakeArm));

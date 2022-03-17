@@ -28,7 +28,7 @@ import io.github.oblarg.oblog.annotations.Config;
  */
 public class Intake extends SubsystemBase {
     ShuffleboardTab tab = Shuffleboard.getTab("LiveDebug");
-    private final NetworkTableEntry intakeSpeedWidget = tab.add("Set Intake Speed", 0.65).withWidget(BuiltInWidgets.kNumberSlider).withSize(2, 1).withPosition(0, 0).getEntry();
+    private final NetworkTableEntry intakeSpeedWidget = tab.addPersistent("Set Intake Speed", 0.65).withWidget(BuiltInWidgets.kNumberSlider).withSize(2, 1).withPosition(0, 0).getEntry();
     private final WPI_TalonSRX intakeMotor;
 
 

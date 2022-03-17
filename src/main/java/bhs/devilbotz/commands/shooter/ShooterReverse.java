@@ -22,9 +22,9 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
  * @version 1.0.0
  * @since 1.0.5
  */
-public class ShooterSpeed extends CommandBase {
+public class ShooterReverse extends CommandBase {
     private final Shooter shooter;
-    private double speed;
+    private final double speed;
 
     /**
      * ShooterIn constructor
@@ -33,12 +33,11 @@ public class ShooterSpeed extends CommandBase {
      *
      * @since 1.0.5
      */
-    public ShooterSpeed(Shooter shooter, double speed) {
+    public ShooterReverse(Shooter shooter, double speed) {
         this.shooter = shooter;
         this.speed = speed;
         addRequirements(shooter);
     }
-
 
     /**
      * Executed when the command is initially scheduled
@@ -47,7 +46,7 @@ public class ShooterSpeed extends CommandBase {
      */
     @Override
     public void execute() {
-        shooter.setSpeed(speed);
+        shooter.set(-shooter.getShooterSpeedWidget().getDouble(0.75));
     }
 
     /**
@@ -59,7 +58,6 @@ public class ShooterSpeed extends CommandBase {
      */
     @Override
     public void end(boolean interrupted) {
-        shooter.stop();
     }
 
     /**

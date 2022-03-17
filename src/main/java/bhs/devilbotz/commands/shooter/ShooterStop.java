@@ -45,7 +45,6 @@ public class ShooterStop extends CommandBase {
     @Override
     public void execute() {
         shooter.stop();
-        shooter.disable();
     }
 
     /**

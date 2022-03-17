@@ -18,7 +18,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
  * IntakeStop command
  * Stops the intake motor
  *
- * @author Devilbotz
+ * @author  Devilbotz
  * @version 1.0.0
  * @since 1.0.5
  */
@@ -27,7 +27,6 @@ public class TransferIn extends CommandBase {
 
     /**
      * IntakeStop constructor
-     *
      * @since 1.0.5
      */
     public TransferIn(Transfer transfer) {
@@ -41,7 +40,7 @@ public class TransferIn extends CommandBase {
      */
     @Override
     public void execute() {
-        transfer.set(transfer.getTransferSpeedWidget().getDouble(1));
+        transfer.set(1);
     }
 
     /**

@@ -13,7 +13,12 @@ package bhs.devilbotz.subsystems;
 
 import com.revrobotics.CANSparkMax;
 import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj2.command.PIDSubsystem;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 /**
  * Shooter subsystem
@@ -22,20 +27,18 @@ import edu.wpi.first.wpilibj2.command.PIDSubsystem;
  * @version 1.0.0
  * @since 1.0.5
  */
-public class Shooter extends PIDSubsystem {
+public class Shooter extends SubsystemBase {
+    ShuffleboardTab tab = Shuffleboard.getTab("LiveDebug");
+    private final NetworkTableEntry shooterSpeedWidget = tab.addPersistent("Set Shooter Speed", 0.75).withWidget(BuiltInWidgets.kNumberSlider).withSize(2, 1).withPosition(0, 1).getEntry();
+
     private final CANSparkMax shooterMotor;
-    double setpoint;
 
     /**
      * Constructor for Shooter subsystem
      */
-    public Shooter(double setpoint) {
-        super(new PIDController(0.15187, 0, 0));
+    public Shooter() {
         shooterMotor = new CANSparkMax(8, CANSparkMax.MotorType.kBrushless);
-
-        this.setpoint = setpoint;
         shooterMotor.setInverted(false);
-
     }
 
     /**
@@ -45,9 +48,6 @@ public class Shooter extends PIDSubsystem {
      */
     @Override
     public void periodic() {
-        if (isEnabled()) {
-            shooterMotor.set(m_controller.calculate(getMeasurement(), setpoint));
-        }
     }
 
     /**
@@ -60,29 +60,8 @@ public class Shooter extends PIDSubsystem {
 
     }
 
-    // -12 to 12 volts
-    public void setVoltage(double volts) {
-        shooterMotor.setVoltage(volts);
-    }
-
-    // -1 to 1 speed
-    public void setSpeed(double speed) {
+    public void set(double speed) {
         shooterMotor.set(speed);
-    }
-
-    @Override
-    protected void useOutput(double output, double setpoint) {
-        System.out.println("output: " + output);
-
-    }
-
-    @Override
-    protected double getMeasurement() {
-        return shooterMotor.getEncoder().getVelocity();
-    }
-
-    public boolean atSetpoint() {
-        return m_controller.atSetpoint();
     }
 
     public void stop() {
@@ -90,8 +69,8 @@ public class Shooter extends PIDSubsystem {
         shooterMotor.stopMotor();
     }
 
-    public void setSetpoints(double setpoint) {
-        setSetpoint(setpoint);
+    public NetworkTableEntry getShooterSpeedWidget() {
+        return shooterSpeedWidget;
     }
 
 }
