@@ -37,7 +37,7 @@ public class CameraSystem extends SubsystemBase {
                 videoSink.setDefaultCompression(COMPRESSION_LEVEL);
             }
             videoSink.setSource(driveCamera);
-            Shuffleboard.getTab("Drive").add("Camera", source).withSize(5, 5).withPosition(2, 0);
+            Shuffleboard.getTab("Drive").add("Camera", source).withSize(4, 4).withPosition(2, 0);
         } catch (Exception e) {
             System.out.println("Camera not found");
         }
