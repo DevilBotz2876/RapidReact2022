@@ -9,7 +9,7 @@
 /* You may NOT remove this header under any circumstance unless explicitly noted */
 /*-------------------------------------------------------------------------------*/
 
-package bhs.devilbotz.commands.autonomous.drive.driverassist;
+package bhs.devilbotz.commands.autonomous.routines;
 
 import bhs.devilbotz.commands.autonomous.drive.DriveDistance;
 import bhs.devilbotz.commands.autonomous.drive.DriveTimed;
@@ -31,25 +31,15 @@ import edu.wpi.first.wpilibj2.command.WaitCommand;
  * @version 1.0.5
  * @since 1.0.5
  */
-public class ShootTwoBalls extends SequentialCommandGroup {
+public class Backwards extends SequentialCommandGroup {
     /**
      * AutoTest constructor
      * @param drive {@link DriveTrain} subsystem
      * @since 1.0.0
      */
-    public ShootTwoBalls(DriveTrain drive, Transfer transfer, Shooter shooter) {
+    public Backwards(DriveTrain drive) {
         addCommands(
-                new TransferInTimed(transfer, 1),
-                new WaitCommand(0.15),
-                new TransferOutTimed(transfer, 0.5),
-                new WaitCommand(0.1),
-                new ShooterRPM(shooter),
-                new WaitCommand(0.4),
-                new TransferInTimed(transfer, 2),
-                new ShooterRPM(shooter),
-                new TransferInTimed(transfer, 3),
-                new TransferInstantStop(transfer),
-                new ShooterInstantStop(shooter)
+                new DriveTimed(drive, 1.5, -0.7)
         );
     }
 }

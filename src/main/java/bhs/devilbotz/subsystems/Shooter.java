@@ -29,9 +29,10 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
  */
 public class Shooter extends SubsystemBase {
     ShuffleboardTab tab = Shuffleboard.getTab("LiveDebug");
-    private final NetworkTableEntry shooterSpeedWidget = tab.addPersistent("Set Shooter Speed", 3000).withSize(2, 1).withPosition(0, 1).getEntry();
+    ShuffleboardTab driveTab = Shuffleboard.getTab("Drive");
+    private final NetworkTableEntry shooterSpeedWidget = tab.addPersistent("Set Shooter Speed", -3000).withSize(2, 1).withPosition(0, 1).getEntry();
 
-    private final NetworkTableEntry atSetpointWidget = tab.add("At Setpoint", false).withSize(1, 1).withPosition(0, 1).getEntry();
+    private final NetworkTableEntry atSetpointWidget = driveTab.add("At Setpoint", false).withSize(1, 1).withPosition(1, 1).getEntry();
 
 
     private final CANSparkMax shooterMotor;
@@ -55,11 +56,11 @@ public class Shooter extends SubsystemBase {
 
         encoder = shooterMotor.getEncoder();
 
-        kP = 0.00028;
+        kP = 0.00020;
         kI = 0;
         kD = 0;
         kIz = 0;
-        kFF = 0.0001885;
+        kFF = 0.000176;
         kMaxOutput = 1;
         kMinOutput = -1;
         maxRPM = 5200;
@@ -131,6 +132,7 @@ public class Shooter extends SubsystemBase {
         double velocity = encoder.getVelocity();
         double tolerance = 45;
         double error = velocity - setPoint;
+        atSetpointWidget.setBoolean(Math.abs(error) <= tolerance);
 
         return Math.abs(error) <= tolerance;
     }
@@ -150,6 +152,10 @@ public class Shooter extends SubsystemBase {
 
     public NetworkTableEntry getShooterSpeedWidget() {
         return shooterSpeedWidget;
+    }
+
+    public NetworkTableEntry getAtSetpointWidget() {
+        return atSetpointWidget;
     }
 
 }

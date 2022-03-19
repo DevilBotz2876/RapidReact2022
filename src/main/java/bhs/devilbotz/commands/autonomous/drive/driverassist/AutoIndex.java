@@ -9,37 +9,40 @@
 /* You may NOT remove this header under any circumstance unless explicitly noted */
 /*-------------------------------------------------------------------------------*/
 
-package bhs.devilbotz.commands.intake;
+package bhs.devilbotz.commands.autonomous.drive.driverassist;
 
+import bhs.devilbotz.commands.intake.IntakeInToggle;
+import bhs.devilbotz.commands.intake.IntakeStop;
 import bhs.devilbotz.commands.transfer.TransferIn;
 import bhs.devilbotz.commands.transfer.TransferStop;
 import bhs.devilbotz.subsystems.Intake;
+import bhs.devilbotz.subsystems.Shooter;
 import bhs.devilbotz.subsystems.Transfer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /**
- * IntakeIn command
- * Runs the intake motor
+ * IntakeStop command
+ * Stops the intake motor
  *
- * @author Devilbotz
+ * @author  Devilbotz
  * @version 1.0.0
  * @since 1.0.5
  */
-public class IntakeInToggle extends CommandBase {
+public class AutoIndex extends CommandBase {
     private final Intake intake;
     private final Transfer transfer;
 
     /**
-     * IntakeIn constructor
-     *
-     * @param intake {@link Intake} subsystem
-     *
+     * IntakeStop constructor
      * @since 1.0.5
      */
-    public IntakeInToggle(Intake intake, Transfer transfer) {
+    public AutoIndex(Intake intake, Transfer transfer) {
         this.intake = intake;
         this.transfer = transfer;
-        addRequirements(intake);
+    }
+
+    @Override
+    public void initialize() {
     }
 
     /**
@@ -48,21 +51,8 @@ public class IntakeInToggle extends CommandBase {
      */
     @Override
     public void execute() {
-        /*
-        System.out.println(transfer.getBallColor());
-        if (transfer.getBallColor() == Transfer.BallColor.BLUE) {
-            intake.set(-intake.getIntakeSpeedWidget().getDouble(0.65));
-        } else {
-            intake.set(intake.getIntakeSpeedWidget().getDouble(0.65));
-        }
-
-         */
-        intake.set(intake.getIntakeSpeedWidget().getDouble(0.65));
-
-        if (transfer.ballPresent()) {
-            new TransferIn(transfer);
-            System.out.println("transfering");
-        }
+        new TransferIn(transfer);
+        new IntakeInToggle(intake, transfer);
     }
 
     /**
@@ -73,6 +63,7 @@ public class IntakeInToggle extends CommandBase {
     @Override
     public void end(boolean interrupted) {
         new TransferStop(transfer);
+        new IntakeStop(intake);
     }
 
     /**

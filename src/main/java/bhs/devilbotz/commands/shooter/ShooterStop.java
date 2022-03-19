@@ -12,6 +12,7 @@
 package bhs.devilbotz.commands.shooter;
 
 import bhs.devilbotz.subsystems.Shooter;
+import bhs.devilbotz.subsystems.Transfer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /**
@@ -24,6 +25,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
  */
 public class ShooterStop extends CommandBase {
     private final Shooter shooter;
+    private final Transfer transfer;
 
     /**
      * ShooterIn constructor
@@ -32,8 +34,9 @@ public class ShooterStop extends CommandBase {
      *
      * @since 1.0.5
      */
-    public ShooterStop(Shooter shooter) {
+    public ShooterStop(Shooter shooter, Transfer transfer) {
         this.shooter = shooter;
+        this.transfer = transfer;
         addRequirements(shooter);
     }
 
@@ -44,8 +47,11 @@ public class ShooterStop extends CommandBase {
      */
     @Override
     public void execute() {
-        shooter.disable();
-        shooter.stop();
+
+            shooter.disable();
+            shooter.stop();
+            shooter.getAtSetpointWidget().setBoolean(false);
+
     }
 
     /**

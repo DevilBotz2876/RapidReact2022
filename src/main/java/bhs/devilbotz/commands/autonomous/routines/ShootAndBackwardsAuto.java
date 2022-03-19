@@ -11,6 +11,7 @@
 
 package bhs.devilbotz.commands.autonomous.routines;
 
+import bhs.devilbotz.commands.autonomous.drive.DriveDistance;
 import bhs.devilbotz.commands.autonomous.drive.DriveTimed;
 import bhs.devilbotz.commands.autonomous.shooter.ShooterRPM;
 import bhs.devilbotz.commands.autonomous.transfer.TransferInTimed;
@@ -42,17 +43,18 @@ public class ShootAndBackwardsAuto extends SequentialCommandGroup {
      */
     public ShootAndBackwardsAuto(DriveTrain drive, Transfer transfer, Shooter shooter) {
         addCommands(
+                new DriveDistance(drive, 6, -0.5),
                 new TransferInTimed(transfer, 1),
                 new WaitCommand(0.25),
                 new TransferOutTimed(transfer, 0.5),
                 new WaitCommand(1),
                 new ShooterRPM(shooter),
                 new WaitCommand(1),
-                new TransferInTimed(transfer, 2),
+                new TransferInTimed(transfer, 4),
                 new TransferInstantStop(transfer),
                 new ShooterInstantStop(shooter),
                 new WaitCommand(1.5),
-                new DriveTimed(drive, 1.5, -0.75)
+                new DriveTimed(drive, 1.5, -0.7)
         );
     }
 }

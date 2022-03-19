@@ -12,7 +12,9 @@
 package bhs.devilbotz;
 
 import bhs.devilbotz.commands.DriveCommand;
+import bhs.devilbotz.commands.autonomous.drive.driverassist.AutoIndex;
 import bhs.devilbotz.commands.autonomous.drive.driverassist.ShootTwoBalls;
+import bhs.devilbotz.commands.autonomous.routines.Backwards;
 import bhs.devilbotz.commands.autonomous.routines.ShootAndBackwardsAuto;
 import bhs.devilbotz.commands.camera.CameraToggle;
 import bhs.devilbotz.commands.intake.IntakeInToggle;
@@ -76,8 +78,7 @@ public class RobotContainer {
         configureShuffleboard();
 
         intake.setDefaultCommand(new IntakeStop(intake));
-        transfer.setDefaultCommand(new TransferStop(transfer));
-        shooter.setDefaultCommand(new ShooterStop(shooter));
+        shooter.setDefaultCommand(new ShooterStop(shooter, transfer));
         intakeArm.setDefaultCommand(new IntakeArmStop(intakeArm));
 
         SmartDashboard.putData("Shooter", shooter);
@@ -149,6 +150,9 @@ public class RobotContainer {
     private void configureShuffleboard() {
         ShootAndBackwardsAuto shootAndBackwardsAuto = new ShootAndBackwardsAuto(driveTrain, transfer, shooter);
         autonomousChooser.setDefaultOption("Shoot & Backwards Auto", shootAndBackwardsAuto);
+
+        Backwards backwards = new Backwards(driveTrain);
+        autonomousChooser.addOption("Backwards ONLY", backwards);
 
         Shuffleboard.getTab("Drive").add("Auto Chooser", autonomousChooser).withSize(2, 1).withPosition(0, 0);
     }

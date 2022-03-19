@@ -38,7 +38,10 @@ public class TransferStop extends CommandBase {
 
     @Override
     public void initialize() {
-        transfer.stop();
+        if (!transfer.ballPresent()) {
+            System.out.println("stopping");
+            transfer.stop();
+        }
     }
 
     /**

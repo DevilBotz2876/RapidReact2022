@@ -52,6 +52,10 @@ public class Transfer extends SubsystemBase {
         return this.ballColor;
     }
 
+    public boolean ballPresent() {
+        return colorSensor.getProximity() >= 200;
+    }
+
     public void set(double speed) {
         transferMotor.set(speed);
         transferSpeedWidget.setDouble(speed);
