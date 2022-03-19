@@ -46,7 +46,7 @@ public class ShooterForward extends CommandBase {
      */
     @Override
     public void execute() {
-        shooter.set(shooter.getShooterSpeedWidget().getDouble(0.75));
+        shooter.enable();
     }
 
     /**

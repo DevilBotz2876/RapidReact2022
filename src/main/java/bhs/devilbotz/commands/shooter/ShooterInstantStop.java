@@ -22,9 +22,8 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
  * @version 1.0.0
  * @since 1.0.5
  */
-public class ShooterReverse extends CommandBase {
+public class ShooterInstantStop extends CommandBase {
     private final Shooter shooter;
-    private final double speed;
 
     /**
      * ShooterIn constructor
@@ -33,9 +32,8 @@ public class ShooterReverse extends CommandBase {
      *
      * @since 1.0.5
      */
-    public ShooterReverse(Shooter shooter, double speed) {
+    public ShooterInstantStop(Shooter shooter) {
         this.shooter = shooter;
-        this.speed = speed;
         addRequirements(shooter);
     }
 
@@ -46,7 +44,8 @@ public class ShooterReverse extends CommandBase {
      */
     @Override
     public void execute() {
-        shooter.enable();
+        shooter.disable();
+        shooter.stop();
     }
 
     /**
@@ -67,7 +66,7 @@ public class ShooterReverse extends CommandBase {
      */
     @Override
     public boolean isFinished() {
-        return false;
+        return true;
     }
 
     /**
