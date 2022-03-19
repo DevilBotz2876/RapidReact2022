@@ -44,10 +44,10 @@ public class ShootAndBackwardsAuto extends SequentialCommandGroup {
         addCommands(
                 new TransferInTimed(transfer, 1),
                 new WaitCommand(0.25),
-                new TransferOutTimed(transfer, 0.25),
+                new TransferOutTimed(transfer, 0.5),
                 new WaitCommand(1),
                 new ShooterRPM(shooter),
-                new WaitCommand(0.5),
+                new WaitCommand(1),
                 new TransferInTimed(transfer, 2),
                 new TransferInstantStop(transfer),
                 new ShooterInstantStop(shooter),

@@ -133,11 +133,17 @@ public class RobotContainer {
         new JoystickButton(joy_two, 7)
                 .whileHeld(new IntakeArmDown(intakeArm));
 
+        new JoystickButton(joy, 4)
+                .whileHeld(new IntakeArmUp(intakeArm));
+
+        new JoystickButton(joy, 2)
+                .whileHeld(new IntakeArmDown(intakeArm));
+
         new JoystickButton(joy, 1)
-                .whenPressed(new ShootTwoBalls(driveTrain, transfer, shooter));
+                .whenReleased(new ShootTwoBalls(driveTrain, transfer, shooter));
 
         new JoystickButton(joy_two, 1)
-                .whenPressed(new ShootTwoBalls(driveTrain, transfer, shooter));
+                .whenReleased(new ShootTwoBalls(driveTrain, transfer, shooter));
     }
 
     private void configureShuffleboard() {

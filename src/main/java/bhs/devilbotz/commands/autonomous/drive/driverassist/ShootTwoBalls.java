@@ -40,11 +40,13 @@ public class ShootTwoBalls extends SequentialCommandGroup {
         addCommands(
                 new TransferInTimed(transfer, 1),
                 new WaitCommand(0.15),
-                new TransferOutTimed(transfer, 0.25),
+                new TransferOutTimed(transfer, 0.5),
                 new WaitCommand(0.1),
                 new ShooterRPM(shooter),
                 new WaitCommand(0.4),
-                new TransferInTimed(transfer, 5),
+                new TransferInTimed(transfer, 2),
+                new ShooterRPM(shooter),
+                new TransferInTimed(transfer, 3),
                 new TransferInstantStop(transfer),
                 new ShooterInstantStop(shooter)
         );

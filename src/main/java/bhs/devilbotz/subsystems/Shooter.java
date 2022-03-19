@@ -31,6 +31,9 @@ public class Shooter extends SubsystemBase {
     ShuffleboardTab tab = Shuffleboard.getTab("LiveDebug");
     private final NetworkTableEntry shooterSpeedWidget = tab.addPersistent("Set Shooter Speed", 3000).withSize(2, 1).withPosition(0, 1).getEntry();
 
+    private final NetworkTableEntry atSetpointWidget = tab.add("At Setpoint", false).withSize(1, 1).withPosition(0, 1).getEntry();
+
+
     private final CANSparkMax shooterMotor;
 
     private final SparkMaxPIDController pidController;
@@ -56,7 +59,7 @@ public class Shooter extends SubsystemBase {
         kI = 0;
         kD = 0;
         kIz = 0;
-        kFF = 0.00018;
+        kFF = 0.0001885;
         kMaxOutput = 1;
         kMinOutput = -1;
         maxRPM = 5200;
