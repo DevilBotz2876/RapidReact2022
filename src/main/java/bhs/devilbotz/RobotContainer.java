@@ -15,6 +15,7 @@ import bhs.devilbotz.commands.DriveCommand;
 import bhs.devilbotz.commands.autonomous.drive.driverassist.AutoIndex;
 import bhs.devilbotz.commands.autonomous.drive.driverassist.ShootTwoBalls;
 import bhs.devilbotz.commands.autonomous.routines.Backwards;
+import bhs.devilbotz.commands.autonomous.routines.Diagnostic;
 import bhs.devilbotz.commands.autonomous.routines.ShootAndBackwardsAuto;
 import bhs.devilbotz.commands.camera.CameraToggle;
 import bhs.devilbotz.commands.intake.IntakeInToggle;
@@ -154,6 +155,9 @@ public class RobotContainer {
         Backwards backwards = new Backwards(driveTrain);
         autonomousChooser.addOption("Backwards ONLY", backwards);
 
+        Diagnostic diagnostic = new Diagnostic(driveTrain, intake, shooter, transfer, intakeArm);
+        autonomousChooser.addOption("Diagnostic", diagnostic);
+
         Shuffleboard.getTab("Drive").add("Auto Chooser", autonomousChooser).withSize(2, 1).withPosition(0, 0);
     }
 
@@ -183,4 +187,12 @@ public class RobotContainer {
     // public Intake getIntake() {
     //     return intake;
     // }
+
+    public Transfer getTransfer() {
+        return transfer;
+    }
+
+    public Shooter getShooter() {
+        return shooter;
+    }
 }

@@ -34,6 +34,7 @@ public class Shooter extends SubsystemBase {
 
     private final NetworkTableEntry atSetpointWidget = driveTab.add("At Setpoint", false).withSize(1, 1).withPosition(1, 1).getEntry();
 
+    boolean isAuto = false;
 
     private final CANSparkMax shooterMotor;
 
@@ -56,11 +57,11 @@ public class Shooter extends SubsystemBase {
 
         encoder = shooterMotor.getEncoder();
 
-        kP = 0.00020;
+        kP = 0.00023;
         kI = 0;
         kD = 0;
         kIz = 0;
-        kFF = 0.000176;
+        kFF = 0.000184;
         kMaxOutput = 1;
         kMinOutput = -1;
         maxRPM = 5200;
@@ -135,6 +136,14 @@ public class Shooter extends SubsystemBase {
         atSetpointWidget.setBoolean(Math.abs(error) <= tolerance);
 
         return Math.abs(error) <= tolerance;
+    }
+
+    public void setIsAuto(boolean isAuto) {
+        this.isAuto = isAuto;
+    }
+
+    public boolean isAuto() {
+        return isAuto;
     }
 
     public void enable() {

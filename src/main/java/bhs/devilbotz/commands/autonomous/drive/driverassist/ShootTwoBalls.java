@@ -17,7 +17,9 @@ import bhs.devilbotz.commands.autonomous.shooter.ShooterRPM;
 import bhs.devilbotz.commands.autonomous.transfer.TransferInTimed;
 import bhs.devilbotz.commands.autonomous.transfer.TransferOutTimed;
 import bhs.devilbotz.commands.shooter.ShooterInstantStop;
+import bhs.devilbotz.commands.shooter.ShooterSetAuto;
 import bhs.devilbotz.commands.transfer.TransferInstantStop;
+import bhs.devilbotz.commands.transfer.TransferStop;
 import bhs.devilbotz.subsystems.DriveTrain;
 import bhs.devilbotz.subsystems.Shooter;
 import bhs.devilbotz.subsystems.Transfer;
@@ -39,6 +41,7 @@ public class ShootTwoBalls extends SequentialCommandGroup {
      */
     public ShootTwoBalls(DriveTrain drive, Transfer transfer, Shooter shooter) {
         addCommands(
+                new ShooterSetAuto(shooter, true),
                 new TransferInTimed(transfer, 1),
                 new WaitCommand(0.15),
                 new TransferOutTimed(transfer, 0.5),
@@ -46,10 +49,12 @@ public class ShootTwoBalls extends SequentialCommandGroup {
                 new ShooterRPM(shooter),
                 new WaitCommand(0.4),
                 new TransferInTimed(transfer, 2),
+                new TransferStop(transfer),
                 new ShooterRPM(shooter),
                 new TransferInTimed(transfer, 3),
                 new TransferInstantStop(transfer),
-                new ShooterInstantStop(shooter)
+                new ShooterInstantStop(shooter),
+                new ShooterSetAuto(shooter, false)
         );
     }
 }

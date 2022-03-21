@@ -25,7 +25,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
  * @version 1.0.0
  * @since 1.0.5
  */
-public class IntakeInToggle extends CommandBase {
+public class IntakeIn extends CommandBase {
     private final Intake intake;
     private final Transfer transfer;
 
@@ -36,7 +36,7 @@ public class IntakeInToggle extends CommandBase {
      *
      * @since 1.0.5
      */
-    public IntakeInToggle(Intake intake, Transfer transfer) {
+    public IntakeIn(Intake intake, Transfer transfer) {
         this.intake = intake;
         this.transfer = transfer;
         addRequirements(intake);
@@ -48,15 +48,6 @@ public class IntakeInToggle extends CommandBase {
      */
     @Override
     public void execute() {
-        /*
-        System.out.println(transfer.getBallColor());
-        if (transfer.getBallColor() == Transfer.BallColor.BLUE) {
-            intake.set(-intake.getIntakeSpeedWidget().getDouble(0.65));
-        } else {
-            intake.set(intake.getIntakeSpeedWidget().getDouble(0.65));
-        }
-
-         */
         intake.set(intake.getIntakeSpeedWidget().getDouble(0.65));
     }
 
@@ -67,7 +58,6 @@ public class IntakeInToggle extends CommandBase {
      */
     @Override
     public void end(boolean interrupted) {
-        new TransferStop(transfer);
     }
 
     /**
@@ -76,7 +66,7 @@ public class IntakeInToggle extends CommandBase {
      */
     @Override
     public boolean isFinished() {
-        return false;
+        return true;
     }
 
     /**

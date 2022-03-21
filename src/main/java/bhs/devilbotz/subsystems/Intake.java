@@ -86,6 +86,7 @@ public class Intake extends SubsystemBase {
         intakeSpeedWidget.setDouble(speed);
         intakeMotor.set(speed);
         toggleWidget.setBoolean(true);
+
     }
 
     public void stop() {

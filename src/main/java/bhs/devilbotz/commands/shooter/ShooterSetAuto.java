@@ -9,78 +9,76 @@
 /* You may NOT remove this header under any circumstance unless explicitly noted */
 /*-------------------------------------------------------------------------------*/
 
-package bhs.devilbotz.commands.intake;
+package bhs.devilbotz.commands.shooter;
 
-import bhs.devilbotz.commands.transfer.TransferIn;
-import bhs.devilbotz.commands.transfer.TransferStop;
-import bhs.devilbotz.subsystems.Intake;
+import bhs.devilbotz.subsystems.Shooter;
 import bhs.devilbotz.subsystems.Transfer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /**
- * IntakeIn command
- * Runs the intake motor
+ * ShooterIn command
+ * Runs the shooter
  *
  * @author Devilbotz
  * @version 1.0.0
  * @since 1.0.5
  */
-public class IntakeInToggle extends CommandBase {
-    private final Intake intake;
-    private final Transfer transfer;
+public class ShooterSetAuto extends CommandBase {
+    private final Shooter shooter;
+    private final boolean isAuto;
 
     /**
-     * IntakeIn constructor
+     * ShooterIn constructor
      *
-     * @param intake {@link Intake} subsystem
+     * @param shooter {@link Shooter} subsystem
      *
      * @since 1.0.5
      */
-    public IntakeInToggle(Intake intake, Transfer transfer) {
-        this.intake = intake;
-        this.transfer = transfer;
-        addRequirements(intake);
+    public ShooterSetAuto(Shooter shooter, boolean isAuto) {
+        this.shooter = shooter;
+        this.isAuto = isAuto;
+        addRequirements(shooter);
+    }
+
+    @Override
+    public void initialize() {
+        shooter.setIsAuto(isAuto);
     }
 
     /**
      * Executed when the command is initially scheduled
+     *
      * @since 1.0.5
      */
     @Override
     public void execute() {
-        /*
-        System.out.println(transfer.getBallColor());
-        if (transfer.getBallColor() == Transfer.BallColor.BLUE) {
-            intake.set(-intake.getIntakeSpeedWidget().getDouble(0.65));
-        } else {
-            intake.set(intake.getIntakeSpeedWidget().getDouble(0.65));
-        }
 
-         */
-        intake.set(intake.getIntakeSpeedWidget().getDouble(0.65));
     }
 
     /**
      * Called once the command ends or is interrupted.
+     *
      * @param interrupted True if the command was interrupted, false otherwise.
+     *
      * @since 1.0.5
      */
     @Override
     public void end(boolean interrupted) {
-        new TransferStop(transfer);
     }
 
     /**
      * Returns true when the command should end.
+     *
      * @return True if the command should end, false otherwise.
      */
     @Override
     public boolean isFinished() {
-        return false;
+        return true;
     }
 
     /**
      * If the command should run when the robot is disabled
+     *
      * @return True if the command should run when the robot is disabled, false otherwise.
      */
     @Override

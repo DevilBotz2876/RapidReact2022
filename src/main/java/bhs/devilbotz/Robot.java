@@ -11,6 +11,7 @@
 
 package bhs.devilbotz;
 
+import bhs.devilbotz.commands.transfer.TransferIn;
 import bhs.devilbotz.subsystems.DriveTrain;
 import bhs.devilbotz.subsystems.Intake;
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -28,6 +29,8 @@ import io.github.oblarg.oblog.Logger;
  */
 public class Robot extends TimedRobot {
     private Command autonomousCommand;
+
+    private double time;
 
     private RobotContainer robotContainer;
 
@@ -122,6 +125,19 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void teleopPeriodic() {
+        if (!robotContainer.getShooter().isAuto() && !robotContainer.getTransfer().isIntakeOut()) {
+            if (robotContainer.getTransfer().ballPresent()) {
+                if (time <= 100) {
+                    robotContainer.getTransfer().set(0.7);
+                } else {
+                    robotContainer.getTransfer().stop();
+                }
+                time += 1;
+            } else {
+                robotContainer.getTransfer().stop();
+                time = 0;
+            }
+        }
     }
 
 

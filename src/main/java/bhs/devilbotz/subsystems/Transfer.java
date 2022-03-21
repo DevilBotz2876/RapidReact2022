@@ -25,6 +25,8 @@ public class Transfer extends SubsystemBase {
     private final WPI_TalonSRX transferMotor;
     private final I2C.Port i2cPort = I2C.Port.kMXP;
 
+    private boolean intakeOut = false;
+
     // Shuffleboard
     ShuffleboardTab tab = Shuffleboard.getTab("LiveDebug");
     private final NetworkTableEntry transferSpeedWidget = tab.add("Set Transfer Speed", 1).withWidget(BuiltInWidgets.kNumberSlider).withSize(2, 1).withPosition(0, 2).getEntry();
@@ -53,7 +55,7 @@ public class Transfer extends SubsystemBase {
     }
 
     public boolean ballPresent() {
-        return colorSensor.getProximity() >= 200;
+        return colorSensor.getProximity() >= 175;
     }
 
     public void set(double speed) {
@@ -64,10 +66,12 @@ public class Transfer extends SubsystemBase {
     public void setOut(double speed) {
         transferMotor.set(-speed);
         transferSpeedWidget.setDouble(-speed);
+        intakeOut = true;
     }
 
     public void stop() {
         set(0);
+        intakeOut = false;
         //transferMotor.set(0);
         //transferMotor.stopMotor();
     }
@@ -81,7 +85,7 @@ public class Transfer extends SubsystemBase {
     public void periodic() {
         Color detectedColor = colorSensor.getColor();
 
-        if (colorSensor.getProximity() > 200) {
+        if (colorSensor.getProximity() > 175) {
             if (detectedColor.red > detectedColor.blue) {
                 SmartDashboard.putString("BallColor", "RED");
                 ballColor = BallColor.RED;
@@ -106,6 +110,10 @@ public class Transfer extends SubsystemBase {
     @Override
     public void simulationPeriodic() {
 
+    }
+
+    public boolean isIntakeOut() {
+        return intakeOut;
     }
 
     public NetworkTableEntry getTransferSpeedWidget() {
