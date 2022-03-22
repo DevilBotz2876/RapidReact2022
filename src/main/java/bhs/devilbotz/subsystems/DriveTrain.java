@@ -44,9 +44,9 @@ public class DriveTrain extends SubsystemBase {
     // Define differential drive
     private final DifferentialDrive differentialDrive = new DifferentialDrive(leftMaster, rightMaster);
 
-    private final SlewRateLimiter leftSlew = new SlewRateLimiter(2);
+    private final SlewRateLimiter leftSlew = new SlewRateLimiter(20000000);
 
-    private final SlewRateLimiter rightSlew = new SlewRateLimiter(2);
+    private final SlewRateLimiter rightSlew = new SlewRateLimiter(20000000);
 
     /**
      * The constructor for the DriveTrain subsystem
