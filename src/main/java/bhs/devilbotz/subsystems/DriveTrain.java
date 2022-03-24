@@ -44,9 +44,9 @@ public class DriveTrain extends SubsystemBase {
     // Define differential drive
     private final DifferentialDrive differentialDrive = new DifferentialDrive(leftMaster, rightMaster);
 
-    private final SlewRateLimiter leftSlew = new SlewRateLimiter(20000000);
+    private final SlewRateLimiter leftSlew = new SlewRateLimiter(5);
 
-    private final SlewRateLimiter rightSlew = new SlewRateLimiter(20000000);
+    private final SlewRateLimiter rightSlew = new SlewRateLimiter(5);
 
     /**
      * The constructor for the DriveTrain subsystem
@@ -156,6 +156,8 @@ public class DriveTrain extends SubsystemBase {
         return ((Math.abs(leftDistance) + Math.abs(rightDistance)) / 2);
     }
 
+    double kP = 0.35;
+
 
     /**
      * Tank drive method
@@ -164,7 +166,9 @@ public class DriveTrain extends SubsystemBase {
      * @param rightSpeed The speed of the right side of the robot
      */
     public void tankDrive(double leftSpeed, double rightSpeed) {
-        differentialDrive.tankDrive(leftSlew.calculate(leftSpeed), rightSlew.calculate(rightSpeed));
+        double error = -navx.getRate();
+
+        differentialDrive.tankDrive(leftSlew.calculate(leftSpeed) + kP * error, rightSlew.calculate(rightSpeed) + kP * error);
     }
 
     /**

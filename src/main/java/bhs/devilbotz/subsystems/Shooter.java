@@ -57,11 +57,11 @@ public class Shooter extends SubsystemBase {
 
         encoder = shooterMotor.getEncoder();
 
-        kP = 0.00023;
-        kI = 0;
+        kP = 0.0004;
+        kI = 0.0000000425;
         kD = 0;
         kIz = 0;
-        kFF = 0.000184;
+        kFF = 0.0001634;
         kMaxOutput = 1;
         kMinOutput = -1;
         maxRPM = 5200;
@@ -130,8 +130,9 @@ public class Shooter extends SubsystemBase {
     }
 
     public boolean atSetpoint() {
+
         double velocity = encoder.getVelocity();
-        double tolerance = 45;
+        double tolerance = 20;
         double error = velocity - setPoint;
         atSetpointWidget.setBoolean(Math.abs(error) <= tolerance);
 
@@ -140,6 +141,12 @@ public class Shooter extends SubsystemBase {
 
     public void setIsAuto(boolean isAuto) {
         this.isAuto = isAuto;
+    }
+
+    public void set(double speed) {
+        System.out.println(shooterMotor.getEncoder().getVelocity());
+        shooterMotor.set(speed);
+        isAuto = false;
     }
 
     public boolean isAuto() {

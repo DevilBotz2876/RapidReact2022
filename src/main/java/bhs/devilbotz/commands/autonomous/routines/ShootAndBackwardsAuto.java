@@ -16,17 +16,13 @@ import bhs.devilbotz.commands.autonomous.drive.DriveTimed;
 import bhs.devilbotz.commands.autonomous.shooter.ShooterRPM;
 import bhs.devilbotz.commands.autonomous.transfer.TransferInTimed;
 import bhs.devilbotz.commands.autonomous.transfer.TransferOutTimed;
-import bhs.devilbotz.commands.shooter.ShooterForward;
 import bhs.devilbotz.commands.shooter.ShooterInstantStop;
-import bhs.devilbotz.commands.shooter.ShooterStop;
 import bhs.devilbotz.commands.transfer.TransferInstantStop;
-import bhs.devilbotz.commands.transfer.TransferStop;
 import bhs.devilbotz.subsystems.DriveTrain;
 import bhs.devilbotz.subsystems.Shooter;
 import bhs.devilbotz.subsystems.Transfer;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
-import edu.wpi.first.wpilibj2.command.WaitUntilCommand;
 
 /**
  * AutoTest - Test autonomous routines

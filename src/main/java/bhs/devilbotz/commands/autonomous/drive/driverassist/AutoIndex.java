@@ -16,6 +16,7 @@ import bhs.devilbotz.commands.intake.IntakeStop;
 import bhs.devilbotz.commands.transfer.TransferIn;
 import bhs.devilbotz.commands.transfer.TransferStop;
 import bhs.devilbotz.subsystems.Intake;
+import bhs.devilbotz.subsystems.IntakeArm;
 import bhs.devilbotz.subsystems.Shooter;
 import bhs.devilbotz.subsystems.Transfer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
@@ -31,14 +32,16 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 public class AutoIndex extends CommandBase {
     private final Intake intake;
     private final Transfer transfer;
+    private final IntakeArm intakeArm;
 
     /**
      * IntakeStop constructor
      * @since 1.0.5
      */
-    public AutoIndex(Intake intake, Transfer transfer) {
+    public AutoIndex(Intake intake, Transfer transfer, IntakeArm intakeArm) {
         this.intake = intake;
         this.transfer = transfer;
+        this.intakeArm = intakeArm;
     }
 
     @Override
@@ -52,7 +55,7 @@ public class AutoIndex extends CommandBase {
     @Override
     public void execute() {
         new TransferIn(transfer);
-        new IntakeInToggle(intake, transfer);
+        new IntakeInToggle(intake, intakeArm);
     }
 
     /**
@@ -63,7 +66,7 @@ public class AutoIndex extends CommandBase {
     @Override
     public void end(boolean interrupted) {
         new TransferStop(transfer);
-        new IntakeStop(intake);
+        new IntakeStop(intake, intakeArm);
     }
 
     /**

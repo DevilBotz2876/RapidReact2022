@@ -9,50 +9,51 @@
 /* You may NOT remove this header under any circumstance unless explicitly noted */
 /*-------------------------------------------------------------------------------*/
 
-package bhs.devilbotz.commands.intake;
+package bhs.devilbotz.commands.shooter;
 
-import bhs.devilbotz.subsystems.Intake;
-import bhs.devilbotz.subsystems.IntakeArm;
+import bhs.devilbotz.subsystems.Shooter;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /**
- * IntakeStop command
- * Stops the intake motor
+ * ShooterIn command
+ * Runs the shooter
  *
  * @author Devilbotz
  * @version 1.0.0
  * @since 1.0.5
  */
-public class IntakeStop extends CommandBase {
-    private final Intake intake;
-    private final IntakeArm intakeArm;
+public class ShooterForwardPID extends CommandBase {
+    private final Shooter shooter;
+    private final double speed;
 
     /**
-     * IntakeStop constructor
+     * ShooterIn constructor
      *
-     * @param intake {@link Intake} subsystem
+     * @param shooter {@link Shooter} subsystem
      *
      * @since 1.0.5
      */
-    public IntakeStop(Intake intake, IntakeArm intakeArm) {
-        this.intake = intake;
-        this.intakeArm = intakeArm;
-        addRequirements(intake);
+    public ShooterForwardPID(Shooter shooter, double speed) {
+        this.shooter = shooter;
+        this.speed = speed;
+        addRequirements(shooter);
     }
 
     /**
      * Executed when the command is initially scheduled
+     *
      * @since 1.0.5
      */
     @Override
     public void execute() {
-        intake.stop();
-        intakeArm.stop();
+        shooter.enable();
     }
 
     /**
      * Called once the command ends or is interrupted.
+     *
      * @param interrupted True if the command was interrupted, false otherwise.
+     *
      * @since 1.0.5
      */
     @Override
@@ -61,6 +62,7 @@ public class IntakeStop extends CommandBase {
 
     /**
      * Returns true when the command should end.
+     *
      * @return True if the command should end, false otherwise.
      */
     @Override
@@ -70,6 +72,7 @@ public class IntakeStop extends CommandBase {
 
     /**
      * If the command should run when the robot is disabled
+     *
      * @return True if the command should run when the robot is disabled, false otherwise.
      */
     @Override

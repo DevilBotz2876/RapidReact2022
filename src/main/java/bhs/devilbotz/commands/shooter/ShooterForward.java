@@ -46,7 +46,7 @@ public class ShooterForward extends CommandBase {
      */
     @Override
     public void execute() {
-        shooter.enable();
+        shooter.set(speed);
     }
 
     /**
@@ -67,7 +67,7 @@ public class ShooterForward extends CommandBase {
      */
     @Override
     public boolean isFinished() {
-        return false;
+        return true;
     }
 
     /**

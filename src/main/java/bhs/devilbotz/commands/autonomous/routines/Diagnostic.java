@@ -16,12 +16,11 @@ import bhs.devilbotz.commands.autonomous.shooter.ShooterRPM;
 import bhs.devilbotz.commands.autonomous.transfer.TransferInTimed;
 import bhs.devilbotz.commands.autonomous.transfer.TransferOutTimed;
 import bhs.devilbotz.commands.intake.IntakeIn;
-import bhs.devilbotz.commands.intake.IntakeInToggle;
 import bhs.devilbotz.commands.intake.IntakeStop;
 import bhs.devilbotz.commands.intakeArm.IntakeArmDown;
 import bhs.devilbotz.commands.intakeArm.IntakeArmStop;
 import bhs.devilbotz.commands.intakeArm.IntakeArmUp;
-import bhs.devilbotz.commands.shooter.ShooterForward;
+import bhs.devilbotz.commands.shooter.ShooterForwardPID;
 import bhs.devilbotz.commands.shooter.ShooterReverse;
 import bhs.devilbotz.commands.shooter.ShooterStop;
 import bhs.devilbotz.subsystems.*;
@@ -49,12 +48,12 @@ public class Diagnostic extends SequentialCommandGroup {
                 new WaitCommand(0.5),
                 new IntakeIn(intake, transfer),
                 new WaitCommand(0.5),
-                new IntakeStop(intake),
+                new IntakeStop(intake, intakeArm),
                 new WaitCommand(0.5),
                 new ShooterRPM(shooter),
                 new WaitCommand(0.5),
                 new ShooterStop(shooter, transfer),
-                new ShooterForward(shooter,  0.5),
+                new ShooterForwardPID(shooter,  0.5),
                 new WaitCommand(0.5),
                 new ShooterReverse(shooter, 0.5),
                 new WaitCommand(0.5),

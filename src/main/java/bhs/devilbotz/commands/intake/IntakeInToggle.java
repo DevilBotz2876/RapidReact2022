@@ -14,6 +14,7 @@ package bhs.devilbotz.commands.intake;
 import bhs.devilbotz.commands.transfer.TransferIn;
 import bhs.devilbotz.commands.transfer.TransferStop;
 import bhs.devilbotz.subsystems.Intake;
+import bhs.devilbotz.subsystems.IntakeArm;
 import bhs.devilbotz.subsystems.Transfer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
@@ -27,7 +28,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
  */
 public class IntakeInToggle extends CommandBase {
     private final Intake intake;
-    private final Transfer transfer;
+    private final IntakeArm intakeArm;
 
     /**
      * IntakeIn constructor
@@ -36,9 +37,9 @@ public class IntakeInToggle extends CommandBase {
      *
      * @since 1.0.5
      */
-    public IntakeInToggle(Intake intake, Transfer transfer) {
+    public IntakeInToggle(Intake intake, IntakeArm intakeArm) {
         this.intake = intake;
-        this.transfer = transfer;
+        this.intakeArm = intakeArm;
         addRequirements(intake);
     }
 
@@ -58,6 +59,7 @@ public class IntakeInToggle extends CommandBase {
 
          */
         intake.set(intake.getIntakeSpeedWidget().getDouble(0.65));
+        intakeArm.set(-0.075);
     }
 
     /**
@@ -67,7 +69,7 @@ public class IntakeInToggle extends CommandBase {
      */
     @Override
     public void end(boolean interrupted) {
-        new TransferStop(transfer);
+        intakeArm.stop();
     }
 
     /**

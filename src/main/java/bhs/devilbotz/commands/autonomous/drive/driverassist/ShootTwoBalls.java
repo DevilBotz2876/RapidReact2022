@@ -48,10 +48,7 @@ public class ShootTwoBalls extends SequentialCommandGroup {
                 new WaitCommand(0.05),
                 new ShooterRPM(shooter),
                 new WaitCommand(0.4),
-                new TransferInTimed(transfer, 2),
-                new TransferStop(transfer),
-                new ShooterRPM(shooter),
-                new TransferInTimed(transfer, 3),
+                new TransferInTimed(transfer, 5),
                 new TransferInstantStop(transfer),
                 new ShooterInstantStop(shooter),
                 new ShooterSetAuto(shooter, false)

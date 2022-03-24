@@ -12,7 +12,6 @@
 package bhs.devilbotz;
 
 import bhs.devilbotz.commands.DriveCommand;
-import bhs.devilbotz.commands.autonomous.drive.driverassist.AutoIndex;
 import bhs.devilbotz.commands.autonomous.drive.driverassist.ShootTwoBalls;
 import bhs.devilbotz.commands.autonomous.routines.Backwards;
 import bhs.devilbotz.commands.autonomous.routines.Diagnostic;
@@ -24,6 +23,7 @@ import bhs.devilbotz.commands.intakeArm.IntakeArmDown;
 import bhs.devilbotz.commands.intakeArm.IntakeArmStop;
 import bhs.devilbotz.commands.intakeArm.IntakeArmUp;
 import bhs.devilbotz.commands.shooter.ShooterForward;
+import bhs.devilbotz.commands.shooter.ShooterForwardPID;
 import bhs.devilbotz.commands.shooter.ShooterReverse;
 import bhs.devilbotz.commands.shooter.ShooterStop;
 import bhs.devilbotz.commands.transfer.TransferIn;
@@ -78,7 +78,7 @@ public class RobotContainer {
         configureButtonBindings();
         configureShuffleboard();
 
-        intake.setDefaultCommand(new IntakeStop(intake));
+        intake.setDefaultCommand(new IntakeStop(intake, intakeArm));
         shooter.setDefaultCommand(new ShooterStop(shooter, transfer));
         intakeArm.setDefaultCommand(new IntakeArmStop(intakeArm));
 
@@ -108,7 +108,7 @@ public class RobotContainer {
                 .whenPressed(new CameraToggle(cameraSystem));
 
         new JoystickButton(joy_two, Constants.INTAKE_BUTTON)
-                .toggleWhenPressed(new IntakeInToggle(intake, transfer));
+                .toggleWhenPressed(new IntakeInToggle(intake, intakeArm));
 
         new JoystickButton(joy_two, 3)
                 .whileHeld(new TransferIn(transfer))
@@ -118,13 +118,12 @@ public class RobotContainer {
                 .whileHeld(new TransferOut(transfer))
                 .whenReleased(new TransferStop(transfer));
 
-        // this probably will not work well, it uses untested command group.
-        // uses PID based shooter which is stil not working/tested.
-        // new JoystickButton(joy_two, 5)
-        //         .toggleWhenPressed(new ShootOneCargo(shooter, transfer, 3000));
+        new JoystickButton(joy, 8)
+                .whileHeld(new ShooterForward(shooter, 1))
+                .whenReleased(new ShooterStop(shooter, transfer));
 
         new JoystickButton(joy_two, 5)
-                .toggleWhenPressed(new ShooterForward(shooter, 4000));
+                .toggleWhenPressed(new ShooterForwardPID(shooter, 4000));
 
         new JoystickButton(joy, 5)
                 .whileHeld(new ShooterReverse(shooter, 4000));
@@ -140,9 +139,6 @@ public class RobotContainer {
 
         new JoystickButton(joy, 2)
                 .whileHeld(new IntakeArmDown(intakeArm));
-
-        new JoystickButton(joy, 1)
-                .whenReleased(new ShootTwoBalls(driveTrain, transfer, shooter));
 
         new JoystickButton(joy_two, 1)
                 .whenReleased(new ShootTwoBalls(driveTrain, transfer, shooter));
