@@ -4,6 +4,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.revrobotics.ColorMatch;
 import com.revrobotics.ColorSensorV3;
 import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
@@ -25,6 +26,8 @@ public class Transfer extends SubsystemBase {
     private final WPI_TalonSRX transferMotor;
     private final I2C.Port i2cPort = I2C.Port.kMXP;
 
+    private final Encoder encoder = new Encoder(9, 8);
+
     private boolean intakeOut = false;
 
     // Shuffleboard
@@ -43,6 +46,8 @@ public class Transfer extends SubsystemBase {
         addChild("TransferMotor", transferMotor);
 
         setupColorSensor();
+
+        encoder.setDistancePerPulse(0.1428571428571429);
     }
 
     private void setupColorSensor() {
@@ -55,6 +60,7 @@ public class Transfer extends SubsystemBase {
     }
 
     public boolean ballPresent() {
+        System.out.println(encoder.get());
         return colorSensor.getProximity() >= 175;
     }
 
