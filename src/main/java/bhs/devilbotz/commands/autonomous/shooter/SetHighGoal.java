@@ -12,7 +12,6 @@
 package bhs.devilbotz.commands.autonomous.shooter;
 
 import bhs.devilbotz.subsystems.Shooter;
-import bhs.devilbotz.subsystems.Transfer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /**
@@ -23,31 +22,23 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
  * @version 1.0.0
  * @since 1.0.5
  */
-public class ShooterRPM extends CommandBase {
+public class SetHighGoal extends CommandBase {
     private final Shooter shooter;
+    private final boolean highGoal;
 
     /**
      * IntakeStop constructor
      * @since 1.0.5
      */
-    public ShooterRPM(Shooter shooter) {
+    public SetHighGoal(Shooter shooter, boolean highGoal) {
         this.shooter = shooter;
+        this.highGoal = highGoal;
         addRequirements(shooter);
     }
 
     @Override
     public void initialize() {
-
-        System.out.println(shooter.getGoalWidget().getSelected().getName());
-        if (shooter.getGoalWidget().getSelected().getName().equals("SetHighGoal")) {
-            //loop 500 times
-            for (int i = 0; i < 500; i++) {
-                System.out.println("HIGH");
-            }
-            shooter.setHighGoal();
-        } else {
-            shooter.setLowGoal();
-        }
+        shooter.setHighGoal();
     }
 
     /**
@@ -56,7 +47,6 @@ public class ShooterRPM extends CommandBase {
      */
     @Override
     public void execute() {
-        shooter.enable();
     }
 
     /**
@@ -74,7 +64,7 @@ public class ShooterRPM extends CommandBase {
      */
     @Override
     public boolean isFinished() {
-        return shooter.atSetpoint();
+        return true;
     }
 
     /**

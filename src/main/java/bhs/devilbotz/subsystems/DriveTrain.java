@@ -156,6 +156,11 @@ public class DriveTrain extends SubsystemBase {
         return ((Math.abs(leftDistance) + Math.abs(rightDistance)) / 2);
     }
 
+    public double getLeftEncoderDistance() {
+        return leftMaster.getSelectedSensorPosition()
+                * (Constants.AutoConstants.WHEEL_DIAMETER_INCHES * Math.PI / 4096);
+    }
+
     double kP = 0.35;
 
 

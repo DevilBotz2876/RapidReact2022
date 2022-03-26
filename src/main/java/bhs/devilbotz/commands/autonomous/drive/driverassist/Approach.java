@@ -3,8 +3,6 @@ package bhs.devilbotz.commands.autonomous.drive.driverassist;
 import bhs.devilbotz.RobotContainer;
 import bhs.devilbotz.subsystems.DriveTrain;
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
-import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.Ultrasonic;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
@@ -46,16 +44,16 @@ public class Approach extends CommandBase {
     @Override
     public void execute() {
         System.out.println("Ultrasonic: " + ultrasonicThree.get());
-            if (Math.abs((ultrasonicTwo.getRangeMM() - ultrasonic.getRangeMM()) / ultrasonic.getRangeMM()) < 0.25) {
-                drive.tankDrive(0.5, 0.5);
+        if (Math.abs((ultrasonicTwo.getRangeMM() - ultrasonic.getRangeMM()) / ultrasonic.getRangeMM()) < 0.25) {
+            drive.tankDrive(0.5, 0.5);
+        } else {
+            if (ultrasonic.getRangeMM() >= ultrasonicTwo.getRangeMM()) {
+                drive.tankDrive(-0.5, 0.5);
             } else {
-                if (ultrasonic.getRangeMM() >= ultrasonicTwo.getRangeMM()) {
-                    drive.tankDrive(-0.5, 0.5);
-                } else {
-                    drive.tankDrive(0.5, -0.5);
-                }
+                drive.tankDrive(0.5, -0.5);
             }
         }
+    }
 
     /**
      * Called once the command ends or is interrupted.

@@ -1,22 +1,26 @@
-package bhs.devilbotz.commands.camera;
+package bhs.devilbotz.commands.autonomous.drive.driverassist;
 
-import bhs.devilbotz.subsystems.CameraSystem;
+import bhs.devilbotz.subsystems.DriveTrain;
+import bhs.devilbotz.subsystems.IntakeArm;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
-public class CameraToggle extends CommandBase {
-    CameraSystem cameraSystem;
+public class DefenseModeEnable extends CommandBase {
+    private final DriveTrain driveTrain;
+    private final IntakeArm intakeArm;
 
-    public CameraToggle(CameraSystem cameraSystem) {
-        this.cameraSystem = cameraSystem;
+
+    public DefenseModeEnable(DriveTrain driveTrain, IntakeArm intakeArm) {
+        this.intakeArm = intakeArm;
+        this.driveTrain = driveTrain;
     }
 
+
+    /**
+     * Runs when the command is first scheduled.
+     */
     @Override
     public void initialize() {
-        if (cameraSystem.getCameraIndex() == 1) {
-            cameraSystem.setCameraOne();
-        } else {
-            cameraSystem.setCameraTwo();
-        }
+        intakeArm.setDefenseMode(true);
     }
 
     /**
@@ -24,6 +28,7 @@ public class CameraToggle extends CommandBase {
      */
     @Override
     public void execute() {
+
     }
 
     /**
@@ -33,7 +38,6 @@ public class CameraToggle extends CommandBase {
      */
     @Override
     public void end(boolean interrupted) {
-
     }
 
     /**
@@ -43,11 +47,6 @@ public class CameraToggle extends CommandBase {
      */
     @Override
     public boolean isFinished() {
-        return true;
-    }
-
-    @Override
-    public boolean runsWhenDisabled() {
         return true;
     }
 }

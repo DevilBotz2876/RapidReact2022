@@ -12,6 +12,8 @@
 package bhs.devilbotz;
 
 import bhs.devilbotz.commands.DriveCommand;
+import bhs.devilbotz.commands.autonomous.drive.driverassist.DefenseModeDisable;
+import bhs.devilbotz.commands.autonomous.drive.driverassist.DefenseModeEnable;
 import bhs.devilbotz.commands.autonomous.drive.driverassist.ShootTwoBalls;
 import bhs.devilbotz.commands.autonomous.routines.Backwards;
 import bhs.devilbotz.commands.autonomous.routines.Diagnostic;
@@ -86,6 +88,7 @@ public class RobotContainer {
         SmartDashboard.putData("Intake", intake);
         SmartDashboard.putData("Transfer", transfer);
         SmartDashboard.putData("IntakeArm", intakeArm);
+        SmartDashboard.putData("DriveTrain", driveTrain);
 
 
         // The first argument is the root container
@@ -142,6 +145,13 @@ public class RobotContainer {
 
         new JoystickButton(joy_two, 1)
                 .whenReleased(new ShootTwoBalls(driveTrain, transfer, shooter));
+
+        new JoystickButton(joy, 11)
+                .whenPressed(new DefenseModeEnable(driveTrain, intakeArm));
+
+        new JoystickButton(joy, 10)
+                .whenPressed(new DefenseModeDisable(driveTrain, intakeArm));
+
     }
 
     private void configureShuffleboard() {

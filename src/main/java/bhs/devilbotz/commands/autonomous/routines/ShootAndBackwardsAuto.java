@@ -39,7 +39,6 @@ public class ShootAndBackwardsAuto extends SequentialCommandGroup {
      */
     public ShootAndBackwardsAuto(DriveTrain drive, Transfer transfer, Shooter shooter) {
         addCommands(
-                new DriveDistance(drive, 6, -0.5),
                 new TransferInTimed(transfer, 1),
                 new WaitCommand(0.25),
                 new TransferOutTimed(transfer, 0.5),

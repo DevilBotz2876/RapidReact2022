@@ -60,7 +60,6 @@ public class Transfer extends SubsystemBase {
     }
 
     public boolean ballPresent() {
-        System.out.println(encoder.get());
         return colorSensor.getProximity() >= 175;
     }
 

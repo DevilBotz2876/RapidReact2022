@@ -9,16 +9,9 @@
 /* You may NOT remove this header under any circumstance unless explicitly noted */
 /*-------------------------------------------------------------------------------*/
 
-package bhs.devilbotz.commands.autonomous.drive.driverassist;
+package bhs.devilbotz.commands.autonomous.shooter;
 
-import bhs.devilbotz.commands.intake.IntakeInToggle;
-import bhs.devilbotz.commands.intake.IntakeStop;
-import bhs.devilbotz.commands.transfer.TransferIn;
-import bhs.devilbotz.commands.transfer.TransferStop;
-import bhs.devilbotz.subsystems.Intake;
-import bhs.devilbotz.subsystems.IntakeArm;
 import bhs.devilbotz.subsystems.Shooter;
-import bhs.devilbotz.subsystems.Transfer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /**
@@ -29,23 +22,23 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
  * @version 1.0.0
  * @since 1.0.5
  */
-public class AutoIndex extends CommandBase {
-    private final Intake intake;
-    private final Transfer transfer;
-    private final IntakeArm intakeArm;
+public class SetLowGoal extends CommandBase {
+    private final Shooter shooter;
+    private final boolean highGoal;
 
     /**
      * IntakeStop constructor
      * @since 1.0.5
      */
-    public AutoIndex(Intake intake, Transfer transfer, IntakeArm intakeArm) {
-        this.intake = intake;
-        this.transfer = transfer;
-        this.intakeArm = intakeArm;
+    public SetLowGoal(Shooter shooter, boolean highGoal) {
+        this.shooter = shooter;
+        this.highGoal = highGoal;
+        addRequirements(shooter);
     }
 
     @Override
     public void initialize() {
+        shooter.setLowGoal();
     }
 
     /**
@@ -54,8 +47,6 @@ public class AutoIndex extends CommandBase {
      */
     @Override
     public void execute() {
-        new TransferIn(transfer);
-        new IntakeInToggle(intake, intakeArm);
     }
 
     /**
@@ -65,8 +56,6 @@ public class AutoIndex extends CommandBase {
      */
     @Override
     public void end(boolean interrupted) {
-        new TransferStop(transfer);
-        new IntakeStop(intake, intakeArm);
     }
 
     /**
@@ -75,7 +64,7 @@ public class AutoIndex extends CommandBase {
      */
     @Override
     public boolean isFinished() {
-        return false;
+        return true;
     }
 
     /**

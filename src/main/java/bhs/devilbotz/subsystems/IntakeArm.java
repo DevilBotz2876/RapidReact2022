@@ -1,5 +1,6 @@
 package bhs.devilbotz.subsystems;
 
+import bhs.devilbotz.commands.intakeArm.IntakeArmUp;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
@@ -12,6 +13,7 @@ public class IntakeArm extends SubsystemBase {
     ShuffleboardTab tab = Shuffleboard.getTab("LiveDebug");
     private final NetworkTableEntry intakeArmSpeedWidget = tab.addPersistent("Set Intake Arm Speed", 0.45).withWidget(BuiltInWidgets.kNumberSlider).withSize(2, 1).withPosition(0, 3).getEntry();
     private boolean intakeArmUp = true;
+    private boolean defenseMode = false;
 
 
     public IntakeArm() {
@@ -53,6 +55,14 @@ public class IntakeArm extends SubsystemBase {
      */
     @Override
     public void periodic() {
+        if (defenseMode) {
+            // TODO: FIX
+            new IntakeArmUp(this);
+        }
+    }
+
+    public void setDefenseMode(boolean enabled) {
+        this.defenseMode = enabled;
     }
 
     /**

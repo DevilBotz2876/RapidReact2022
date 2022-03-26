@@ -11,13 +11,17 @@
 
 package bhs.devilbotz.subsystems;
 
+import bhs.devilbotz.commands.autonomous.shooter.SetHighGoal;
+import bhs.devilbotz.commands.autonomous.shooter.SetLowGoal;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkMaxPIDController;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 /**
@@ -32,7 +36,8 @@ public class Shooter extends SubsystemBase {
     ShuffleboardTab driveTab = Shuffleboard.getTab("Drive");
     private final NetworkTableEntry shooterSpeedWidget = tab.addPersistent("Set Shooter Speed", -3000).withSize(2, 1).withPosition(0, 1).getEntry();
 
-    private final NetworkTableEntry atSetpointWidget = driveTab.add("At Setpoint", false).withSize(1, 1).withPosition(1, 1).getEntry();
+    private final SendableChooser<Command> goalChooser = new SendableChooser<>();
+    private final NetworkTableEntry atSetpointWidget = driveTab.add("At Setpoint", false).withSize(1, 1).withPosition(1, 2).getEntry();
 
     boolean isAuto = false;
 
@@ -57,11 +62,29 @@ public class Shooter extends SubsystemBase {
 
         encoder = shooterMotor.getEncoder();
 
-        kP = 0.000171;
-        kI = 0.000000048;
+        setHighGoal();
+
+        goalChooser.setDefaultOption("High Goal", new SetHighGoal(this, true));
+        goalChooser.addOption("Low Goal", new SetLowGoal(this, false));
+
+        Shuffleboard.getTab("Drive").add("Goal Chooser", goalChooser).withSize(2, 1).withPosition(0, 1);
+
+
+        SmartDashboard.putNumber("P Gain", kP);
+        SmartDashboard.putNumber("I Gain", kI);
+        SmartDashboard.putNumber("D Gain", kD);
+        SmartDashboard.putNumber("I Zone", kIz);
+        SmartDashboard.putNumber("Feed Forward", kFF);
+        SmartDashboard.putNumber("Max Output", kMaxOutput);
+        SmartDashboard.putNumber("Min Output", kMinOutput);
+    }
+
+    public void setHighGoal() {
+        kP = 0.00015;
+        kI = 0.00000002;
         kD = 0;
         kIz = 0;
-        kFF = 0.000171;
+        kFF = 0.000172;
         kMaxOutput = 1;
         kMinOutput = -1;
         maxRPM = 5200;
@@ -72,14 +95,30 @@ public class Shooter extends SubsystemBase {
         pidController.setIZone(kIz);
         pidController.setFF(kFF);
         pidController.setOutputRange(kMinOutput, kMaxOutput);
+        setSetPoint(-3050);
+    }
 
-        SmartDashboard.putNumber("P Gain", kP);
-        SmartDashboard.putNumber("I Gain", kI);
-        SmartDashboard.putNumber("D Gain", kD);
-        SmartDashboard.putNumber("I Zone", kIz);
-        SmartDashboard.putNumber("Feed Forward", kFF);
-        SmartDashboard.putNumber("Max Output", kMaxOutput);
-        SmartDashboard.putNumber("Min Output", kMinOutput);
+    public void setLowGoal() {
+        kP = 0.00015;
+        kI = 0.00000002;
+        kD = 0;
+        kIz = 0;
+        kFF = 0.000174;
+        kMaxOutput = 1;
+        kMinOutput = -1;
+        maxRPM = 5200;
+
+        pidController.setP(kP);
+        pidController.setI(kI);
+        pidController.setD(kD);
+        pidController.setIZone(kIz);
+        pidController.setFF(kFF);
+        pidController.setOutputRange(kMinOutput, kMaxOutput);
+        setSetPoint(-2100);
+    }
+
+    public void setSetPoint(double speed) {
+        shooterSpeedWidget.setDouble(speed);
     }
 
     /**
@@ -132,7 +171,7 @@ public class Shooter extends SubsystemBase {
     public boolean atSetpoint() {
 
         double velocity = encoder.getVelocity();
-        double tolerance = 25;
+        double tolerance = 35;
         double error = velocity - setPoint;
         atSetpointWidget.setBoolean(Math.abs(error) <= tolerance);
 
@@ -172,6 +211,10 @@ public class Shooter extends SubsystemBase {
 
     public NetworkTableEntry getAtSetpointWidget() {
         return atSetpointWidget;
+    }
+
+    public SendableChooser<Command> getGoalWidget() {
+        return goalChooser;
     }
 
 }
