@@ -13,6 +13,7 @@ package bhs.devilbotz.subsystems;
 
 import bhs.devilbotz.Constants;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
+import com.ctre.phoenix.motorcontrol.IMotorController;
 import com.ctre.phoenix.motorcontrol.InvertType;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRXConfiguration;
@@ -229,4 +230,11 @@ public class DriveTrain extends SubsystemBase {
 
     }
 
+    public WPI_TalonSRX getRightFollower() {
+        return rightFollower;
+    }
+
+    public WPI_TalonSRX getLeftFollower() {
+        return leftFollower;
+    }
 }
