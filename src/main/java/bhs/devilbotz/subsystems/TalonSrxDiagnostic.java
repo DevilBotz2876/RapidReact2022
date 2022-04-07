@@ -22,29 +22,40 @@ public class TalonSrxDiagnostic extends SubsystemBase implements Loggable {
 
   }
 
-    @Log(name = "LMV" , columnIndex = 0, rowIndex = 0, height = 1, width = 1)
-    public double getleftVoltage(){ 
-        return driveTrain.getLeftMaster().getMotorOutputVoltage();
-    }
-    @Log(name = "RMV" , tabName = "TalonSrxDiagnostic", columnIndex = 1, rowIndex = 0, height = 1, width = 1)
-    public double getrightVoltage(){ 
-        return driveTrain.getRightMaster().getMotorOutputVoltage();        
-    }
-    @Log(name = "LFV" , tabName = "TalonSrxDiagnostic", columnIndex = 2, rowIndex = 0, height = 1, width = 1)
-    public double getleftVoltage1(){ 
-        return driveTrain.getLeftFollower().getMotorOutputVoltage();
-    }
-    @Log(name = "RFV" , tabName = "TalonSrxDiagnostic", columnIndex = 3, rowIndex = 0, height = 1, width = 1)
-    public double getrightVoltage1(){ 
-        return driveTrain.getRightFollower().getMotorOutputVoltage();
-    }
-    @Log(name = "LMS" , tabName = "Drive", columnIndex = 1, rowIndex = 0, height = 1, width = 1)
-    public double getLeftVelocity(){
-        return driveTrain.getLeftMaster().getSelectedSensorVelocity();
-    }
-    @Log(name = "RMS" , tabName = "Drive", columnIndex = 2, rowIndex = 0, height = 1, width = 1)
-    public double getRightVelocity(){
-        return driveTrain.getRightMaster().getSelectedSensorVelocity();
-    }
-    
+  /* function to get left master motor output voltage */
+  @Log(name = "LMV" , columnIndex = 0, rowIndex = 0, height = 1, width = 1)
+  public double getleftVoltage() {
+    return driveTrain.getLeftMasterVoltage();
+  }
+
+  /* function to get right  master motor output voltage */
+  @Log(name = "RMV" , tabName = "TalonSrxDiagnostic", columnIndex = 1, rowIndex = 0, height = 1, width = 1)
+  public double getrightVoltage() { 
+    return driveTrain.getRightMasterVoltage();
+  }
+
+  /* function to get left follower motor output voltage */
+  @Log(name = "LFV" , tabName = "TalonSrxDiagnostic", columnIndex = 2, rowIndex = 0, height = 1, width = 1)
+  public double getleftVoltage1() {
+    return driveTrain.getLeftFollowerVoltage();
+  }
+
+  /* function to get right follower motor output voltage */
+  @Log(name = "RFV" , tabName = "TalonSrxDiagnostic", columnIndex = 3, rowIndex = 0, height = 1, width = 1)
+  public double getrightVoltage1() {
+    return driveTrain.getRightFollowerVoltage();
+  }
+
+  /* function to get left master selected sensor velocity */
+  @Log(name = "LMS" , tabName = "Drive", columnIndex = 1, rowIndex = 0, height = 1, width = 1)
+  public double getLeftVelocity() {
+    return driveTrain.getLeftMasterVelocity();
+  }
+
+  /* function to get right master selected sensor velocity */
+  @Log(name = "RMS" , tabName = "Drive", columnIndex = 2, rowIndex = 0, height = 1, width = 1)
+  public double getRightVelocity() {
+    return driveTrain.getRightMasterVelocity();
+  }
+
 }

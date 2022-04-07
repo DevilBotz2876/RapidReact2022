@@ -225,8 +225,30 @@ public class DriveTrain extends SubsystemBase {
      */
     @Override
     public void simulationPeriodic() {
-        
 
     }
+     
+    public double getLeftMasterVoltage(){
+        return getLeftMaster().getMotorOutputVoltage();
+    }
 
+    public double getRightMasterVoltage(){ 
+        return getRightMaster().getMotorOutputVoltage();        
+    }
+
+    public double getLeftFollowerVoltage(){ 
+        return getLeftFollower().getMotorOutputVoltage();
+    }
+
+    public double getRightFollowerVoltage(){ 
+        return getRightFollower().getMotorOutputVoltage();
+    }
+
+    public double getLeftMasterVelocity(){
+        return getLeftMaster().getSelectedSensorVelocity();
+    }
+
+    public double getRightMasterVelocity(){
+        return getRightMaster().getSelectedSensorVelocity();
+    }
 }
