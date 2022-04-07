@@ -11,57 +11,69 @@
 
 package bhs.devilbotz.commands.intake;
 
+import bhs.devilbotz.commands.transfer.TransferIn;
+import bhs.devilbotz.commands.transfer.TransferStop;
 import bhs.devilbotz.subsystems.Intake;
+import bhs.devilbotz.subsystems.IntakeArm;
+import bhs.devilbotz.subsystems.Transfer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /**
- * IntakeOut command
+ * IntakeIn command
  * Runs the intake motor
  *
  * @author Devilbotz
  * @version 1.0.0
  * @since 1.0.5
  */
-public class IntakeOut extends CommandBase {
+public class IntakeInToggle extends CommandBase {
     private final Intake intake;
+    private final IntakeArm intakeArm;
 
     /**
-     * IntakeOut constructor
+     * IntakeIn constructor
      *
      * @param intake {@link Intake} subsystem
      *
      * @since 1.0.5
      */
-    public IntakeOut(Intake intake) {
+    public IntakeInToggle(Intake intake, IntakeArm intakeArm) {
         this.intake = intake;
+        this.intakeArm = intakeArm;
         addRequirements(intake);
     }
 
     /**
      * Executed when the command is initially scheduled
-     *
      * @since 1.0.5
      */
     @Override
     public void execute() {
-        intake.set(-0.65);
+        /*
+        System.out.println(transfer.getBallColor());
+        if (transfer.getBallColor() == Transfer.BallColor.BLUE) {
+            intake.set(-intake.getIntakeSpeedWidget().getDouble(0.65));
+        } else {
+            intake.set(intake.getIntakeSpeedWidget().getDouble(0.65));
+        }
 
+         */
+        intake.set(intake.getIntakeSpeedWidget().getDouble(0.65));
+        intakeArm.set(-0.075);
     }
 
     /**
      * Called once the command ends or is interrupted.
-     *
      * @param interrupted True if the command was interrupted, false otherwise.
-     *
      * @since 1.0.5
      */
     @Override
     public void end(boolean interrupted) {
+        intakeArm.stop();
     }
 
     /**
      * Returns true when the command should end.
-     *
      * @return True if the command should end, false otherwise.
      */
     @Override
@@ -71,7 +83,6 @@ public class IntakeOut extends CommandBase {
 
     /**
      * If the command should run when the robot is disabled
-     *
      * @return True if the command should run when the robot is disabled, false otherwise.
      */
     @Override

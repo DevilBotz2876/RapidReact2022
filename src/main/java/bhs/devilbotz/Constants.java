@@ -25,8 +25,17 @@ public final class Constants {
     public static final int JOYSTICK = 0;
     public static final int JOYSTICK_TWO = 1;
 
+    public static final int APPROACH_BUTTON = 5;
+    public static final int CAMERA_BUTTON = 2;
+
+    public static final int INTAKE_BUTTON = 4;
+
     // Auto Constants
     public static final class AutoConstants {
         public static final double WHEEL_DIAMETER_INCHES = 6;
+    }
+
+    public static final class ShooterConstants {
+
     }
 }

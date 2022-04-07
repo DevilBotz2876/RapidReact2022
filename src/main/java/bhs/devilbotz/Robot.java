@@ -11,8 +11,10 @@
 
 package bhs.devilbotz;
 
+import bhs.devilbotz.commands.transfer.TransferIn;
 import bhs.devilbotz.subsystems.DriveTrain;
-import bhs.devilbotz.subsystems.Indexing;
+import bhs.devilbotz.subsystems.Intake;
+import bhs.devilbotz.subsystems.Shooter;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.util.WPILibVersion;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -31,11 +33,10 @@ import io.github.oblarg.oblog.annotations.Log;
 public class Robot extends TimedRobot {
     private Command autonomousCommand;
 
+    private double time;
+
     private RobotContainer robotContainer;
-
-    private DriveTrain driveTrain;
-
-    private Indexing indexing;
+    private Shooter shooter;
 
     @Log
     String wpilibVersion = WPILibVersion.Version;
@@ -48,7 +49,7 @@ public class Robot extends TimedRobot {
     public void robotInit() {
         // Instantiate the RobotContainer.
         robotContainer = new RobotContainer();
-        driveTrain = robotContainer.getDriveTrain();
+        shooter = robotContainer.getShooter();
         Logger.configureLoggingAndConfig(this, false);
         
     }
@@ -78,6 +79,7 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void disabledInit() {
+        shooter.setIsAuto(false);
     }
 
     /**
@@ -112,7 +114,6 @@ public class Robot extends TimedRobot {
     @Override
     public void autonomousPeriodic() {
     }
-
     /**
      * This method is called once when the robot is in teleoperated mode.
      *
@@ -134,6 +135,19 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void teleopPeriodic() {
+        if (!robotContainer.getShooter().isAuto() && !robotContainer.getTransfer().isIntakeOut()) {
+            if (robotContainer.getTransfer().ballPresent()) {
+                if (time <= 100) {
+                    robotContainer.getTransfer().set(0.7);
+                } else {
+                    robotContainer.getTransfer().stop();
+                }
+                time += 1;
+            } else {
+                robotContainer.getTransfer().stop();
+                time = 0;
+            }
+        }
     }
 
 

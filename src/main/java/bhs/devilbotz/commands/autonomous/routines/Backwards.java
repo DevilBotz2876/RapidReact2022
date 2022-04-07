@@ -11,10 +11,18 @@
 
 package bhs.devilbotz.commands.autonomous.routines;
 
-import bhs.devilbotz.commands.autonomous.drive.DriveRotate;
+import bhs.devilbotz.commands.autonomous.drive.DriveDistance;
 import bhs.devilbotz.commands.autonomous.drive.DriveTimed;
+import bhs.devilbotz.commands.autonomous.shooter.ShooterRPM;
+import bhs.devilbotz.commands.autonomous.transfer.TransferInTimed;
+import bhs.devilbotz.commands.autonomous.transfer.TransferOutTimed;
+import bhs.devilbotz.commands.shooter.ShooterInstantStop;
+import bhs.devilbotz.commands.transfer.TransferInstantStop;
 import bhs.devilbotz.subsystems.DriveTrain;
+import bhs.devilbotz.subsystems.Shooter;
+import bhs.devilbotz.subsystems.Transfer;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 
 /**
  * AutoTest - Test autonomous routines
@@ -23,17 +31,15 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
  * @version 1.0.5
  * @since 1.0.5
  */
-public class AutoTest extends SequentialCommandGroup {
+public class Backwards extends SequentialCommandGroup {
     /**
      * AutoTest constructor
-     *
      * @param drive {@link DriveTrain} subsystem
-     *
      * @since 1.0.0
      */
-    public AutoTest(DriveTrain drive) {
+    public Backwards(DriveTrain drive) {
         addCommands(
-                new DriveRotate(drive, -90, 0.5),
-                new DriveTimed(drive, 1, 0.7));
+                new DriveTimed(drive, 1.5, -0.7)
+        );
     }
 }

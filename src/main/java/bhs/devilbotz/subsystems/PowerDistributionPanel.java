@@ -10,17 +10,24 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import io.github.oblarg.oblog.Loggable;
 import io.github.oblarg.oblog.annotations.Log;
 
-public class PowerDistributionPanel extends SubsystemBase implements Loggable{
+public class PowerDistributionPanel extends SubsystemBase {// implements Loggable{
   PowerDistribution pdp = new PowerDistribution(0, ModuleType.kCTRE);
+
   /** Creates a new PowerDistributionPanel. */
   public PowerDistributionPanel() {
-    
+    pdp.clearStickyFaults();
 
   }
  @Override
   public void periodic() {
     // This method will be called once per scheduler run
   }
+
+  public PowerDistribution getPDP() {
+    return pdp;
+  }
+
+  /*
   // displays this to first column and row (0,0)
   @Log(name = "PDP Temp", tabName = "PowerDistributionPanel",   columnIndex = 0, rowIndex = 0, height = 1, width = 1)
 	public double getTemperature() {
@@ -67,4 +74,6 @@ public class PowerDistributionPanel extends SubsystemBase implements Loggable{
   public double getCurrentFifteen(){
     return pdp.getCurrent(15);
   }
+
+   */
 }

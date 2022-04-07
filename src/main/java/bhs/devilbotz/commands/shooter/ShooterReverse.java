@@ -9,72 +9,74 @@
 /* You may NOT remove this header under any circumstance unless explicitly noted */
 /*-------------------------------------------------------------------------------*/
 
-package bhs.devilbotz.commands.autonomous.drive;
+package bhs.devilbotz.commands.shooter;
 
-import bhs.devilbotz.subsystems.DriveTrain;
+import bhs.devilbotz.subsystems.Shooter;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /**
- * DriveTimed - Drives the robot for a certain amount of time
+ * ShooterIn command
+ * Runs the shooter
  *
  * @author Devilbotz
- * @version 1.0.5
- * @since 1.0.0
+ * @version 1.0.0
+ * @since 1.0.5
  */
-public class DriveTimed extends CommandBase {
-    private final DriveTrain drive;
-    private final double time, speed;
-    private long startTime;
+public class ShooterReverse extends CommandBase {
+    private final Shooter shooter;
+    private final double speed;
 
     /**
-     * DriveTimed constructor
+     * ShooterIn constructor
      *
-     * @param drive {@link DriveTrain} subsystem
-     * @param time time to drive
-     * @param speed speed to drive at
+     * @param shooter {@link Shooter} subsystem
      *
-     * @since 1.0.0
+     * @since 1.0.5
      */
-    public DriveTimed(DriveTrain drive, double time, double speed) {
-        this.drive = drive;
-        this.time = time;
+    public ShooterReverse(Shooter shooter, double speed) {
+        this.shooter = shooter;
         this.speed = speed;
-        addRequirements(drive);
+        addRequirements(shooter);
     }
 
     /**
-     * Called when the command is initially scheduled.
-     */
-    @Override
-    public void initialize() {
-        startTime = System.currentTimeMillis();
-    }
-
-    /**
-     * Called every time the scheduler runs while the command is scheduled.
+     * Executed when the command is initially scheduled
+     *
+     * @since 1.0.5
      */
     @Override
     public void execute() {
-        drive.tankDrive(speed, speed);
+        shooter.enable();
     }
 
     /**
      * Called once the command ends or is interrupted.
      *
-     * @param interrupted whether the command was interrupted by another one
+     * @param interrupted True if the command was interrupted, false otherwise.
+     *
+     * @since 1.0.5
      */
     @Override
     public void end(boolean interrupted) {
-        drive.tankDrive(0, 0);
     }
 
     /**
      * Returns true when the command should end.
      *
-     * @return whether the command should end
+     * @return True if the command should end, false otherwise.
      */
     @Override
     public boolean isFinished() {
-        return (System.currentTimeMillis() - startTime) / 1000.0 >= time;
+        return false;
+    }
+
+    /**
+     * If the command should run when the robot is disabled
+     *
+     * @return True if the command should run when the robot is disabled, false otherwise.
+     */
+    @Override
+    public boolean runsWhenDisabled() {
+        return false;
     }
 }

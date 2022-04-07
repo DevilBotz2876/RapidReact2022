@@ -9,32 +9,40 @@
 /* You may NOT remove this header under any circumstance unless explicitly noted */
 /*-------------------------------------------------------------------------------*/
 
-package bhs.devilbotz.commands.intake;
+package bhs.devilbotz.commands.shooter;
 
-import bhs.devilbotz.subsystems.Intake;
+import bhs.devilbotz.subsystems.Shooter;
+import bhs.devilbotz.subsystems.Transfer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /**
- * IntakeStop command
- * Stops the intake motor
+ * ShooterIn command
+ * Runs the shooter
  *
  * @author Devilbotz
  * @version 1.0.0
  * @since 1.0.5
  */
-public class IntakeIdle extends CommandBase {
-    private final Intake intake;
+public class ShooterSetAuto extends CommandBase {
+    private final Shooter shooter;
+    private final boolean isAuto;
 
     /**
-     * IntakeStop constructor
+     * ShooterIn constructor
      *
-     * @param intake {@link Intake} subsystem
+     * @param shooter {@link Shooter} subsystem
      *
      * @since 1.0.5
      */
-    public IntakeIdle(Intake intake) {
-        this.intake = intake;
-        addRequirements(intake);
+    public ShooterSetAuto(Shooter shooter, boolean isAuto) {
+        this.shooter = shooter;
+        this.isAuto = isAuto;
+        addRequirements(shooter);
+    }
+
+    @Override
+    public void initialize() {
+        shooter.setIsAuto(isAuto);
     }
 
     /**
@@ -65,7 +73,7 @@ public class IntakeIdle extends CommandBase {
      */
     @Override
     public boolean isFinished() {
-        return false;
+        return true;
     }
 
     /**

@@ -9,84 +9,73 @@
 /* You may NOT remove this header under any circumstance unless explicitly noted */
 /*-------------------------------------------------------------------------------*/
 
-package bhs.devilbotz.commands.climber;
+package bhs.devilbotz.commands.autonomous.transfer;
 
-import bhs.devilbotz.subsystems.Climber;
+import bhs.devilbotz.subsystems.Transfer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /**
- * ClimberIdle command
- * Stops the climber motors
+ * IntakeStop command
+ * Stops the intake motor
  *
- * @author Devilbotz
+ * @author  Devilbotz
  * @version 1.0.0
  * @since 1.0.5
  */
-public class ClimberIdle extends CommandBase {
-    private final Climber climber;
+public class TransferInTimed extends CommandBase {
+    private final Transfer transfer;
+    private double time;
+    private long startTime;
 
     /**
-     * ClimberIdle constructor.
-     *
-     * @param climber {@link Climber} subsystem
-     *
+     * IntakeStop constructor
      * @since 1.0.5
      */
-    public ClimberIdle(Climber climber) {
-        this.climber = climber;
-        addRequirements(climber);
+    public TransferInTimed(Transfer transfer, double time) {
+        this.transfer = transfer;
+        this.time = time;
+        addRequirements(transfer);
     }
 
-
-    /**
-     * Executed when the command is initially scheduled
-     *
-     * @since 1.0.5
-     */
     @Override
     public void initialize() {
-
+        startTime = System.currentTimeMillis();
     }
 
     /**
      * Executed when the command is initially scheduled
-     *
      * @since 1.0.5
      */
     @Override
     public void execute() {
-
+        transfer.set(1);
     }
 
     /**
      * Called once the command ends or is interrupted.
-     *
      * @param interrupted True if the command was interrupted, false otherwise.
-     *
      * @since 1.0.5
      */
     @Override
     public void end(boolean interrupted) {
+        transfer.stop();
     }
 
     /**
      * Returns true when the command should end.
-     *
      * @return True if the command should end, false otherwise.
      */
     @Override
     public boolean isFinished() {
-        return false;
+        return (System.currentTimeMillis() - startTime) / 1000.0 >= time;
     }
 
     /**
      * If the command should run when the robot is disabled
-     *
      * @return True if the command should run when the robot is disabled, false otherwise.
      */
     @Override
     public boolean runsWhenDisabled() {
         return false;
     }
-
 }

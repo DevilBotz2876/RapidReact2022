@@ -9,42 +9,34 @@
 /* You may NOT remove this header under any circumstance unless explicitly noted */
 /*-------------------------------------------------------------------------------*/
 
-package bhs.devilbotz.commands.climber;
+package bhs.devilbotz.commands.shooter;
 
-import bhs.devilbotz.subsystems.Climber;
+import bhs.devilbotz.subsystems.Shooter;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /**
- * LowerHook command.
- * Lowers the hook
+ * ShooterIn command
+ * Runs the shooter
  *
  * @author Devilbotz
  * @version 1.0.0
  * @since 1.0.5
  */
-public class LowerHook extends CommandBase {
-    private final Climber climber;
+public class ShooterForwardPID extends CommandBase {
+    private final Shooter shooter;
+    private final double speed;
 
     /**
-     * LowerHook constructor.
+     * ShooterIn constructor
      *
-     * @param climber {@link Climber} subsystem
+     * @param shooter {@link Shooter} subsystem
      *
      * @since 1.0.5
      */
-    public LowerHook(Climber climber) {
-        this.climber = climber;
-        addRequirements(climber);
-    }
-
-    /**
-     * Executed when the command is initially scheduled
-     *
-     * @since 1.0.5
-     */
-    @Override
-    public void initialize() {
-
+    public ShooterForwardPID(Shooter shooter, double speed) {
+        this.shooter = shooter;
+        this.speed = speed;
+        addRequirements(shooter);
     }
 
     /**
@@ -54,7 +46,7 @@ public class LowerHook extends CommandBase {
      */
     @Override
     public void execute() {
-
+        shooter.enable();
     }
 
     /**
@@ -87,5 +79,4 @@ public class LowerHook extends CommandBase {
     public boolean runsWhenDisabled() {
         return false;
     }
-
 }
