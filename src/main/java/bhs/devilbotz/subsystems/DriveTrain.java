@@ -23,8 +23,6 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import io.github.oblarg.oblog.Loggable;
-import io.github.oblarg.oblog.annotations.Log;
 
 /**
  * DriveTrain subsystem
@@ -33,21 +31,22 @@ import io.github.oblarg.oblog.annotations.Log;
  * @version 1.0.0
  * @since 1.0.0
  */
-    public class DriveTrain extends SubsystemBase  {
+public class DriveTrain extends SubsystemBase {
     // Define talons
-    private static final WPI_TalonSRX leftMaster = new WPI_TalonSRX(4);
-    private static final WPI_TalonSRX rightMaster = new WPI_TalonSRX(1);
-    private static final WPI_TalonSRX leftFollower = new WPI_TalonSRX(3);
-    private static final WPI_TalonSRX rightFollower = new WPI_TalonSRX(2);
+    private static final WPI_TalonSRX leftMaster = new WPI_TalonSRX(1);
+    private static final WPI_TalonSRX rightMaster = new WPI_TalonSRX(3);
+    private static final WPI_TalonSRX leftFollower = new WPI_TalonSRX(2);
+    private static final WPI_TalonSRX rightFollower = new WPI_TalonSRX(4);
 
     // Define NAVX
     private static final AHRS navx = new AHRS(SPI.Port.kMXP);
 
-    // Slew rate limiter
-    final SlewRateLimiter filterLeft = new SlewRateLimiter(4);
-    final SlewRateLimiter filterRight = new SlewRateLimiter(4);
     // Define differential drive
     private final DifferentialDrive differentialDrive = new DifferentialDrive(leftMaster, rightMaster);
+
+    private final SlewRateLimiter leftSlew = new SlewRateLimiter(5);
+
+    private final SlewRateLimiter rightSlew = new SlewRateLimiter(5);
 
     /**
      * The constructor for the DriveTrain subsystem
@@ -59,7 +58,7 @@ import io.github.oblarg.oblog.annotations.Log;
         resetNavx();
     }
 
-
+  
     /**
      * Gets the NAVX
      *
@@ -75,15 +74,8 @@ import io.github.oblarg.oblog.annotations.Log;
      * @since 1.0.0
      */
     private void setupTalons() {
-        // Reset the talon settings
-        leftMaster.configFactoryDefault();
-        rightMaster.configFactoryDefault();
-        leftFollower.configFactoryDefault();
-        rightFollower.configFactoryDefault();
-
-        // Invert the motors
-        rightMaster.setInverted(false);
-        leftMaster.setInverted(true);
+        rightMaster.setInverted(true);
+        leftMaster.setInverted(false);
         // Set the talons to follow each other
         rightFollower.follow(rightMaster);
         leftFollower.follow(leftMaster);
@@ -95,16 +87,6 @@ import io.github.oblarg.oblog.annotations.Log;
         // Set the sensor phase of the master talons
         rightMaster.setSensorPhase(true);
         leftMaster.setSensorPhase(true);
-
-        // Create a new instance o TalonSRXConfiguration
-        TalonSRXConfiguration config = new TalonSRXConfiguration();
-
-        // Configure the config
-        config.primaryPID.selectedFeedbackSensor = FeedbackDevice.QuadEncoder;
-
-        // Apply the config to the talons
-        rightMaster.configAllSettings(config);
-        leftMaster.configAllSettings(config);
     }
 
     /**
@@ -150,7 +132,7 @@ import io.github.oblarg.oblog.annotations.Log;
         return leftMaster;
     }
 
-        /**
+    /**
      * Gets the right master talon
      *
      * @return The right master talon
@@ -159,28 +141,6 @@ import io.github.oblarg.oblog.annotations.Log;
      */
     public WPI_TalonSRX getRightMaster() {
         return rightMaster;
-    }
-
-    /**
-     * Gets the left follower talon
-     *
-     * @return The leftFollower talon
-     *
-     * @since 1.0.0
-     */
-    public WPI_TalonSRX getLeftFollower() {
-        return leftFollower;
-    }
-
-    /**
-     * Gets the right Folllower talon
-     *
-     * @return The right Follower talon
-     *
-     * @since 1.0.0
-     */
-    public WPI_TalonSRX getRightFollower() {
-        return rightFollower;
     }
 
     /**
@@ -196,6 +156,14 @@ import io.github.oblarg.oblog.annotations.Log;
         return ((Math.abs(leftDistance) + Math.abs(rightDistance)) / 2);
     }
 
+    public double getLeftEncoderDistance() {
+        return leftMaster.getSelectedSensorPosition()
+                * (Constants.AutoConstants.WHEEL_DIAMETER_INCHES * Math.PI / 4096);
+    }
+
+    double kP = 0.35;
+
+
     /**
      * Tank drive method
      *
@@ -203,7 +171,9 @@ import io.github.oblarg.oblog.annotations.Log;
      * @param rightSpeed The speed of the right side of the robot
      */
     public void tankDrive(double leftSpeed, double rightSpeed) {
-        differentialDrive.tankDrive(filterLeft.calculate(leftSpeed), filterRight.calculate(rightSpeed));
+        double error = -navx.getRate();
+
+        differentialDrive.tankDrive(leftSlew.calculate(leftSpeed) + kP * error, rightSlew.calculate(rightSpeed) + kP * error);
     }
 
     /**
@@ -238,13 +208,14 @@ import io.github.oblarg.oblog.annotations.Log;
         return Rotation2d.fromDegrees(-navx.getAngle());
     }
 
-    /**
+        /**
      * This method will be called once per scheduler run when
      *
      * @since 1.0.5
      */
     @Override
     public void periodic() {
+
     }
 
     /**
@@ -254,6 +225,7 @@ import io.github.oblarg.oblog.annotations.Log;
      */
     @Override
     public void simulationPeriodic() {
+
     }
      
     public double getLeftMasterVoltage(){

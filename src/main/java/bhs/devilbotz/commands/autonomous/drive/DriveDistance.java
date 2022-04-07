@@ -26,7 +26,6 @@ public class DriveDistance extends CommandBase {
     private final DriveTrain drive;
     private final double distance;
     private final double speed;
-    private final SlewRateLimiter filter;
 
     /**
      * DriveDistance constructor
@@ -42,8 +41,6 @@ public class DriveDistance extends CommandBase {
         this.speed = speed;
         this.drive = drive;
         addRequirements(drive);
-
-        filter = new SlewRateLimiter(4);
     }
 
     /**
@@ -59,7 +56,7 @@ public class DriveDistance extends CommandBase {
      */
     @Override
     public void execute() {
-        drive.arcadeDrive(filter.calculate(speed), 0);
+        drive.tankDrive(speed, speed);;
     }
 
     /**
@@ -69,7 +66,7 @@ public class DriveDistance extends CommandBase {
      */
     @Override
     public void end(boolean interrupted) {
-        drive.arcadeDrive(0, 0);
+        drive.tankDrive(0, 0);
     }
 
     /**
@@ -79,6 +76,6 @@ public class DriveDistance extends CommandBase {
      */
     @Override
     public boolean isFinished() {
-        return drive.getAverageEncoderDistance() >= distance;
+        return drive.getAverageEncoderDistance() <= distance;
     }
 }

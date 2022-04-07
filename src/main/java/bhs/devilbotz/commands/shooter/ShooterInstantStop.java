@@ -11,7 +11,6 @@
 
 package bhs.devilbotz.commands.shooter;
 
-import bhs.devilbotz.RobotContainer;
 import bhs.devilbotz.subsystems.Shooter;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
@@ -23,9 +22,8 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
  * @version 1.0.0
  * @since 1.0.5
  */
-public class Shoot extends CommandBase {
+public class ShooterInstantStop extends CommandBase {
     private final Shooter shooter;
-    private final RobotContainer robotContainer;
 
     /**
      * ShooterIn constructor
@@ -34,9 +32,8 @@ public class Shoot extends CommandBase {
      *
      * @since 1.0.5
      */
-    public Shoot(Shooter shooter, RobotContainer robotContainer) {
+    public ShooterInstantStop(Shooter shooter) {
         this.shooter = shooter;
-        this.robotContainer = robotContainer;
         addRequirements(shooter);
     }
 
@@ -47,10 +44,8 @@ public class Shoot extends CommandBase {
      */
     @Override
     public void execute() {
-        shooter.shooterOn(Math.abs(robotContainer.getJoyTwo().getZ()));
-        if (shooter.shootReady()) {
-            System.out.println("SHOOT\nSHOOT\nSHOOT\nSHOOT\nSHOOT\nSHOOT");
-        }
+        shooter.disable();
+        shooter.stop();
     }
 
     /**
@@ -71,7 +66,7 @@ public class Shoot extends CommandBase {
      */
     @Override
     public boolean isFinished() {
-        return false;
+        return true;
     }
 
     /**

@@ -9,50 +9,59 @@
 /* You may NOT remove this header under any circumstance unless explicitly noted */
 /*-------------------------------------------------------------------------------*/
 
-package bhs.devilbotz.commands.intake;
+package bhs.devilbotz.commands.autonomous.shooter;
 
-import bhs.devilbotz.subsystems.Intake;
+import bhs.devilbotz.subsystems.Shooter;
+import bhs.devilbotz.subsystems.Transfer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /**
- * IntakeOut command
- * Runs the intake motor
+ * IntakeStop command
+ * Stops the intake motor
  *
- * @author Devilbotz
+ * @author  Devilbotz
  * @version 1.0.0
  * @since 1.0.5
  */
-public class IntakeOut extends CommandBase {
-    private final Intake intake;
+public class ShooterRPM extends CommandBase {
+    private final Shooter shooter;
 
     /**
-     * IntakeOut constructor
-     *
-     * @param intake {@link Intake} subsystem
-     *
+     * IntakeStop constructor
      * @since 1.0.5
      */
-    public IntakeOut(Intake intake) {
-        this.intake = intake;
-        addRequirements(intake);
+    public ShooterRPM(Shooter shooter) {
+        this.shooter = shooter;
+        addRequirements(shooter);
+    }
+
+    @Override
+    public void initialize() {
+
+        System.out.println(shooter.getGoalWidget().getSelected().getName());
+        if (shooter.getGoalWidget().getSelected().getName().equals("SetHighGoal")) {
+            //loop 500 times
+            for (int i = 0; i < 500; i++) {
+                System.out.println("HIGH");
+            }
+            shooter.setHighGoal();
+        } else {
+            shooter.setLowGoal();
+        }
     }
 
     /**
      * Executed when the command is initially scheduled
-     *
      * @since 1.0.5
      */
     @Override
     public void execute() {
-        intake.set(-0.65);
-
+        shooter.enable();
     }
 
     /**
      * Called once the command ends or is interrupted.
-     *
      * @param interrupted True if the command was interrupted, false otherwise.
-     *
      * @since 1.0.5
      */
     @Override
@@ -61,17 +70,15 @@ public class IntakeOut extends CommandBase {
 
     /**
      * Returns true when the command should end.
-     *
      * @return True if the command should end, false otherwise.
      */
     @Override
     public boolean isFinished() {
-        return false;
+        return shooter.atSetpoint();
     }
 
     /**
      * If the command should run when the robot is disabled
-     *
      * @return True if the command should run when the robot is disabled, false otherwise.
      */
     @Override

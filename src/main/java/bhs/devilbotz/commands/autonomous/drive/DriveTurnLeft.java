@@ -9,82 +9,69 @@
 /* You may NOT remove this header under any circumstance unless explicitly noted */
 /*-------------------------------------------------------------------------------*/
 
-package bhs.devilbotz.commands.climber;
+package bhs.devilbotz.commands.autonomous.drive;
 
-import bhs.devilbotz.subsystems.Climber;
+import bhs.devilbotz.subsystems.DriveTrain;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /**
- * RaiseHook command.
- * Raises the hook
+ * DriveDistance - Drives the robot for a certain distance
  *
  * @author Devilbotz
- * @version 1.0.0
- * @since 1.0.5
+ * @version 1.0.5
+ * @since 1.0.0
  */
-public class RaiseHook extends CommandBase {
-    private final Climber climber;
+public class DriveTurnLeft extends CommandBase {
+    private final DriveTrain drive;
+    private final double leftInches, rightInches, leftSpeed, rightSpeed;
 
     /**
-     * RaiseHook constructor.
-     *
-     * @param climber {@link Climber} subsystem
-     *
-     * @since 1.0.5
+     * DriveDistance constructor
+     * @param drive {@link DriveTrain} subsystem
+     * @since 1.0.0
      */
-    public RaiseHook(Climber climber) {
-        this.climber = climber;
-        addRequirements(climber);
+    public DriveTurnLeft(DriveTrain drive, double leftInches, double rightInches, double leftSpeed, double rightSpeed) {
+        this.leftInches = leftInches;
+        this.rightInches = rightInches;
+        this.leftSpeed = leftSpeed;
+        this.rightSpeed = rightSpeed;
+        this.drive = drive;
+        addRequirements(drive);
     }
 
     /**
-     * Executed when the command is initially scheduled
-     *
-     * @since 1.0.5
+     * Runs when the command is first scheduled.
      */
     @Override
     public void initialize() {
-
+        drive.resetEncoders();
     }
 
     /**
-     * Executed when the command is initially scheduled
-     *
-     * @since 1.0.5
+     * Called every time the scheduler runs while the command is scheduled.
      */
     @Override
     public void execute() {
-
+        drive.tankDrive(leftSpeed, rightSpeed);
     }
 
     /**
      * Called once the command ends or is interrupted.
      *
-     * @param interrupted True if the command was interrupted, false otherwise.
-     *
-     * @since 1.0.5
+     * @param interrupted Whether the command was interrupted.
      */
     @Override
     public void end(boolean interrupted) {
+        drive.tankDrive(0, 0);
     }
 
     /**
      * Returns true when the command should end.
      *
-     * @return True if the command should end, false otherwise.
+     * @return Whether the command should end.
      */
     @Override
     public boolean isFinished() {
-        return false;
-    }
-
-    /**
-     * If the command should run when the robot is disabled
-     *
-     * @return True if the command should run when the robot is disabled, false otherwise.
-     */
-    @Override
-    public boolean runsWhenDisabled() {
-        return false;
+        return drive.getLeftEncoderDistance() <= leftInches;
     }
 }

@@ -11,7 +11,10 @@
 
 package bhs.devilbotz.commands.intake;
 
+import bhs.devilbotz.commands.transfer.TransferIn;
+import bhs.devilbotz.commands.transfer.TransferStop;
 import bhs.devilbotz.subsystems.Intake;
+import bhs.devilbotz.subsystems.Transfer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /**
@@ -24,6 +27,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
  */
 public class IntakeIn extends CommandBase {
     private final Intake intake;
+    private final Transfer transfer;
 
     /**
      * IntakeIn constructor
@@ -32,8 +36,9 @@ public class IntakeIn extends CommandBase {
      *
      * @since 1.0.5
      */
-    public IntakeIn(Intake intake) {
+    public IntakeIn(Intake intake, Transfer transfer) {
         this.intake = intake;
+        this.transfer = transfer;
         addRequirements(intake);
     }
 
@@ -44,7 +49,7 @@ public class IntakeIn extends CommandBase {
      */
     @Override
     public void execute() {
-
+        intake.set(intake.getIntakeSpeedWidget().getDouble(0.65));
     }
 
     /**
@@ -65,7 +70,7 @@ public class IntakeIn extends CommandBase {
      */
     @Override
     public boolean isFinished() {
-        return false;
+        return true;
     }
 
     /**
