@@ -35,7 +35,22 @@ public final class Constants {
         public static final double WHEEL_DIAMETER_INCHES = 6;
     }
 
-    public static final class ShooterConstants {
+    // TODO: Get real values at meeting - 4/13/2022
+    public static final class DriveConstants {
+        public static final int countsPerRev = 4096;  //Encoder counts per revolution of the motor shaft.
+        public static final double sensorGearRatio = 1; //Gear ratio is the ratio between the *encoder* and the wheels.  On the AndyMark drivetrain, encoders mount 1:1 with the gearbox shaft.
+        public static final double gearRatio = 10.71;
+        public static final double wheelRadiusInches = 3;
+        public static final double trackWidthMeters = 0.7112;
+        public static final int k100msPerSecond = 10;
+        public static final int CIMCountPerSide = 2;
 
+        // Variables taken from the SysID Tool
+        public static final class SysID {
+            public static final double KvLinear = 1.98;
+            public static final double KaLinear = 0.2;
+            public static final double KvAngular = 1.5;
+            public static final double KaAngular = 0.3;
+        }
     }
 }
