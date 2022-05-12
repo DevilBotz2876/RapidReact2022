@@ -24,7 +24,7 @@ public class Transfer extends SubsystemBase {
     BallColor ballColor = BallColor.NONE;
 
     private final WPI_TalonSRX transferMotor;
-    private final I2C.Port i2cPort = I2C.Port.kMXP;
+    private final I2C.Port i2cPort = I2C.Port.kOnboard;
 
     private final Encoder encoder = new Encoder(9, 8);
 
@@ -41,7 +41,7 @@ public class Transfer extends SubsystemBase {
     private final Color redTarget = new Color(0.520, 0.354, 0.124);
 
     public Transfer() {
-        transferMotor = new WPI_TalonSRX(6);
+        transferMotor = new WPI_TalonSRX(5);
 
         addChild("TransferMotor", transferMotor);
 

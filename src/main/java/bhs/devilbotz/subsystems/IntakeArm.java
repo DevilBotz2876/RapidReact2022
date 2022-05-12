@@ -17,7 +17,7 @@ public class IntakeArm extends SubsystemBase {
 
 
     public IntakeArm() {
-        intakeArmMotor = new WPI_TalonSRX(5);
+        intakeArmMotor = new WPI_TalonSRX(6);
 
         addChild("IntakeArmMotor", intakeArmMotor);
 

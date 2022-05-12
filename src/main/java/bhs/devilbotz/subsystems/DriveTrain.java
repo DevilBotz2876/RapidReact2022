@@ -17,14 +17,17 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.TalonSRXSimCollection;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.kauailabs.navx.frc.AHRS;
+import com.pathplanner.lib.PathPlanner;
 import edu.wpi.first.hal.SimDouble;
 import edu.wpi.first.hal.simulation.SimDeviceDataJNI;
 import edu.wpi.first.math.VecBuilder;
 import edu.wpi.first.math.filter.SlewRateLimiter;
+import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.math.system.plant.DCMotor;
 import edu.wpi.first.math.system.plant.LinearSystemId;
+import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.RobotBase;
 import edu.wpi.first.wpilibj.RobotController;
@@ -47,10 +50,10 @@ public class DriveTrain extends SubsystemBase {
     // TODO: Implement ProtonVision Camera for verifying robot position on field: More Info: https://docs.google.com/document/d/1HVLgF9lp8mT0i6iZaRI6uPFWSgSlUpih5I0hVsatgqA/edit?usp=sharing
 
     // Define talons
-    private static final WPI_TalonSRX leftMaster = new WPI_TalonSRX(1);
-    private static final WPI_TalonSRX rightMaster = new WPI_TalonSRX(3);
-    private static final WPI_TalonSRX leftFollower = new WPI_TalonSRX(2);
-    private static final WPI_TalonSRX rightFollower = new WPI_TalonSRX(4);
+    private static final WPI_TalonSRX leftMaster = new WPI_TalonSRX(2);
+    private static final WPI_TalonSRX rightMaster = new WPI_TalonSRX(4);
+    private static final WPI_TalonSRX leftFollower = new WPI_TalonSRX(1);
+    private static final WPI_TalonSRX rightFollower = new WPI_TalonSRX(3);
 
     // Define Gyroscope (NAVX)
     private static final AHRS navx = new AHRS(SPI.Port.kMXP);
@@ -97,6 +100,7 @@ public class DriveTrain extends SubsystemBase {
     public DriveTrain() {
         setupTalons();
         resetNavx();
+        resetEncoders();
 
         // Add the field to the shuffleboard drivers tab
         Shuffleboard.getTab("Drive").add("Field", field).withPosition(6, 1).withSize(5, 3).withWidget(BuiltInWidgets.kField);
@@ -117,7 +121,7 @@ public class DriveTrain extends SubsystemBase {
      * @since 1.0.0
      */
     private void setupTalons() {
-        rightMaster.setInverted(RobotBase.isSimulation());
+        rightMaster.setInverted(true);
 
         leftMaster.setInverted(false);
         // Set the talons to follow each other
@@ -410,4 +414,15 @@ public class DriveTrain extends SubsystemBase {
         return rightFollower;
     }
 
+    public Field2d getField() {
+        return field;
+    }
+
+    public void resetOdometry(Pose2d pose) {
+        odometry.resetPosition(pose, navx.getRotation2d());
+    }
+
+    public Pose2d getPose() {
+        return odometry.getPoseMeters();
+    }
 }

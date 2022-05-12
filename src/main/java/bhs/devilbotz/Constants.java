@@ -41,7 +41,7 @@ public final class Constants {
         public static final double sensorGearRatio = 1; //Gear ratio is the ratio between the *encoder* and the wheels.  On the AndyMark drivetrain, encoders mount 1:1 with the gearbox shaft.
         public static final double gearRatio = 10.71;
         public static final double wheelRadiusInches = 3;
-        public static final double trackWidthMeters = 0.7112;
+        public static final double trackWidthMeters = 0.5588;
         public static final int k100msPerSecond = 10;
         public static final int CIMCountPerSide = 2;
 
