@@ -11,6 +11,8 @@
 
 package bhs.devilbotz;
 
+import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
+
 /**
  * Stores numerical or boolean constants that will be used by the robot code.
  * Nothing functional should be put in this class.
@@ -33,10 +35,18 @@ public final class Constants {
     // Auto Constants
     public static final class AutoConstants {
         public static final double WHEEL_DIAMETER_INCHES = 6;
+
+        // Reasonable baseline values for a RAMSETE follower in units of meters and seconds
+        public static final double kRamseteB = 2;
+        public static final double kRamseteZeta = 0.7;
+
+        public static final double kMaxSpeedMetersPerSecond = 3;
+        public static final double kMaxAccelerationMetersPerSecondSquared = 1;
     }
 
     // TODO: Get real values at meeting - 4/13/2022
     public static final class DriveConstants {
+
         public static final int countsPerRev = 4096;  //Encoder counts per revolution of the motor shaft.
         public static final double sensorGearRatio = 1; //Gear ratio is the ratio between the *encoder* and the wheels.  On the AndyMark drivetrain, encoders mount 1:1 with the gearbox shaft.
         public static final double gearRatio = 10.71;
@@ -44,6 +54,10 @@ public final class Constants {
         public static final double trackWidthMeters = 0.5588;
         public static final int k100msPerSecond = 10;
         public static final int CIMCountPerSide = 2;
+        public static final double kPDriveVel = 8.5;
+
+        public static final DifferentialDriveKinematics driveKinematics =
+                new DifferentialDriveKinematics(trackWidthMeters);
 
         // Variables taken from the SysID Tool
         public static final class SysID {
@@ -51,6 +65,10 @@ public final class Constants {
             public static final double KaLinear = 0.2;
             public static final double KvAngular = 1.5;
             public static final double KaAngular = 0.3;
+
+            public static final double ksVolts = 0.22;
+            public static final double kvVoltSecondsPerMeter = 1.98;
+            public static final double kaVoltSecondsSquaredPerMeter = 0.2;
         }
     }
 }

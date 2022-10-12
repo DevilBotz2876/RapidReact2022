@@ -16,13 +16,18 @@ import bhs.devilbotz.subsystems.DriveTrain;
 import bhs.devilbotz.subsystems.Intake;
 import bhs.devilbotz.subsystems.Shooter;
 import com.pathplanner.lib.PathPlanner;
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.RamseteController;
+import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.math.trajectory.Trajectory;
+import edu.wpi.first.math.trajectory.TrajectoryConfig;
+import edu.wpi.first.math.trajectory.constraint.DifferentialDriveVoltageConstraint;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.util.WPILibVersion;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import edu.wpi.first.wpilibj2.command.RamseteCommand;
 import io.github.oblarg.oblog.Logger;
 import io.github.oblarg.oblog.annotations.Log;
 
@@ -41,11 +46,9 @@ public class Robot extends TimedRobot {
 
     private RobotContainer robotContainer;
     private Shooter shooter;
-
+    private DriveTrain driveTrain;
     private final RamseteController ramseteController = new RamseteController();
 
-    // Trajectory following
-    Trajectory testPath = PathPlanner.loadPath("Test Path", 3, 1);
 
     /**
      * This method is run when the robot is first started up and is used for initialization
@@ -57,7 +60,7 @@ public class Robot extends TimedRobot {
         // Instantiate the RobotContainer.
         robotContainer = new RobotContainer();
         shooter = robotContainer.getShooter();
-        robotContainer.getDriveTrain().getField().getObject("traj").setTrajectory(testPath);
+        driveTrain = robotContainer.getDriveTrain();
         Logger.configureLoggingAndConfig(this, false);
         
     }
@@ -103,22 +106,21 @@ public class Robot extends TimedRobot {
     /**
      * This autonomous runs the autonomous command selected by your {@link RobotContainer} class.
      */
-
-    Timer timer;
     @Override
     public void autonomousInit() {
-        timer = new Timer();
-        timer.start();
-        /*
         autonomousCommand = robotContainer.getAutonomousCommand();
 
+        /*
+         * String autoSelected = SmartDashboard.getString("Auto Selector",
+         * "Default"); switch(autoSelected) { case "My Auto": autonomousCommand
+         * = new MyAutoCommand(); break; case "Default Auto": default:
+         * autonomousCommand = new ExampleCommand(); break; }
+         */
+
+        // schedule the autonomous command (example)
         if (autonomousCommand != null) {
             autonomousCommand.schedule();
         }
-
-         */
-
-        robotContainer.getDriveTrain().resetOdometry(testPath.getInitialPose());
     }
 
 
@@ -129,18 +131,6 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void autonomousPeriodic() {
-        if (timer.get() < testPath.getTotalTimeSeconds()) {
-            // Get the desired pose from the trajectory.
-            var desiredPose = testPath.sample(timer.get());
-
-            // Get the reference chassis speeds from the Ramsete controller.
-            var refChassisSpeeds = ramseteController.calculate(robotContainer.getDriveTrain().getPose(), desiredPose);
-
-            // Set the linear and angular speeds.
-            robotContainer.getDriveTrain().arcadeDrive(refChassisSpeeds.vxMetersPerSecond, refChassisSpeeds.omegaRadiansPerSecond);
-        } else {
-            robotContainer.getDriveTrain().arcadeDrive(0,0 );
-        }
     }
     /**
      * This method is called once when the robot is in teleoperated mode.

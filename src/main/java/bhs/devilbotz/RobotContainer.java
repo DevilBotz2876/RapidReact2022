@@ -32,11 +32,19 @@ import bhs.devilbotz.commands.transfer.TransferIn;
 import bhs.devilbotz.commands.transfer.TransferOut;
 import bhs.devilbotz.commands.transfer.TransferStop;
 import bhs.devilbotz.subsystems.*;
+import com.pathplanner.lib.PathPlanner;
+import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.math.controller.RamseteController;
+import edu.wpi.first.math.controller.SimpleMotorFeedforward;
+import edu.wpi.first.math.trajectory.Trajectory;
+import edu.wpi.first.math.trajectory.TrajectoryConfig;
+import edu.wpi.first.math.trajectory.constraint.DifferentialDriveVoltageConstraint;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.RamseteCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import io.github.oblarg.oblog.Logger;
 
@@ -57,6 +65,9 @@ public class RobotContainer {
     private final Shooter shooter = new Shooter();
     private final IntakeArm intakeArm = new IntakeArm();
 
+    // Trajectory Following
+    Trajectory trajectory = PathPlanner.loadPath("New Path", 9, 3);
+
     // Joysticks
     private final Joystick joy = new Joystick(Constants.JOYSTICK);
     private final Joystick joy_two = new Joystick(Constants.JOYSTICK_TWO);
@@ -76,6 +87,8 @@ public class RobotContainer {
      * @since 1.0.0
      */
     public RobotContainer() {
+
+        driveTrain.getField().getObject("traj").setTrajectory(trajectory);
         // Configure the button bindings
         configureButtonBindings();
         configureShuffleboard();
@@ -174,10 +187,7 @@ public class RobotContainer {
      * @return the command to run in autonomous
      * @since 1.0.0
      */
-    public Command getAutonomousCommand() {
-        return autonomousChooser.getSelected();
-    }
-  
+
     public Joystick getJoy() {
         return joy;
     }
@@ -204,6 +214,51 @@ public class RobotContainer {
 
     public DriveTrain getDriveTrain() {
         return driveTrain;
+    }
+
+    public Command getAutonomousCommand() {
+        // Create a voltage constraint to ensure we don't accelerate too fast
+        var autoVoltageConstraint =
+                new DifferentialDriveVoltageConstraint(
+                        new SimpleMotorFeedforward(
+                                Constants.DriveConstants.SysID.ksVolts,
+                                Constants.DriveConstants.SysID.kvVoltSecondsPerMeter,
+                                Constants.DriveConstants.SysID.kaVoltSecondsSquaredPerMeter),
+                        Constants.DriveConstants.driveKinematics,
+                        10);
+
+        // Create config for trajectory
+        TrajectoryConfig config =
+                new TrajectoryConfig(
+                        Constants.AutoConstants.kMaxSpeedMetersPerSecond,
+                        Constants.AutoConstants.kMaxAccelerationMetersPerSecondSquared)
+                        // Add kinematics to ensure max speed is actually obeyed
+                        .setKinematics(Constants.DriveConstants.driveKinematics)
+                        // Apply the voltage constraint
+                        .addConstraint(autoVoltageConstraint);
+
+        RamseteCommand ramseteCommand =
+                new RamseteCommand(
+                        trajectory,
+                        driveTrain::getPose,
+                        new RamseteController(Constants.AutoConstants.kRamseteB, Constants.AutoConstants.kRamseteZeta),
+                        new SimpleMotorFeedforward(
+                                Constants.DriveConstants.SysID.ksVolts,
+                                Constants.DriveConstants.SysID.kvVoltSecondsPerMeter,
+                                Constants.DriveConstants.SysID.kaVoltSecondsSquaredPerMeter),
+                        Constants.DriveConstants.driveKinematics,
+                        driveTrain::getWheelSpeeds,
+                        new PIDController(Constants.DriveConstants.kPDriveVel, 0, 0),
+                        new PIDController(Constants.DriveConstants.kPDriveVel, 0, 0),
+                        // RamseteCommand passes volts to the callback
+                        driveTrain::tankDriveVolts,
+                        driveTrain);
+
+        // Reset odometry to the starting pose of the trajectory.
+        driveTrain.resetOdometry(trajectory.getInitialPose());
+
+        // Run path following command, then stop at the end.
+        return ramseteCommand.andThen(() -> driveTrain.tankDriveVolts(0, 0));
     }
 
 
