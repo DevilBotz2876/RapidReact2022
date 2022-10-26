@@ -123,35 +123,35 @@ public class RobotContainer {
 
         // Left Controller
 
-        new JoystickButton(joy, 1)
+        new JoystickButton(joy_two, 1)
                 .whenReleased(new ShootTwoBalls(driveTrain, transfer, shooter));
 
-        new JoystickButton(joy, 3)
+        new JoystickButton(joy_two, 3)
                 .whileHeld(new IntakeArmDown(intakeArm));
 
-        new JoystickButton(joy, 4)
+        new JoystickButton(joy_two, 4)
                 .whileHeld(new TransferOut(transfer))
                 .whenReleased(new TransferStop(transfer));
 
-        new JoystickButton(joy, 6)
+        new JoystickButton(joy_two, 6)
                 .whileHeld(new ShooterReverse(shooter, 4000));
 
         // Right Controller
 
-        new JoystickButton(joy_two, 1)
+        new JoystickButton(joy, 1)
                 .toggleWhenPressed(new IntakeInToggle(intake, intakeArm));
 
-        new JoystickButton(joy_two, 2)
+        new JoystickButton(joy, 2)
                 .whileHeld(new TransferIn(transfer))
                 .whenReleased(new TransferStop(transfer));
 
-        new JoystickButton(joy_two, 3)
+        new JoystickButton(joy, 3)
                 .whileHeld(new IntakeArmUp(intakeArm));
 
-        new JoystickButton(joy_two, 4)
+        new JoystickButton(joy, 4)
                 .whenPressed(new CameraToggle(cameraSystem));
 
-        new JoystickButton(joy_two, 5)
+        new JoystickButton(joy, 5)
                 .whenHeld(new IntakeOut(intake))
                 .whenReleased(new IntakeStop(intake, intakeArm));
     }
