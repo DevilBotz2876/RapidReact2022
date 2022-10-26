@@ -129,7 +129,7 @@ public class RobotContainer {
         new JoystickButton(joy_two, 3)
                 .whileHeld(new IntakeArmDown(intakeArm));
 
-        new JoystickButton(joy_two, 4)
+        new JoystickButton(joy_two, 2)
                 .whileHeld(new TransferOut(transfer))
                 .whenReleased(new TransferStop(transfer));
 
