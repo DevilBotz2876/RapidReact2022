@@ -20,6 +20,7 @@ import bhs.devilbotz.commands.autonomous.routines.Diagnostic;
 import bhs.devilbotz.commands.autonomous.routines.ShootAndBackwardsAuto;
 import bhs.devilbotz.commands.camera.CameraToggle;
 import bhs.devilbotz.commands.intake.IntakeInToggle;
+import bhs.devilbotz.commands.intake.IntakeOut;
 import bhs.devilbotz.commands.intake.IntakeStop;
 import bhs.devilbotz.commands.intakeArm.IntakeArmDown;
 import bhs.devilbotz.commands.intakeArm.IntakeArmStop;
@@ -120,51 +121,39 @@ public class RobotContainer {
                 () -> -joy_two.getY()
         ));
 
-        new JoystickButton(joy_two, Constants.CAMERA_BUTTON)
-                .whenPressed(new CameraToggle(cameraSystem));
+        // Left Controller
 
-        new JoystickButton(joy_two, Constants.INTAKE_BUTTON)
-                .toggleWhenPressed(new IntakeInToggle(intake, intakeArm));
-
-        new JoystickButton(joy_two, 3)
-                .whileHeld(new TransferIn(transfer))
-                .whenReleased(new TransferStop(transfer));
+        new JoystickButton(joy, 1)
+                .whenReleased(new ShootTwoBalls(driveTrain, transfer, shooter));
 
         new JoystickButton(joy, 3)
-                .whileHeld(new TransferOut(transfer))
-                .whenReleased(new TransferStop(transfer));
-
-        new JoystickButton(joy, 8)
-                .whileHeld(new ShooterForward(shooter, 1))
-                .whenReleased(new ShooterStop(shooter, transfer));
-
-        new JoystickButton(joy_two, 5)
-                .toggleWhenPressed(new ShooterForwardPID(shooter, 4000));
-
-        new JoystickButton(joy, 5)
-                .whileHeld(new ShooterReverse(shooter, 4000));
-
-        new JoystickButton(joy_two, 6)
-                .whileHeld(new IntakeArmUp(intakeArm));
-
-        new JoystickButton(joy_two, 7)
                 .whileHeld(new IntakeArmDown(intakeArm));
 
         new JoystickButton(joy, 4)
-                .whileHeld(new IntakeArmUp(intakeArm));
+                .whileHeld(new TransferOut(transfer))
+                .whenReleased(new TransferStop(transfer));
 
-        new JoystickButton(joy, 2)
-                .whileHeld(new IntakeArmDown(intakeArm));
+        new JoystickButton(joy, 6)
+                .whileHeld(new ShooterReverse(shooter, 4000));
+
+        // Right Controller
 
         new JoystickButton(joy_two, 1)
-                .whenReleased(new ShootTwoBalls(driveTrain, transfer, shooter));
+                .toggleWhenPressed(new IntakeInToggle(intake, intakeArm));
 
-        new JoystickButton(joy, 11)
-                .whenPressed(new DefenseModeEnable(driveTrain, intakeArm));
+        new JoystickButton(joy_two, 2)
+                .whileHeld(new TransferIn(transfer))
+                .whenReleased(new TransferStop(transfer));
 
-        new JoystickButton(joy, 10)
-                .whenPressed(new DefenseModeDisable(driveTrain, intakeArm));
+        new JoystickButton(joy_two, 3)
+                .whileHeld(new IntakeArmUp(intakeArm));
 
+        new JoystickButton(joy_two, 4)
+                .whenPressed(new CameraToggle(cameraSystem));
+
+        new JoystickButton(joy_two, 5)
+                .whenHeld(new IntakeOut(intake))
+                .whenReleased(new IntakeStop(intake, intakeArm));
     }
 
     private void configureShuffleboard() {

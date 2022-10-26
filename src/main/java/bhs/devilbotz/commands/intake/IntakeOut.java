@@ -44,7 +44,7 @@ public class IntakeOut extends CommandBase {
      */
     @Override
     public void execute() {
-        intake.set(-0.65);
+        intake.set(-intake.getIntakeSpeedWidget().getDouble(0.65));
 
     }
 
