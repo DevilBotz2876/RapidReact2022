@@ -206,48 +206,8 @@ public class RobotContainer {
     }
 
     public Command getAutonomousCommand() {
-        // Create a voltage constraint to ensure we don't accelerate too fast
-        var autoVoltageConstraint =
-                new DifferentialDriveVoltageConstraint(
-                        new SimpleMotorFeedforward(
-                                Constants.DriveConstants.SysID.ksVolts,
-                                Constants.DriveConstants.SysID.kvVoltSecondsPerMeter,
-                                Constants.DriveConstants.SysID.kaVoltSecondsSquaredPerMeter),
-                        Constants.DriveConstants.driveKinematics,
-                        10);
-
-        // Create config for trajectory
-        TrajectoryConfig config =
-                new TrajectoryConfig(
-                        Constants.AutoConstants.kMaxSpeedMetersPerSecond,
-                        Constants.AutoConstants.kMaxAccelerationMetersPerSecondSquared)
-                        // Add kinematics to ensure max speed is actually obeyed
-                        .setKinematics(Constants.DriveConstants.driveKinematics)
-                        // Apply the voltage constraint
-                        .addConstraint(autoVoltageConstraint);
-
-        RamseteCommand ramseteCommand =
-                new RamseteCommand(
-                        trajectory,
-                        driveTrain::getPose,
-                        new RamseteController(Constants.AutoConstants.kRamseteB, Constants.AutoConstants.kRamseteZeta),
-                        new SimpleMotorFeedforward(
-                                Constants.DriveConstants.SysID.ksVolts,
-                                Constants.DriveConstants.SysID.kvVoltSecondsPerMeter,
-                                Constants.DriveConstants.SysID.kaVoltSecondsSquaredPerMeter),
-                        Constants.DriveConstants.driveKinematics,
-                        driveTrain::getWheelSpeeds,
-                        new PIDController(Constants.DriveConstants.kPDriveVel, 0, 0),
-                        new PIDController(Constants.DriveConstants.kPDriveVel, 0, 0),
-                        // RamseteCommand passes volts to the callback
-                        driveTrain::tankDriveVolts,
-                        driveTrain);
-
-        // Reset odometry to the starting pose of the trajectory.
-        driveTrain.resetOdometry(trajectory.getInitialPose());
-
-        // Run path following command, then stop at the end.
-        return ramseteCommand.andThen(() -> driveTrain.tankDriveVolts(0, 0));
+        // An ExampleCommand will run in autonomous
+        return autonomousChooser.getSelected();
     }
 
 
